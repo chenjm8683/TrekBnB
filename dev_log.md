@@ -17,3 +17,7 @@ rails g controller StaticPages
 rails g controller Api::session
 rails destroy controller Api::session
 rails g controller Api::sessions
+
+12/15/2015
+rails g model user_profile
+rake db:migrate

@@ -1,10 +1,11 @@
 class Api::UsersController < ApplicationController
   before_action :require_no_user!
-  
+
   def create
     @user = User.new(user_params)
     if @user.save
       # login_user!(@user)
+      @user.create_user_profile!
       render json: @user
       # render :user_account
     else
