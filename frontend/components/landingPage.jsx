@@ -11,9 +11,10 @@ var LandingPage = React.createClass({
 
 
     return (
-      <div className="container">
-        <div className="header-full">
-          <LandingSearchBar />
+      <div className="jumbotron jumbotron-landing">
+        <div className="container container-custom text-center">
+          <h1>WELCOME HOME</h1>
+          <h4>Rent unique places to stay from local hosts in 190+ countries.</h4>
         </div>
       </div>
     );

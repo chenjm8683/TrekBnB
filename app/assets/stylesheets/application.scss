@@ -16,9 +16,39 @@
 
  @import 'bootstrap';
 
- .header-full {
+
+
+ .navbar-custom {
+   min-height: 60px;
+   background-color: rgba(0, 0, 0, 0.1);
+   border-bottom: none;
+ }
+ .navbar-brand {
+   padding-top: 15%;
+ }
+
+ .jumbotron-landing {
    margin: 0 auto;
+   top: 0;
+   left: 0;
+   right: 0;
+   height: 90%;
    width: 100%;
-   outline: 1px;
-   background-image: url("https://a2.muscache.com/airbnb/static/landing_pages/pretzel/stills/croatia-887a17b9994536f0d95bfd3f43ed664c.jpg")
+   background-image: url("/assets/background/94102_2.jpeg")
+ }
+
+ .jumbotron-landing > .container-custom {
+   margin-top: 60px;
+ }
+ .jumbotron-landing > .container-custom > h1 {
+   display: block;
+   font-size: 60px;
+   font-weight: 700;
+   color: #ff3300;
+ }
+
+ .jumbotron-landing > .container-custom > h4 {
+   font-size: 18px;
+   font-weight: bold;
+   color: #00ff00;
  }

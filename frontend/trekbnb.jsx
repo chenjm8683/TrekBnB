@@ -6,13 +6,20 @@ var IndexRoute = ReactRouter.IndexRoute;
 var Router = ReactRouter.Router;
 
 var LandingPage = require('./components/landingPage.jsx');
+var NavBar = require('./components/navBar.jsx');
 
 
 var App = React.createClass({
   render: function() {
+    // var defaultApp = (
+      // <div>
+      //     <header><h1>TrekBnB</h1></header>
+      //     {this.props.children}
+      // </div>
+    // );
     return (
       <div>
-        <header><h1>TrekBnB</h1></header>
+        <NavBar />
         {this.props.children}
       </div>
     );
