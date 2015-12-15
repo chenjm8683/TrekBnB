@@ -13,6 +13,18 @@ lat         | float     | not null
 lng         | float     | not null
 
 
+## room_galleries
+column name | data type | details
+------------|-----------|-----------------------
+id          | integer   | not null, primary key
+room_id     | integer   | not null, foreign key (references rooms), indexed
+photo_url   | string    | not null
+result_photo| boolean   | not null, default: false, indexed, unique with room_id
+show_photo  | boolean   | not null, default: false, indexed, unique with room_id
+descriptions| string    | 
+
+
+
 
 ## reservation
 column name | data type | details
@@ -49,4 +61,5 @@ id              | integer   | not null, primary key
 user_id         | integer   | not null, foreign key, indexed
 fname           | string    | not null
 lname           | string    | not null
+photo_url       | string    |
 current_city    | string    | not null, indexed, unique

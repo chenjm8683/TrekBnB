@@ -1,0 +1,19 @@
+12/14/2015
+npm init --yes
+npm install --save webpack react react-dom flux babel-core babel-loader babel-preset-react
+npm install --save bootstrap
+npm install --save history
+npm uninstall history
+npm install --save history@1.13.x
+npm install --save react-addons-linked-state-mixin@0.14.2
+npm install --save react-router@1.0.2
+bundle install
+
+rails g model user
+rake db:create
+rake db:migrate
+rails g controller Api::Users
+rails g controller StaticPages
+rails g controller Api::session
+rails destroy controller Api::session
+rails g controller Api::sessions

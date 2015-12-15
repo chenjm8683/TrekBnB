@@ -8,7 +8,7 @@
 
 ### Controllers
 * UsersController (create, new)
-* SessionsController (create, new, destroy)
+* SessionController (create, new, destroy)
 * Api::RoomController (create, destroy, index, show, update)
 
 ### Views
