@@ -21,3 +21,10 @@ rails g controller Api::sessions
 12/15/2015
 rails g model user_profile
 rake db:migrate
+rails g model room
+rake db:migrate
+bundle exec annotate
+rails g controller Rooms
+rails destroy controller Rooms
+rails g controller Api::Rooms
+rake db:reset

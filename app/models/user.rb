@@ -1,6 +1,25 @@
+# == Schema Information
+#
+# Table name: users
+#
+#  id              :integer          not null, primary key
+#  username        :string           not null
+#  password_digest :string           not null
+#  session_token   :string           not null
+#  created_at      :datetime         not null
+#  updated_at      :datetime         not null
+#
+
 class User < ActiveRecord::Base
   attr_reader :password
+  
   has_one :user_profile, dependent: :destroy
+
+  has_many :listings,
+    primary_key: "id",
+    foreign_key: "host_id",
+    class_name: "Room",
+    dependent: :destroy
 
   validates :username, presence: true, uniqueness: true
   validates :password, length: { minimum: 6, allow_nil: true }
