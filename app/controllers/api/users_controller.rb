@@ -4,12 +4,12 @@ class Api::UsersController < ApplicationController
   def create
     @user = User.new(user_params)
     if @user.save
-      # login_user!(@user)
-      @user.create_user_profile!
+      # @user.create_user_profile!
+      login_user!(@user)
       render json: @user
       # render :user_account
     else
-      render json: @user.errors.full_messages
+      render json: @user.errors.full_messages, status: 400
     end
   end
 

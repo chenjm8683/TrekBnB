@@ -1,5 +1,6 @@
 class User < ActiveRecord::Base
   attr_reader :password
+  has_one :user_profile, dependent: :destroy
 
   validates :username, presence: true, uniqueness: true
   validates :password, length: { minimum: 6, allow_nil: true }
@@ -7,7 +8,8 @@ class User < ActiveRecord::Base
 
   after_initialize :ensure_session_token
 
-  has_one :user_profile
+  after_create :generate_user_profile!
+
 
   def self.find_by_credentials(username, password)
     user = User.find_by(username: username)
@@ -36,7 +38,7 @@ class User < ActiveRecord::Base
     self.session_token ||= SecureRandom.urlsafe_base64(16)
   end
 
-
-
-
+  def generate_user_profile!
+    self.create_user_profile
+  end
 end
