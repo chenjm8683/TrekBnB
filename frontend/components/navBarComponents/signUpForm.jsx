@@ -14,6 +14,7 @@ var SignUpForm = React.createClass({
 
   handleSubmit: function(e) {
     e.preventDefault();
+    // this.props.closeModal();
     ApiUtil.createUserAccount({
       username: this.state.username,
       password: this.state.password

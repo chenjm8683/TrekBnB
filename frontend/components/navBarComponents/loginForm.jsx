@@ -14,6 +14,7 @@ var LoginModalForm = React.createClass({
 
   handleSubmit: function(e) {
     e.preventDefault();
+    // this.props.closeModal();
     ApiUtil.createSession({
       username: this.state.username,
       password: this.state.password
