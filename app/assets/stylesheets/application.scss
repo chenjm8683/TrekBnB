@@ -26,6 +26,10 @@
  .navbar-brand {
    padding-top: 5px;
  }
+// for navbar account options dropdown
+ .dropdown:hover .dropdown-menu {
+   display: block;
+}
 
  .jumbotron-landing {
    margin: 0 auto;
