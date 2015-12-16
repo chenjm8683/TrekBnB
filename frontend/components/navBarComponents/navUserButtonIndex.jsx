@@ -28,11 +28,19 @@ var NavUserButtonIndex = React.createClass({
   },
 
   render: function() {
+    var ul;
     if (Object.keys(this.state.currentUser).length > 0) {
-      return (<AccountButtons currentUser={this.state.currentUser}/>);
+      ul = (<AccountButtons currentUser={this.state.currentUser}/>);
     } else {
-      return (<SignUpLoginButtons />);
+      ul = (<SignUpLoginButtons />);
     }
+
+
+    return (
+      <div>
+        {ul}
+      </div>
+    )
   }
 });
 

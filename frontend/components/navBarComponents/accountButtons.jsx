@@ -3,9 +3,11 @@ var React = require('react');
 var AccountButtons = React.createClass({
   render: function() {
     return (
-      <ul>
+      <ul className="nav navbar-nav navbar-right">
         <li>
-          {this.props.currentUser.username}
+          <a>
+            {this.props.currentUser.username}
+          </a>
         </li>
       </ul>
     );
