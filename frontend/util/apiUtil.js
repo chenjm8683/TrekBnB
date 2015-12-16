@@ -57,6 +57,21 @@ var ApiUtil = {
                   console.log(status)
                 }
     });
+  },
+
+  // for initial testing only
+  fetchAllRooms: function(receiveAllCB) {
+    $.ajax({
+      url: 'api/rooms',
+      method: "get",
+      success: function(rooms){
+                  receiveAllCB(rooms);
+                },
+      error: function(error, status){
+                  debugger;
+                  console.log(status)
+                }
+    });
   }
 
 };

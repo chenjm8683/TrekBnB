@@ -29,3 +29,7 @@ rails destroy controller Rooms
 rails g controller Api::Rooms
 rake db:reset
 npm install --save react-bootstrap
+
+
+12/16/2015
+ToDo: refactor google maps loading

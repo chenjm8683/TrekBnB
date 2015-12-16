@@ -8,18 +8,18 @@ var UserStore = new Store(AppDispatcher);
 
 var _currentUser = {};
 
-UserStore.all = function () {
-  return _currentUser;
-};
-
 var receiveUser = function(user) {
   _currentUser = user;
 };
 
 var removeUser = function() {
   _currentUser = {};
-}
+};
 
+
+UserStore.all = function () {
+  return _currentUser;
+};
 
 UserStore.__onDispatch = function (payload) {
   switch(payload.actionType) {

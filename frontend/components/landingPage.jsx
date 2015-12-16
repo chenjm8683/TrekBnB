@@ -16,6 +16,7 @@ var LandingPage = React.createClass({
           <h1>WELCOME HOME</h1>
           <h4>Rent unique places to stay from local hosts in 190+ countries.</h4>
         </div>
+        <LandingSearchBar history={this.props.history}/>
       </div>
     );
   }

@@ -19,7 +19,7 @@ var NavUserButtonIndex = React.createClass({
   },
 
   componentWillUnmount: function() {
-    debugger;
+    // debugger;
     this.nubiToken.remove();
   },
 
