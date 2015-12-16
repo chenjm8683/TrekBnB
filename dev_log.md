@@ -28,3 +28,4 @@ rails g controller Rooms
 rails destroy controller Rooms
 rails g controller Api::Rooms
 rake db:reset
+npm install --save react-bootstrap

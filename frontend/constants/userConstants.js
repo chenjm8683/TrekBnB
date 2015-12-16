@@ -1,0 +1,7 @@
+UserConstants = {
+  CREATENEWUSER: "CREATENEWUSER",
+  RECEIVEUSER: "RECEIVEUSER",
+  REMOVECURRENTUSER: "REMOVECURRENTUSER"
+}
+
+module.exports = UserConstants;

@@ -1,6 +1,21 @@
 var React = require('react');
+var UserStore = require('../stores/userStore.js');
+var Modal = require('react-bootstrap').Modal;
+var NavUserButtonIndex = require('./navBarComponents/navUserButtonIndex.jsx');
 
 var NavBar = React.createClass({
+  getInitialState: function() {
+    return ({
+      showModal: false
+    });
+  },
+
+  open() {
+    this.setState({
+      showModal: true
+    });
+  },
+
   render: function() {
     var navBar1 = (
       <nav className="navbar navbar-inverse navbar-fixed-top">
@@ -48,13 +63,45 @@ var NavBar = React.createClass({
           </div>
 
           <div id="navbar" className="navbar-collapse collapse">
+            <ul className="nav navbar-nav navbar-left">
+                <li><a href="#">TrekBnB</a></li>
+                <li><a href="#">Contact</a></li>
+                <li><a href="#">About</a></li>
+            </ul>
+            <ul className="nav navbar-nav navbar-right">
+              <li>
+                <a>
+                  <span className="glyphicon glyphicon-user"></span> Sign Up
+                </a>
+              </li>
+              <li onClick={this.open}>
+                <a>
+                  <span className="glyphicon glyphicon-log-in" />  Login
+                </a>
+              </li>
+            </ul>
           </div>
         </div>
       </nav>
     );
+    var signUp = (
+      <li>
+        <a href="" />
+      </li>
+    );
+    var logIn = (
+      <li>
+
+      </li>
+    );
     return(
       <div>
         {navBar2}
+        <Modal show={this.state.showModal}>
+          <Modal.Header>
+            <Modal.Title>Test</Modal.Title>
+          </Modal.Header>
+        </Modal>
       </div>
     );
   }

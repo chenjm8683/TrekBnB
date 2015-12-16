@@ -13,18 +13,18 @@
  *= require_tree .
  *= require_self
  */
-
- @import 'bootstrap';
+@import "bootstrap-sprockets";
+@import 'bootstrap';
 
 
 
  .navbar-custom {
-   min-height: 60px;
+   min-height: 30px;
    background-color: rgba(0, 0, 0, 0.1);
    border-bottom: none;
  }
  .navbar-brand {
-   padding-top: 15%;
+   padding-top: 5px;
  }
 
  .jumbotron-landing {

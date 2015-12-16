@@ -31,6 +31,7 @@ var routes = (
     <IndexRoute component={LandingPage} />
   </Route>
 );
+
 document.addEventListener("DOMContentLoaded", function() {
   var root = document.getElementById('root');
   ReactDOM.render(<Router>{routes}</Router>, root);
