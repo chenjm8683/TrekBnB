@@ -1,5 +1,5 @@
 var React = require('react');
-var UserStore = require('../stores/userStore.js');
+var UserStore = require('../../stores/userStore.js');
 var Modal = require('react-bootstrap').Modal;
 var ApiUtil = require('../../util/apiUtil.js');
 var AccountButtons = require('./accountButtons.jsx');

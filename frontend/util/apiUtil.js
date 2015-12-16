@@ -39,7 +39,7 @@ var ApiUtil = {
                   UserAction.receiveCurrentUser(user);
                 },
       error: function(error, status){
-                  debugger;
+                  // debugger;
                   console.log(status)
                 }
     });

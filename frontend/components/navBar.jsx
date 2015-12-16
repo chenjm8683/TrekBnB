@@ -10,12 +10,6 @@ var NavBar = React.createClass({
     });
   },
 
-  open() {
-    this.setState({
-      showModal: true
-    });
-  },
-
   render: function() {
     var navBar1 = (
       <nav className="navbar navbar-inverse navbar-fixed-top">
@@ -96,12 +90,34 @@ var NavBar = React.createClass({
     );
     return(
       <div>
-        {navBar2}
-        <Modal show={this.state.showModal}>
-          <Modal.Header>
-            <Modal.Title>Test</Modal.Title>
-          </Modal.Header>
-        </Modal>
+        <nav className="navbar navbar-inverse navbar-fixed-top navbar-custom">
+          <div className="container-fluid">
+
+            <div className="navbar-header">
+              <button type="button"
+                      className="navbar-toggle"
+                      data-toggle="collapse"
+                      data-target="#navbar"
+                      >
+                <span className="icon-bar"></span>
+                <span className="icon-bar"></span>
+                <span className="icon-bar"></span>
+              </button>
+              <a className="navbar-brand" href="#">
+                <img alt="TrekBnB" src="/assets/logo/trekbnb_logo_3.png" />
+              </a>
+            </div>
+
+            <div id="navbar" className="navbar-collapse collapse">
+              <ul className="nav navbar-nav navbar-left">
+                  <li><a href="#">TrekBnB</a></li>
+                  <li><a href="#">Contact</a></li>
+                  <li><a href="#">About</a></li>
+              </ul>
+              <NavUserButtonIndex />
+            </div>
+          </div>
+        </nav>
       </div>
     );
   }

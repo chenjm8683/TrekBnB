@@ -1,10 +1,13 @@
 var React = require('react');
 var Modal = require('react-bootstrap').Modal;
+var LoginModalForm = require('./loginForm.jsx');
+// var SignUpModalForm = require('./signInForm.jsx');
 
 var SignUpLoginButtons = React.createClass({
   getInitialState: function() {
     return ({
-      showModal: false
+      showModal: false,
+      modalTitle: ""
     })
   },
 
@@ -21,6 +24,7 @@ var SignUpLoginButtons = React.createClass({
   },
 
   render: function() {
+
     return (
       <div>
         <ul className="nav navbar-nav navbar-right">
@@ -38,8 +42,11 @@ var SignUpLoginButtons = React.createClass({
 
         <Modal show={this.state.showModal} onHide={this.close}>
           <Modal.Header closeButton>
-            <Modal.Title>Modal heading</Modal.Title>
+            <Modal.Title>Login</Modal.Title>
           </Modal.Header>
+          <Modal.Body>
+            <LoginModalForm />
+          </Modal.Body>
         </Modal>
       </div>
     );
