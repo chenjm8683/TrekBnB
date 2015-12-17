@@ -1,7 +1,9 @@
 var React = require('react');
 var LandingSearchBar = require('./landingPageComponents/landingSearchBar.jsx');
 
+
 var LandingPage = React.createClass({
+
   render: function() {
     // var headerStyle={
     //   margin: '0 auto',

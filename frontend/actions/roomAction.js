@@ -8,10 +8,21 @@ var RoomActions = {
     ApiUtil.fetchAllRooms(this.receiveAll);
   },
 
+  fetchRoomDetail: function(roomId) {
+    ApiUtil.fetchRoomDetail(roomId, this.receiveRoomDetail);
+  },
+
   receiveAll: function(rooms){
     AppDispatcher.dispatch({
       actionType: RoomConstants.ROOMS_RECEIVED,
       rooms: rooms
+    });
+  },
+
+  receiveRoomDetail: function(room) {
+    AppDispatcher.dispatch({
+      actionType: RoomConstants.DETAIL_RECEIVED,
+      room: room
     });
   }
 }

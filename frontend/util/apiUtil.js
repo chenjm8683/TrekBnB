@@ -72,6 +72,20 @@ var ApiUtil = {
                   console.log(status)
                 }
     });
+  },
+
+  fetchRoomDetail: function(roomId, receiveDetailCB) {
+    $.ajax({
+      url: 'api/rooms/'+ roomId,
+      method: "get",
+      success: function(room){
+                  receiveDetailCB(room);
+                },
+      error: function(error, status){
+                  debugger;
+                  console.log(status)
+                }
+    });
   }
 
 };

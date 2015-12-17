@@ -1,4 +1,5 @@
 var React = require('react');
+var ReactRouter = require('react-router');
 var RoomStore = require('../stores/roomStore.js');
 var RoomAction = require('../actions/roomAction.js');
 
@@ -9,6 +10,7 @@ var JSLoaderStore = require('../stores/jsLoaderStore.js');
 
 
 var SearchIndex = React.createClass({
+  mixins: [ReactRouter.history],
 
   getInitialState: function() {
     return({
@@ -21,17 +23,20 @@ var SearchIndex = React.createClass({
   _updateRooms: function() {
     this.setState({
       rooms: RoomStore.all()
-    })
+    });
+    // debugger;
   },
 
   _updateMapsStatus: function() {
     this.setState({
       showMap: JSLoaderStore.isReady('gMaps')
     });
+
   },
 
   componentWillUnmount: function() {
     this.searchToken.remove();
+    this.mapsReadyToken.remove();
   },
 
   componentDidMount: function() {
@@ -44,15 +49,14 @@ var SearchIndex = React.createClass({
     console.log(this.state.showMap);
     return (
       <div className="container-fluid below-nav" id="sidx">
-          <div className="col-xs-12 col-md-7 search-list" id="sidx-left">
+          <div className="col-xs-12 col-md-7 search-result" id="sidx-left">
             <div className="row">
-              <h2>Search Filter</h2>
+              <h2>Search Filter Placeholder</h2>
             </div>
-            <div className="row">
-              <h2>Search Result</h2>
+            <div className="row search-list-result" >
+              <h2>Search Result Header Placeholder</h2>
               <List rooms={this.state.rooms} />
             </div>
-
           </div>
           <div className="col-md-5 search-map hidden-sm">
             {this.state.showMap ? <Map /> : ""}

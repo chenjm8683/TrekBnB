@@ -8,6 +8,8 @@ var Router = ReactRouter.Router;
 var LandingPage = require('./components/landingPage.jsx');
 var NavBar = require('./components/navBar.jsx');
 var SearchIndex = require('./components/searchIndex.jsx');
+var RoomIndex = require('./components/roomIndex.jsx')
+
 
 var JSLoaderAction = require('./actions/jsLoaderAction.js');
 
@@ -35,6 +37,7 @@ var routes = (
   <Route path="/" component={App}>
     <IndexRoute component={LandingPage} />
     <Route path="search/:loc" component={SearchIndex}></Route>
+    <Route path="rooms/:roomId" component={RoomIndex}></Route>
   </Route>
 );
 
@@ -46,6 +49,9 @@ document.addEventListener("DOMContentLoaded", function() {
   window.googleMapsCallback = function() {
     JSLoaderAction.gMapsReady();
   };
+
+  // quick fix for turbolinks backnav problem with React http://bit.ly/1OyK9Pc
+  // Turbolinks.pagesCached(0);
 
   var root = document.getElementById('root');
   ReactDOM.render(<Router>{routes}</Router>, root);

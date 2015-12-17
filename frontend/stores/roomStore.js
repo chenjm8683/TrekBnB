@@ -15,12 +15,20 @@ var receiveRooms = function(rooms) {
   });
 };
 
+var patchDetail = function(room) {
+  _currentRooms[room.id] = room;
+};
+
 // var removeRooms = function() {
 //   _currentRooms = {};
 // };
 
 RoomStore.all = function() {
   return _currentRooms;
+};
+
+RoomStore.find_by_id = function(roomId) {
+  return _currentRooms[roomId];
 };
 
 
@@ -30,10 +38,10 @@ RoomStore.__onDispatch = function (payload) {
       receiveRooms(payload.rooms);
       RoomStore.__emitChange();
       break;
-    // case RoomConstants.REMOVECURRENTUSER:
-    //   removeRooms();
-    //   RoomStore.__emitChange();
-    //   break;
+    case RoomConstants.DETAIL_RECEIVED:
+      patchDetail(payload.room);
+      RoomStore.__emitChange();
+      break;
   }
 };
 

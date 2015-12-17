@@ -16,21 +16,6 @@ var List = React.createClass({
           <div className="container-fluid search-list-listings">
             <div className="row">
               {listItems}
-              <div className="col-sm-12 row-space-2 col-md-6">
-                test
-              </div>
-              <div className="col-sm-12 row-space-2 col-md-6">
-                test
-              </div>
-              <div className="col-sm-12 row-space-2 col-md-6">
-                test
-              </div>
-              <div className="col-sm-12 row-space-2 col-md-6">
-                test
-              </div>
-              <div className="col-sm-12 row-space-2 col-md-6">
-                test
-              </div>
             </div>
           </div>
 

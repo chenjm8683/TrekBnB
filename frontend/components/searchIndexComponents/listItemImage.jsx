@@ -6,7 +6,7 @@ var ListItemImage = React.createClass({
     return (
       <div className="list-item-image">
         <img
-          src="https://a1.muscache.com/im/pictures/59264604/e48531fe_original.jpg?aki_policy=x_medium"
+          src="/assets/rooms/51557_0.jpg"
           className="img-responsive">
         </img>
       </div>
