@@ -20,9 +20,13 @@ div {
   display: block;
 }
 
-html, body, #root, #app, #sidx, #list-map-row, .map,{
+html, body, #root, #app {
   height: 100%;
 }
+
+
+
+
 
  .navbar-custom {
    min-height: 30px;
@@ -64,22 +68,34 @@ html, body, #root, #app, #sidx, #list-map-row, .map,{
    color: #00ff00;
  }
 
- .below-nav {
-   margin-top: 50px;
- }
-
-
-
-
- .map {
-   padding: 0;
+ // .below-nav {
+ //   top: 50px;
+ // }
+ #sidx {
+   height: calc(100% - 50px);
+   padding-top: 50px;
+   position: absolute;
  }
 
  #search-map-canvas {
-   position: fixed;
+   //  position: fixed;
    margin-bottom: 0px;
    width: 100%;
-   height: calc(100% - 50px);
+   height: 100%;
+ }
+
+ .map {
+   padding: 0;
+   position: fixed;
+   right: 0px;
+   left: auto;
+   bottom: 0px;
+   top: 50px;
+ }
+
+
+ #sidx-left {
+   overflow: auto;
  }
 
  .list-item-image {

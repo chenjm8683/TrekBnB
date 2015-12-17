@@ -4,7 +4,7 @@ var RoomAction = require('../actions/roomAction.js');
 
 var List = require('./searchIndexComponents/list.jsx');
 var Map = require('./searchIndexComponents/map.jsx');
-
+var JSLoaderStore = require('../stores/jsLoaderStore.js');
 
 
 
@@ -12,7 +12,8 @@ var SearchIndex = React.createClass({
 
   getInitialState: function() {
     return({
-      rooms: RoomStore.all()
+      rooms: RoomStore.all(),
+      showMap: JSLoaderStore.isReady('gMaps')
     });
   },
 
@@ -23,6 +24,12 @@ var SearchIndex = React.createClass({
     })
   },
 
+  _updateMapsStatus: function() {
+    this.setState({
+      showMap: JSLoaderStore.isReady('gMaps')
+    });
+  },
+
   componentWillUnmount: function() {
     this.searchToken.remove();
   },
@@ -30,9 +37,11 @@ var SearchIndex = React.createClass({
   componentDidMount: function() {
     this.searchToken = RoomStore.addListener(this._updateRooms);
     RoomAction.fetchAllRooms();
+    this.mapsReadyToken = JSLoaderStore.addListener(this._updateMapsStatus);
   },
 
   render: function() {
+    console.log(this.state.showMap);
     return (
       <div className="container-fluid below-nav" id="sidx">
         <div className="row" id="list-map-row">
@@ -47,7 +56,7 @@ var SearchIndex = React.createClass({
 
           </div>
           <div className="col-xs-5 map">
-            <Map />
+            {this.state.showMap ? <Map /> : ""}
           </div>
         </div>
       </div>

@@ -1,4 +1,4 @@
-RoomConstants = {
+var RoomConstants = {
   ROOMS_RECEIVED: "ROOMS_RECEIVED"
 }
 

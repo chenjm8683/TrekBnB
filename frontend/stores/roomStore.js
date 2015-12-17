@@ -21,7 +21,7 @@ var receiveRooms = function(rooms) {
 
 RoomStore.all = function() {
   return _currentRooms;
-}
+};
 
 
 RoomStore.__onDispatch = function (payload) {
