@@ -20,7 +20,7 @@ var App = React.createClass({
       // </div>
     // );
     return (
-      <div>
+      <div id="app">
         <NavBar />
         {this.props.children}
 

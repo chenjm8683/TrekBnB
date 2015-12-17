@@ -89,7 +89,6 @@ var NavBar = React.createClass({
       </li>
     );
     return(
-      <div>
         <nav className="navbar navbar-inverse navbar-fixed-top navbar-custom">
           <div className="container-fluid">
 
@@ -118,7 +117,6 @@ var NavBar = React.createClass({
             </div>
           </div>
         </nav>
-      </div>
     );
   }
 });

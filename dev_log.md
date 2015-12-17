@@ -33,3 +33,5 @@ npm install --save react-bootstrap
 
 12/16/2015
 ToDo: refactor google maps loading
+
+bundle install

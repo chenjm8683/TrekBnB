@@ -8,6 +8,12 @@
       async="true"
       src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCtYLxe36ZACT2bRLmcefUJ_EG2Nzm7n04&callback=googleMapsCallback">
   </script>
+  <script type="text/javascript">
+    window.CLOUDINARY_OPTIONS = {
+      update_preset: "<%=  %>",
+      cloud_name: "<%=  %>"
+    };
+  </script>
   <%= csrf_meta_tags %>
 </head>
 <body>

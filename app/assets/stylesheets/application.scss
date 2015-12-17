@@ -16,12 +16,19 @@
 @import "bootstrap-sprockets";
 @import 'bootstrap';
 
+div {
+  display: block;
+}
 
+html, body, #root, #app, #sidx, #list-map-row, .map,{
+  height: 100%;
+}
 
  .navbar-custom {
    min-height: 30px;
    background-color: rgba(0, 0, 0, 0.1);
    border-bottom: none;
+   margin-bottom: 0px;
  }
  .navbar-brand {
    padding-top: 5px;
@@ -55,4 +62,29 @@
    font-size: 18px;
    font-weight: bold;
    color: #00ff00;
+ }
+
+ .below-nav {
+   margin-top: 50px;
+ }
+
+
+
+
+ .map {
+   padding: 0;
+ }
+
+ #search-map-canvas {
+   position: fixed;
+   margin-bottom: 0px;
+   width: 100%;
+   height: calc(100% - 50px);
+ }
+
+ .list-item-image {
+   overflow: hidden;
+  //  padding-bottom: 67%;
+   height: 67%;
+   position: relative;
  }
