@@ -44,8 +44,7 @@ var SearchIndex = React.createClass({
     console.log(this.state.showMap);
     return (
       <div className="container-fluid below-nav" id="sidx">
-        <div className="row" id="list-map-row">
-          <div className="col-xs-7" id="sidx-left">
+          <div className="col-xs-12 col-md-7 search-list" id="sidx-left">
             <div className="row">
               <h2>Search Filter</h2>
             </div>
@@ -55,10 +54,9 @@ var SearchIndex = React.createClass({
             </div>
 
           </div>
-          <div className="col-xs-5 map">
+          <div className="col-md-5 search-map hidden-sm">
             {this.state.showMap ? <Map /> : ""}
           </div>
-        </div>
       </div>
     );
   }

@@ -72,8 +72,11 @@ html, body, #root, #app {
  //   top: 50px;
  // }
  #sidx {
-   height: calc(100% - 50px);
-   padding-top: 50px;
+   top: 50px;
+   padding: 0;
+   left: 0;
+   right: 0;
+   bottom: 0;
    position: absolute;
  }
 
@@ -84,7 +87,7 @@ html, body, #root, #app {
    height: 100%;
  }
 
- .map {
+ .search-map {
    padding: 0;
    position: fixed;
    right: 0px;
@@ -94,12 +97,15 @@ html, body, #root, #app {
  }
 
 
- #sidx-left {
-   overflow: auto;
+ .search-list {
+   top: 50px;
+   left: 0;
+   bottom: 0;
+   position: fixed;
+   overflow-y: scroll;
  }
 
  .list-item-image {
-   overflow: hidden;
   //  padding-bottom: 67%;
    height: 67%;
    position: relative;

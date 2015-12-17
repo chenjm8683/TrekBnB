@@ -8,7 +8,7 @@ var ListItem = React.createClass({
 
   render: function() {
     return(
-      <div className="col-sm-12 row-space-2 col-md-6">
+      <div className="col-xs-12 col-sm-6 row-space-2 col-md-6">
         <ListItemImage />
         <div className="list-item-body">
           {this.props.room.id}
