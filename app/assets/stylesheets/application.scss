@@ -28,6 +28,10 @@ body {
   background-color: #f5f5f5;
 }
 
+.cursor-pointer {
+  cursor: pointer;
+}
+
 .loading-screen {
   position: relative;
   margin: 50px;
@@ -48,6 +52,7 @@ body {
  .nav li {
    cursor: pointer;
  }
+
 // for navbar account options dropdown
  .dropdown:hover .dropdown-menu {
    display: block;
@@ -60,6 +65,8 @@ body {
    right: 0;
    height: 90%;
    width: 100%;
+   position: absolute;
+   padding: 0;
    background-image: url("/assets/background/94102_2.jpeg");
    background-size: 100%;
    background-repeat: no-repeat;
@@ -90,6 +97,16 @@ body {
    padding-left: 0;
    padding-right: 0;
    width: 100%;
+ }
+
+
+ #landing-search-bar {
+   position: absolute;
+   bottom: 0;
+   padding: 3%;
+   background-color: rgba(0, 0, 0, 0.1);
+   background-size: 100%;
+
  }
 
  #sidx {

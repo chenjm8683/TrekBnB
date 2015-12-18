@@ -1,4 +1,5 @@
 var UserAction = require('../actions/userAction.js');
+var FilterStore = require('../stores/filterStore.js');
 
 var ApiUtil = {
   createUserAccount: function(credentials) {
@@ -64,6 +65,22 @@ var ApiUtil = {
     $.ajax({
       url: 'api/rooms',
       method: "get",
+      success: function(rooms){
+                  receiveAllCB(rooms);
+                },
+      error: function(error, status){
+                  debugger;
+                  console.log(status)
+                }
+    });
+  },
+
+  fetchCurrentMapRooms: function(receiveAllCB) {
+    // debugger;
+    $.ajax({
+      url: 'api/rooms',
+      method: "get",
+      data: {filter: FilterStore.params()},
       success: function(rooms){
                   receiveAllCB(rooms);
                 },

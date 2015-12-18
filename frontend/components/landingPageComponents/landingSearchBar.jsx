@@ -52,24 +52,43 @@ var LandingSearchBar = React.createClass({
       <div className="col-xs-12" id="landing-search-bar">
         <div className="row">
           <div className="col-xs-8 col-xs-offset-2">
-            <div className="input-group">
-              <form role="form" onSubmit={this.handleSearch}>
+              <form  role="form" onSubmit={this.handleSearch}>
+                <div className="input-group">
                   <input
                      type="text"
                      className="form-control"
                      valueLink={this.linkState("loc")}
                      placeholder= {this.state.placeholder} />
-                  <span className="input-group-addon">@</span>
-                  <button>Search</button>
+                   <span className="input-group-button">
+                     <button className="btn btn-default" type="button">Search</button>
+                   </span>
+                </div>
+              </form>
+          </div>
+        </div>
+      </div>
+    );
+
+    var design2 = (
+      <div className="col-xs-12">
+        <div className="row">
+          <div className="col-xs-offset-2 col-xs-8">
+            <div className="col-xs-offset-2 col-xs-8">
+              <form className="input-group" role="form">
+                <input type="text" className="form-control" valueLink={this.linkState("loc")} placeholder={this.state.placeholder} />
+                <span className="input-group-btn">
+                  <button className="btn btn-default" type="button" onClick={this.handleSearch}>Search</button>
+                </span>
               </form>
             </div>
           </div>
         </div>
       </div>
-    )
+    );
+
     return (
-      <div>
-        {org1}
+      <div className="col-xs-12" id="landing-search-bar">
+        {design2}
       </div>
     );
   }

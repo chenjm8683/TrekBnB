@@ -1,7 +1,7 @@
 var AppDispatcher = require('../dispatcher/dispatcher.js');
 var JSLoaderConstants = require('../constants/jsLoaderConstants.js');
 
-var JSLoaderAction = {
+var JSLoaderActions = {
   gMapsReady: function() {
     AppDispatcher.dispatch({
       actionType: JSLoaderConstants.GMAPS_READY
@@ -9,4 +9,4 @@ var JSLoaderAction = {
   }
 }
 
-module.exports = JSLoaderAction;
+module.exports = JSLoaderActions;

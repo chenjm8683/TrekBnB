@@ -35,3 +35,9 @@ npm install --save react-bootstrap
 ToDo: refactor google maps loading
 
 bundle install
+
+12/17/2015
+#remove turbolinks
+bundle install
+rails g migration AddColumnsToRooms
+rake db:migrate

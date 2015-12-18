@@ -24,7 +24,10 @@ Room.create([
     price: "200",
     city: "San Francisco",
     lat: "37.769532",
-    lng: "-122.428713"
+    lng: "-122.428713",
+    primary_pic_id: "1",
+    max_guest_num: "2",
+    bed_num: "1"
   },
   # airbnb:3667334
   {
@@ -34,7 +37,10 @@ Room.create([
     price: "150",
     city: "San Francisco",
     lat: "37.793859",
-    lng: "-122.417614"
+    lng: "-122.417614",
+    primary_pic_id: "2",
+    max_guest_num: "2",
+    bed_num: "1"
   },
   # airbnb:8390615
   {
@@ -44,6 +50,24 @@ Room.create([
     price: "85",
     city: "San Francisco",
     lat: "37.787199",
-    lng: "-122.418843"
+    lng: "-122.418843",
+    primary_pic_id: "3",
+    max_guest_num: "2",
+    bed_num: "1"
   }
   ])
+
+  RoomPic.create([
+    {
+      room_id: "1",
+      pic_url: "/v1450394298/51557_1_qa2o5a.webp"
+    },
+    {
+      room_id: "2",
+      pic_url: "/v1450394875/3667334_1_rw56ym.webp"
+    },
+    {
+      room_id: "3",
+      pic_url: "/v1450394753/8390615_1_a2mraa.webp"
+    }
+    ])

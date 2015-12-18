@@ -8,6 +8,10 @@ var RoomActions = {
     ApiUtil.fetchAllRooms(this.receiveAll);
   },
 
+  fetchCurrentMapRooms: function() {
+    ApiUtil.fetchCurrentMapRooms(this.receiveAll);
+  },
+
   fetchRoomDetail: function(roomId) {
     ApiUtil.fetchRoomDetail(roomId, this.receiveRoomDetail);
   },

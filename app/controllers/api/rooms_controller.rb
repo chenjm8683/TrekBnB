@@ -3,9 +3,16 @@ class Api::RoomsController < ApplicationController
 
   def index
     # initially show all rooms, later change to current map view
+    # @rooms = Room.all_with_details
     # later switch to jbuilder
-    @rooms = Room.all
-    render json: @rooms, status: 200
+    # render json: @rooms, status: 200
+
+    # jbuilder (all rooms with details)
+
+    # jbuilder (filtered rooms with details)
+    # debugger
+    @rooms = Room.filtered_all_with_details(filter_params)
+    render :index
   end
 
   def create
@@ -30,11 +37,15 @@ class Api::RoomsController < ApplicationController
   end
 
   def show
-    @room = Room.find_by_id(params[:id])
+    @room = Room.find_by_id_with_details(params[:id])
     if @room.nil?
       render json: {error: "Room not found"}, status: 401
     else
-      render json: @room, status: 200
+      # initial test
+      # render json: @room, status: 200
+
+      # using jbuilder to package data with pictures
+      render :show, status: 200
     end
   end
 
@@ -52,6 +63,11 @@ class Api::RoomsController < ApplicationController
   private
   def room_params
     params.require(:room).permit(:title, :type_id, :price, :city, :lat, :lng)
+  end
+
+  def filter_params
+    # .permit(:bounds) doesn't work
+    params.require(:filter)
   end
 
 end

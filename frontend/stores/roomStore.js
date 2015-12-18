@@ -10,6 +10,7 @@ var receiveRooms = function(rooms) {
   // use this if _currentRooms is an array
   // _currentRooms = rooms;
   // use this if _currentRooms is an Object
+  _currentRooms = {};
   rooms.forEach(function(room) {
     _currentRooms[room.id] = room;
   });
@@ -24,7 +25,7 @@ var patchDetail = function(room) {
 // };
 
 RoomStore.all = function() {
-  return _currentRooms;
+  return Object.assign({}, _currentRooms);
 };
 
 RoomStore.find_by_id = function(roomId) {

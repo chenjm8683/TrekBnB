@@ -11,24 +11,37 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151215173404) do
+ActiveRecord::Schema.define(version: 20151217230543) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
-  create_table "rooms", force: :cascade do |t|
-    t.integer  "host_id",    null: false
-    t.string   "title",      null: false
-    t.integer  "type_id",    null: false
-    t.integer  "price",      null: false
-    t.string   "city",       null: false
-    t.float    "lat",        null: false
-    t.float    "lng",        null: false
+  create_table "room_pics", force: :cascade do |t|
+    t.integer  "room_id",    null: false
+    t.string   "pic_url",    null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
+  add_index "room_pics", ["room_id"], name: "index_room_pics_on_room_id", using: :btree
+
+  create_table "rooms", force: :cascade do |t|
+    t.integer  "host_id",        null: false
+    t.string   "title",          null: false
+    t.integer  "type_id",        null: false
+    t.integer  "price",          null: false
+    t.string   "city",           null: false
+    t.float    "lat",            null: false
+    t.float    "lng",            null: false
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
+    t.integer  "primary_pic_id", null: false
+    t.integer  "max_guest_num",  null: false
+    t.integer  "bed_num",        null: false
+  end
+
   add_index "rooms", ["host_id"], name: "index_rooms_on_host_id", using: :btree
+  add_index "rooms", ["primary_pic_id"], name: "index_rooms_on_primary_pic_id", using: :btree
 
   create_table "user_profiles", force: :cascade do |t|
     t.integer  "user_id",      null: false
