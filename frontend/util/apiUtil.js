@@ -41,7 +41,7 @@ var ApiUtil = {
                 },
       error: function(error, status){
                   // debugger;
-                  console.log(status)
+                  console.log("not logged in");
                 }
     });
   },
@@ -75,7 +75,7 @@ var ApiUtil = {
     });
   },
 
-  fetchCurrentMapRooms: function(receiveAllCB) {
+  fetchFilteredRooms: function(receiveAllCB) {
     // debugger;
     $.ajax({
       url: 'api/rooms',

@@ -23,9 +23,9 @@ var AccountButtons = React.createClass({
             <span className='caret'></span>
           </a>
           <ul className='dropdown-menu'>
-            <li><a href="#">Action</a></li>
-            <li><a href="#">Another action</a></li>
-            <li><a href="#">Something else here</a></li>
+            <li><a href="#">Your Trips</a></li>
+            <li><a href="#">Wish Lists</a></li>
+            <li><a href="#">Edit Profile</a></li>
             <li role="separator" className="divider"></li>
             <li onClick={this.handleLogOut}><a href="#">
               <span className="glyphicon glyphicon-log-in" /> Log Out

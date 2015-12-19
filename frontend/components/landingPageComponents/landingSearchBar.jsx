@@ -2,9 +2,10 @@ var React = require('react');
 var LinkedStateMixin = require('react-addons-linked-state-mixin');
 // var ReactRouter = require('react-router');
 // var History = require('react-router').History;
+var DropDown = require('./landingSearchBarDropDown.jsx');
 
 var LandingSearchBar = React.createClass({
-  mixins: [LinkedStateMixin],
+  // mixins: [LinkedStateMixin],
 
   getInitialState: function() {
     return ({
@@ -15,7 +16,7 @@ var LandingSearchBar = React.createClass({
 
 
   handleSearch: function(e) {
-    e.preventDefault();
+    // e.preventDefault();
 
     // may use History mixins;
     // this.history.pushState(null, 'search/' + this.state.loc)
@@ -26,9 +27,19 @@ var LandingSearchBar = React.createClass({
         placeholder: "Please set location"
       });
     } else {
-      this.props.history.pushState(null, 'search/' + this.state.loc)
+      var loc = this.state.loc.replace(/\W+/g, "-");
+      console.log("pushStatefromsearch")
+      this.props.history.pushState(null, 'search/' + loc)
     }
 
+  },
+
+  handleLocChange: function(e) {
+    // console.log(this.refs.locinput.value);
+    this.setState({
+      loc: this.refs.locinput.value
+    });
+    // autocomplete: needs to add a delay using setTimeout and clearTimeout to cancel if the user changes before timeout expires
   },
 
   render: function() {
@@ -39,7 +50,7 @@ var LandingSearchBar = React.createClass({
             <input
                type="text"
                className="form-control"
-               valueLink={this.linkState("loc")}
+
                placeholder= {this.state.placeholder} />
             <span className="input-group-addon">@</span>
           </div>
@@ -57,7 +68,7 @@ var LandingSearchBar = React.createClass({
                   <input
                      type="text"
                      className="form-control"
-                     valueLink={this.linkState("loc")}
+
                      placeholder= {this.state.placeholder} />
                    <span className="input-group-button">
                      <button className="btn btn-default" type="button">Search</button>
@@ -75,7 +86,12 @@ var LandingSearchBar = React.createClass({
           <div className="col-xs-offset-2 col-xs-8">
             <div className="col-xs-offset-2 col-xs-8">
               <form className="input-group" role="form">
-                <input type="text" className="form-control" valueLink={this.linkState("loc")} placeholder={this.state.placeholder} />
+                <input
+                   type="text"
+                   className="form-control"
+                   onChange={this.handleLocChange}
+                   placeholder={this.state.placeholder}
+                   ref="locinput"/>
                 <span className="input-group-btn">
                   <button className="btn btn-default" type="button" onClick={this.handleSearch}>Search</button>
                 </span>
@@ -86,9 +102,14 @@ var LandingSearchBar = React.createClass({
       </div>
     );
 
+    var showAutocomplete = (this.state.loc !== "");
     return (
       <div className="col-xs-12" id="landing-search-bar">
         {design2}
+        {showAutocomplete ? <DropDown
+                              locinput={this.refs.locinput}
+                              handleSearch={this.handleSearch}
+                              handleLocChange={this.handleLocChange}/> : "" }
       </div>
     );
   }

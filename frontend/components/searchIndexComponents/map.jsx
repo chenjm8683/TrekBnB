@@ -44,36 +44,62 @@ var Map = React.createClass({
 
   _registerGoogleMapsListener: function() {
     var _map = this.map;
+    var updateBounds = this._updateFilterStoreBounds;
+    // send initial bounds to FilterStore once fully loaded
+    google.maps.event.addListenerOnce(_map, 'idle', updateBounds);
+    // using dragend as the event
+    // send updated bounds to FilterStore after each drag-end
+    google.maps.event.addListener(_map, 'dragend', updateBounds);
+  },
 
-    google.maps.event.addListener(_map, 'idle', function() {
-      var bounds = _map.getBounds();
-      var latLngBounds = {
-        northEast: {
-          lat: bounds.getNorthEast().lat(),
-          lng: bounds.getNorthEast().lng()
-        },
-        southWest: {
-          lat: bounds.getSouthWest().lat(),
-          lng: bounds.getSouthWest().lng()
-        }
-      };
-      // console.log(latLngBounds);
-      FilterActions.updateBounds(latLngBounds);
-    });
-    this.mapToken = RoomStore.addListener(this._updateMarkers);
+  _updateFilterStoreBounds: function() {
+    var bounds = this.map.getBounds();
+    var latLngBounds = {
+      northEast: {
+        lat: bounds.getNorthEast().lat(),
+        lng: bounds.getNorthEast().lng()
+      },
+      southWest: {
+        lat: bounds.getSouthWest().lat(),
+        lng: bounds.getSouthWest().lng()
+      }
+    };
+    FilterActions.updateBounds(latLngBounds);
+  },
+
+
+  _initializeMaps: function(centerLatLng) {
+    this.currentCenter = centerLatLng;
+    var mapEl = ReactDOM.findDOMNode(this.refs.searchmap);
+    var mapOptions = {
+      center: centerLatLng,
+      zoom: 13
+    };
+    this.map = new google.maps.Map(mapEl, mapOptions);
+    this._registerGoogleMapsListener();
+    this.markers = {};
   },
 
   componentDidMount: function() {
-    var map = ReactDOM.findDOMNode(this.refs.searchmap);
-    var mapOptions = {
-      // need to change to reflect searched location
-      center: {lat: 37.7758, lng: -122.435},
-      zoom: 13
-    };
+    console.log("mapCompMounted");
+    this._initializeMaps(this.props.centerLatLng);
+    this.mapToken = RoomStore.addListener(this._updateMarkers);
+  },
 
-    this.map = new google.maps.Map(map, mapOptions);
-    this.markers = {};
-    this._registerGoogleMapsListener();
+  componentWillReceiveProps: function(newProps) {
+    var newCenter = newProps.centerLatLng;
+    // if the new center is the same, do nothing
+    if (!this._isSameCoord(this.currentCenter, newCenter)) {
+      console.log("isnotsamecoord");
+      this.map.setCenter(newCenter);
+      this.currentCenter = newCenter;
+      this._updateFilterStoreBounds();
+    }
+  },
+
+  _isSameCoord: function(coord1, coord2) {
+    console.log("isSamecoord?");
+    return (coord1.lat === coord2.lat && coord1.lng === coord2.lng);
   },
 
   render: function() {
