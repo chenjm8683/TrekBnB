@@ -8,6 +8,7 @@ var FilterActions = require('../actions/filterAction.js')
 
 var List = require('./searchIndexComponents/list.jsx');
 var Map = require('./searchIndexComponents/map.jsx');
+var SearchForm = require('./searchIndexComponents/searchForm.jsx');
 var JSLoaderStore = require('../stores/jsLoaderStore.js');
 var LoadingScreen = require('./loadingScreen.jsx');
 
@@ -34,7 +35,7 @@ var SearchIndex = React.createClass({
   },
 
   _updateFilter: function() {
-    console.log("updatefilter");
+    // console.log("updatefilter");
     // this.setState({
     //   filterParams: FilterStore.params()
     // });
@@ -56,7 +57,7 @@ var SearchIndex = React.createClass({
 
 
   _geoConverter: function(locStr) {
-    console.log("geoConverter called");
+    // console.log("geoConverter called");
     var _showMaps = this._showMaps;
     this.geocoder.geocode({"address": locStr}, function(results, status){
       if (status === google.maps.GeocoderStatus.OK) {
@@ -69,7 +70,7 @@ var SearchIndex = React.createClass({
         _showMaps(latLng);
       } else {
         // here to handle failed search
-        console.log('Geocode was not successful for the following reason: ' + status);
+        // console.log('Geocode was not successful for the following reason: ' + status);
       }
     });
   },
@@ -83,7 +84,7 @@ var SearchIndex = React.createClass({
 
   componentWillReceiveProps: function(newProps) {
     var newLocStr = newProps.params.loc;
-    console.log("searchIndexReceivedNewProps" + newLocStr);
+    // console.log("searchIndexReceivedNewProps" + newLocStr);
     // debugger;
     // if the new loc string is the same, do nothing
     // if (this.currentLocStr !== newLocStr) {
@@ -98,7 +99,7 @@ var SearchIndex = React.createClass({
 
   componentDidMount: function() {
     this.currentLocStr = this.props.params.loc;
-    console.log('searchIndexmounted' + this.currentLocStr);
+    // console.log('searchIndexmounted' + this.currentLocStr);
     // run map-related search immediately if GMapsLib is loaded,
     // or listen to change of loading status from the JSLoaderStore
     if (JSLoaderStore.isReady('gMaps')) {
@@ -121,12 +122,13 @@ var SearchIndex = React.createClass({
     // // For testing
 
     if (showResult) {
-      console.log("searchIndexRendered");
+      // console.log("searchIndexRendered");
       return (
         <div className="container-fluid below-nav" id="sidx">
           <div className="col-xs-12 col-md-7 search-result" id="sidx-left">
             <div className="row">
               <h2>Search Filter Placeholder</h2>
+              <SearchForm />
             </div>
             <div className="row search-list-result" >
               <h2>Search Result Header Placeholder</h2>

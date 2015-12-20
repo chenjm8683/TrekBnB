@@ -12,7 +12,7 @@ var ApiUtil = {
               },
       error: function(error, status){
                 debugger;
-                console.log(status)
+                // console.log(status)
               }
     });
   },
@@ -27,7 +27,7 @@ var ApiUtil = {
               },
       error: function(error, status) {
                 debugger;
-                console.log(status);
+                // console.log(status);
               }
     });
   },
@@ -41,7 +41,7 @@ var ApiUtil = {
                 },
       error: function(error, status){
                   // debugger;
-                  console.log("not logged in");
+                  // console.log("not logged in");
                 }
     });
   },
@@ -55,7 +55,7 @@ var ApiUtil = {
                 },
       error: function(error, status){
                   debugger;
-                  console.log(status)
+                  // console.log(status)
                 }
     });
   },
@@ -70,7 +70,7 @@ var ApiUtil = {
                 },
       error: function(error, status){
                   debugger;
-                  console.log(status)
+                  // console.log(status)
                 }
     });
   },
@@ -86,7 +86,7 @@ var ApiUtil = {
                 },
       error: function(error, status){
                   debugger;
-                  console.log(status)
+                  // console.log(status)
                 }
     });
   },
@@ -100,7 +100,7 @@ var ApiUtil = {
                 },
       error: function(error, status){
                   debugger;
-                  console.log(status)
+                  // console.log(status)
                 }
     });
   }

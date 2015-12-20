@@ -81,7 +81,7 @@ var Map = React.createClass({
   },
 
   componentDidMount: function() {
-    console.log("mapCompMounted");
+    // console.log("mapCompMounted");
     this._initializeMaps(this.props.centerLatLng);
     this.mapToken = RoomStore.addListener(this._updateMarkers);
   },
@@ -90,7 +90,7 @@ var Map = React.createClass({
     var newCenter = newProps.centerLatLng;
     // if the new center is the same, do nothing
     if (!this._isSameCoord(this.currentCenter, newCenter)) {
-      console.log("isnotsamecoord");
+      // console.log("isnotsamecoord");
       this.map.setCenter(newCenter);
       this.currentCenter = newCenter;
       this._updateFilterStoreBounds();
@@ -98,7 +98,7 @@ var Map = React.createClass({
   },
 
   _isSameCoord: function(coord1, coord2) {
-    console.log("isSamecoord?");
+    // console.log("isSamecoord?");
     return (coord1.lat === coord2.lat && coord1.lng === coord2.lng);
   },
 

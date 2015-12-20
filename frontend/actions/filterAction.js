@@ -7,7 +7,39 @@ var FilterActions = {
       actionType: FilterConstants.SEARCHMAPMOVED,
       bounds: bounds
     });
+  },
+
+  updateCheckin: function(date) {
+    AppDispatcher.dispatch({
+      actionType: FilterConstants.UPDATECHECKIN,
+      date: date
+    });
+  },
+
+  updateCheckout: function(date) {
+    AppDispatcher.dispatch({
+      actionType: FilterConstants.UPDATECHECKOUT,
+      date: date
+    });
+  },
+
+  updateDates: function(dates) {
+    AppDispatcher.dispatch({
+      actionType: FilterConstants.UPDATEDATES,
+      dates: dates
+    });
+  },
+
+  updateGuests: function(guests) {
+    AppDispatcher.dispatch({
+      actionType: FilterConstants.UPDATEGUESTS,
+      guests: guests
+    });
   }
+
+
+
+
 
 };
 

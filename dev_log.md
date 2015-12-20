@@ -45,3 +45,5 @@ rake db:migrate
 12/18/2015
 rails g model reservation
 rake db:migrate
+# add jquery-ui
+bundle install
