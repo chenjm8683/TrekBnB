@@ -71,3 +71,31 @@ Room.create([
       pic_url: "/v1450394753/8390615_1_a2mraa.webp"
     }
     ])
+
+
+Reservation.create([
+  {
+    room_id: "1",
+    requester_id: "2",
+    guest_num: "2",
+    start_date: "2016-01-01",
+    end_date: "2016-01-05",
+    status: "1"
+  },
+  {
+    room_id: "1",
+    requester_id: "3",
+    guest_num: "1",
+    start_date: "2016-01-10",
+    end_date: "2016-01-15",
+    status: "1"
+  },
+  {
+    room_id: "1",
+    requester_id: "2",
+    guest_num: "1",
+    start_date: "2016-02-01",
+    end_date: "2016-02-03",
+    status: "0"
+  }
+  ])

@@ -41,3 +41,7 @@ bundle install
 bundle install
 rails g migration AddColumnsToRooms
 rake db:migrate
+
+12/18/2015
+rails g model reservation
+rake db:migrate
