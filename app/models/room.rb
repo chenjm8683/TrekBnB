@@ -40,8 +40,11 @@ class Room < ActiveRecord::Base
   validates :host_id, :title, :type_id, :price, :city, :lat, :lng, presence: true
 
   # need to set a limit of 3-month window when date gets large
-  def unavailable_date_ranges
-    self.reservations.where(status: [1, 5]).map {|item| [item.start_date, item.end_date]}
+  def unavailable_date_ranges_from_today
+    self.reservations
+        .where('end_date > ?', Date.today())
+        .where(status: [1, 5])
+        .map {|item| [item.start_date, item.end_date]}
   end
 
   # need to refactor the following methods!
