@@ -151,6 +151,23 @@ var SearchForm = React.createClass({
     });
   },
 
+  loadPriceRange: function() {
+    $("#search-index-price-range").slider({
+      range: true,
+      min: 0,
+      max: 500,
+      values: [75,300],
+      slide: function(event,ui) {
+        var left = (ui.values[0]/5).toFixed(2) + "%";
+        var width = ((ui.values[1] - ui.values[0])/5).toFixed(2) + "%";
+        // console.log(left + " " + width)
+        $("#min-max-range").css({left: left, width: width});
+        $("#search-index-amount").val("$"+ui.values[0]+"-$"+ui.values[1]);
+      }
+    });
+    $("#search-index-amount").val("$"+$("#search-index-price-range").slider("values",0)+"-$"+$("#search-index-price-range").slider("values",1));
+  },
+
   componentDidUpdate: function() {
     this.loadDatePicker(this.state.checkin, this.state.checkout);
   },
@@ -162,6 +179,7 @@ var SearchForm = React.createClass({
   componentDidMount: function() {
     // console.log("componentDidMount")
     this.loadDatePicker();
+    this.loadPriceRange();
     this.formToken = FilterStore.addListener(this.updateParams);
   },
 
@@ -213,6 +231,30 @@ var SearchForm = React.createClass({
                 </div>
               </div>
             </form>
+          </div>
+          <div className="row">
+            <div className="col-lg-2 col-md-12 text-center-sm text-center-md row-space-sm-1">
+              <label>Room Type</label>
+            </div>
+            <form className="col-lg-9">
+
+            </form>
+          </div>
+          <div className="row">
+            <div className="col-lg-2 col-md-12 text-center-sm text-center-md row-space-sm-1">
+              <label>Price Range</label>
+              <input type="text" id="search-index-amount" readOnly="" style={{border:'0', color:'#f6931f', fontWeight:'bold'}} />
+            </div>
+            <div className="col-lg-9">
+              <div id="search-index-price-range" className="ui-slider ui-slider-horizontal ui-widget ui-widget-content ui-corner-all">
+                <div id="min-max-range" className="ui-slider-range ui-widget-header ui-corner-all" style={{left: '15%', width: '30%'}}>
+                </div>
+                <span className="ui-slider-handle ui-state-default ui-corner-all" tabIndex="0" style={{left: '15%'}}>
+                </span>
+                <span className="ui-slider-handle ui-state-default ui-corner-all" tabIndex="0" style={{left: '60%'}}>
+                </span>
+              </div>
+            </div>
           </div>
         </div>
       </div>

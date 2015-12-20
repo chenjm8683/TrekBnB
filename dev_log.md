@@ -47,3 +47,6 @@ rails g model reservation
 rake db:migrate
 # add jquery-ui
 bundle install
+
+12/20/2015
+https://jqueryui.com/resources/demos/slider/range.html

@@ -5,6 +5,8 @@ var RoomAction = require('../actions/roomAction.js');
 var LoadingScreen = require('./loadingScreen.jsx');
 
 var RoomImage = require('./roomComponents/roomImage.jsx');
+var RoomDetails = require('./roomComponents/roomDetails.jsx');
+var Reservation = require('./roomComponents/reservation.jsx');
 
 var RoomIndex = React.createClass({
   getInitialState: function() {
@@ -46,6 +48,8 @@ var RoomIndex = React.createClass({
       return (
         <div className="container-fluid full-width below-nav">
           <RoomImage />
+          <RoomDetails />
+          <Reservaton />
         </div>
       );
     } else {

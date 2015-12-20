@@ -4,9 +4,16 @@
   <title>Trekbnb</title>
   <%= stylesheet_link_tag    'application', media: 'all'%>
   <%= javascript_include_tag 'application'%>
+  <script type="text/javascript">
+    window.gMapsStatus = false;
+    window.gMapsReady = function() {
+      window.gMapsStatus = true;
+    };
+  </script>
   <script
+      id="gmapslib"
       async="true"
-      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCtYLxe36ZACT2bRLmcefUJ_EG2Nzm7n04&libraries=places&callback=googleMapsCallback">
+      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCtYLxe36ZACT2bRLmcefUJ_EG2Nzm7n04&libraries=places&callback=gMapsReady">
   </script>
   <script type="text/javascript">
     window.CLOUDINARY_OPTIONS = {

@@ -41,14 +41,25 @@ var routes = (
   </Route>
 );
 
+var checkLibStatus = function() {
+  if (window.gMapsStatus) {
+    JSLoaderAction.gMapsReady();
+  } else {
+    document.getElementById('gmapslib').addEventListener('load', JSLoaderAction.gMapsReady);
+  }
+}
+
 
 
 document.addEventListener("DOMContentLoaded", function() {
 
   // Need to refactor [map loader]
-  window.googleMapsCallback = function() {
-    JSLoaderAction.gMapsReady();
-  };
+  // window.googleMapsCallback = function() {
+  //
+  //   JSLoaderAction.gMapsReady();
+  // };
+  // JSLoaderAction.gMapsReady();
+  checkLibStatus();
 
   // quick fix for turbolinks backnav problem with React http://bit.ly/1OyK9Pc
   // Turbolinks.pagesCached(0);
