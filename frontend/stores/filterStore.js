@@ -54,7 +54,7 @@ FilterStore.currentDates = function() {
   // } else {
   //   return _currentParams.dates;
   // }
-  return _currentParams.dates || {checkin: "", checkout: ""};
+  return _currentParams.dates || {checkin: null, checkout: null};
 },
 
 FilterStore.currentGuests = function() {

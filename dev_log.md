@@ -50,3 +50,4 @@ bundle install
 
 12/20/2015
 https://jqueryui.com/resources/demos/slider/range.html
+rails g controller Api::Reservations

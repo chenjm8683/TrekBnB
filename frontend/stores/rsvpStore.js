@@ -3,22 +3,72 @@ var AppDispatcher = require('../dispatcher/dispatcher.js');
 var RsvpConstants = require('../constants/rsvpConstants.js');
 var RsvpStore = new Store(AppDispatcher);
 
-var _rsvpParams = {};
+var _rsvpConfParams = {
+  roomId: "",
+  checkin: "",
+  checkout: "",
+  guests: "",
+  status: ""
+};
 
-var receiveDetails = function(details) {
-  _rsvpParams = details;
+var _rsvpStatus = {
+  verified: false,
+  avail: false,
+  booked: false
+};
+
+ // phase B datepicker
+// var _unavailableDates = [];
+
+var resetRsvpStore = function() {
+  _rsvpConfParams = {
+    roomId: "",
+    checkin: "",
+    checkout: "",
+    guests: "",
+    status: ""
+  };
+
+  _rsvpStatus = {
+    verified: false,
+    avail: false,
+    booked: false
+  }
+};
+
+var verified = function(avail) {
+  _rsvpStatus = {
+    verified: true,
+    avail: avail
+  };
 }
 
 RsvpStore.all = function() {
-  return Object.assign({}, _currentRooms);
+  return Object.assign({}, _rsvpParams);
 };
 
-RoomStore.__onDispatch = function(payload) {
+RsvpStore.isVerified = function(){
+  return _rsvpStatus.verified;
+};
+
+RsvpStore.isAvailable = function(){
+  return _rsvpStatus.avail;
+};
+
+RsvpStore.__onDispatch = function(payload) {
   switch(payload.actionType) {
     case RsvpConstants.DETAILS_RECEIVED:
-      receiveDetails(payload.details);
+      verified(payload.avail);
       RsvpStore.__emitChange();
       break;
+    case RsvpConstants.RESET_RSVPSTORE:
+      resetRsvpStore();
+      RsvpStore.__emitChange();
+      break;
+
+      // phase B datepicker
+    // case RsvpConstants.UNAVAILABILITY_RECEIVED:
+
   }
 };
 

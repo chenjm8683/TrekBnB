@@ -28,7 +28,12 @@ class Reservation < ActiveRecord::Base
     result.map(&:room_id).uniq
   end
 
+  # def self.isAvailable(query_params)
+  #
+  # end
+
   def overlapping_requests
+    # debugger
     Reservation
     .where("(:id IS NULL) OR (id != :id)", id: self.id)
     .where(room_id: self.room_id)
@@ -50,6 +55,7 @@ class Reservation < ActiveRecord::Base
   def overlapping_unbookable_period
     overlapping_requests.where(status: [1, 5])
   end
+
 
   private
 

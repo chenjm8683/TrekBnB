@@ -45,11 +45,12 @@ var RoomIndex = React.createClass({
   render: function() {
     if (this.state.hasDetail) {
       var room = this.state.room;
+      // may need to refactor using nested route
       return (
         <div className="container-fluid full-width below-nav">
           <RoomImage />
-          <RoomDetails />
-          <Reservaton />
+          <RoomDetails room={room}/>
+          <Reservation room={room}/>
         </div>
       );
     } else {

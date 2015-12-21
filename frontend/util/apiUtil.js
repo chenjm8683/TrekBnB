@@ -1,5 +1,6 @@
 var UserAction = require('../actions/userAction.js');
 var FilterStore = require('../stores/filterStore.js');
+var RsvpStore = require('../stores/rsvpStore.js');
 
 var ApiUtil = {
   createUserAccount: function(credentials) {
@@ -97,6 +98,27 @@ var ApiUtil = {
       method: "get",
       success: function(room){
                   receiveDetailCB(room);
+                },
+      error: function(error, status){
+                  debugger;
+                  // console.log(status)
+                }
+    });
+  },
+
+  queryAvailability: function(roomId, queryCB) {
+    // debugger;
+    var queryData = FilterStore.currentDates();
+    $.ajax({
+      url: 'api/reservations/query/',
+      method: "get",
+      data: {rquery: {
+        room_id: roomId,
+        start_date: new Date(queryData.checkin),
+        end_date: new Date(queryData.checkout)
+      }},
+      success: function(avail){
+                  queryCB(avail);
                 },
       error: function(error, status){
                   debugger;
