@@ -33,16 +33,24 @@ var ApiUtil = {
     });
   },
 
+  checkAndFetchSession: function() {
+
+  },
+
   fetchSession: function() {
     $.ajax({
       url: 'api/session',
       method: "get",
       success: function(user){
-                  UserAction.receiveCurrentUser(user);
+                  if (user !== null) {
+                    UserAction.receiveCurrentUser(user);
+                  } else {
+                    console.log("not logged in");
+                  }
                 },
       error: function(error, status){
                   // debugger;
-                  // console.log("not logged in");
+                  console.log("error");
                 }
     });
   },

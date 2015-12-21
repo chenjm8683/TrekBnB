@@ -66,29 +66,53 @@ body {
    top: 0;
    left: 0;
    right: 0;
-   height: 90%;
+   height: 100%;
    width: 100%;
    position: absolute;
    padding: 0;
-   background-image: url("/assets/background/94102_2.jpeg");
+   background-image: url("/assets/background/94102_9.jpeg");
    background-size: 100%;
+   background-size: cover;
    background-repeat: no-repeat;
  }
 
+ .jumbotron-landing > .full-bg {
+   position: absolute;
+   top: 0;
+   right: 0;
+   bottom: 0;
+   left: 0;
+   overflow: hidden;
+  //  z-index: -100;
+ }
+
+ .full-bg-video {
+   position: absolute;
+   top: 0;
+   left: 0;
+   min-width: 100%;
+   min-height: 100%;
+ }
+
  .jumbotron-landing > .container-custom {
-   margin-top: 60px;
+  //  margin-top: 60px;
+  position: absolute;
+  width: 100%;
+  margin-top: 15%;
  }
  .jumbotron-landing > .container-custom > h1 {
    display: block;
    font-size: 60px;
    font-weight: 700;
-   color: #ff3300;
+  //  color: #ff3300;
+   color: #fff;
  }
 
  .jumbotron-landing > .container-custom > h4 {
    font-size: 18px;
    font-weight: bold;
-   color: #00ff00;
+  //  color: #00ff00;
+   color: #fff;
  }
 
  .below-nav {
@@ -105,7 +129,7 @@ body {
 
  #landing-search-bar {
    position: absolute;
-   bottom: 0;
+   bottom: 0%;
    padding: 3%;
    background-color: rgba(0, 0, 0, 0.1);
    background-size: 100%;
@@ -153,3 +177,65 @@ body {
    height: 67%;
    position: relative;
  }
+
+ // for testing
+
+#landing-search-bar {
+  -webkit-transition: bottom 2s, -webkit-transform 2s;
+  transition: bottom 2s, transform 2s;
+}
+// #landing-search-bar:hover {
+//   bottom: 10%;
+// }
+
+// http://www.css-spinners.com/css/spinner/three-quarters.css
+@-moz-keyframes three-quarters-loader {
+  0% {
+    -moz-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+  100% {
+    -moz-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
+}
+@-webkit-keyframes three-quarters-loader {
+  0% {
+    -webkit-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+  100% {
+    -webkit-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
+}
+@keyframes three-quarters-loader {
+  0% {
+    -moz-transform: rotate(0deg);
+    -ms-transform: rotate(0deg);
+    -webkit-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+  100% {
+    -moz-transform: rotate(360deg);
+    -ms-transform: rotate(360deg);
+    -webkit-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
+}
+/* :not(:required) hides this rule from IE9 and below */
+.three-quarters-loader:not(:required) {
+  -moz-animation: three-quarters-loader 1250ms infinite linear;
+  -webkit-animation: three-quarters-loader 1250ms infinite linear;
+  animation: three-quarters-loader 1250ms infinite linear;
+  border: 2px solid #38e;
+  border-right-color: transparent;
+  border-radius: 12px;
+  box-sizing: border-box;
+  display: inline-block;
+  position: relative;
+  overflow: hidden;
+  text-indent: -9999px;
+  width: 16px;
+  height: 16px;
+}

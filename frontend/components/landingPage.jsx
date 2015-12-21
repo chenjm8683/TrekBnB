@@ -14,6 +14,11 @@ var LandingPage = React.createClass({
 
     return (
       <div className="jumbotron jumbotron-landing" id="landing-page">
+        <div className="full-bg">
+          <video loop muted autoPlay poster="/assets/background/94102_9.jpeg" className="full-bg-video">
+              <source src="/assets/background/landing_bg_1.mp4" type="video/mp4" />
+          </video>
+        </div>
         <div className="container container-custom text-center">
           <h1>WELCOME HOME</h1>
           <h4>Rent unique places to stay from local hosts in 190+ countries.</h4>

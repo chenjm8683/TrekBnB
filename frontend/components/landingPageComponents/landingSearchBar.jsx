@@ -10,8 +10,28 @@ var LandingSearchBar = React.createClass({
   getInitialState: function() {
     return ({
       loc: "",
-      placeholder: "Where do you want to go?"
+      placeholder: "Where do you want to go?",
+      // showAutocomplete: false,
+      showSpinner: false
     });
+  },
+
+  searchBarMoveUp: function() {
+    // debugger;
+    // this.refs.searchbar.style{{bottom: "10%"}}
+    $("#landing-search-bar").css("bottom", "20%");
+    // setTimeout(function(){
+    //     this.setState({
+    //       showAutocomplete: true
+    //     });
+    // }.bind(this), 2000);
+  },
+
+  searchBarMoveBack: function() {
+    $("#landing-search-bar").css("bottom", "0%");
+    // this.setState({
+    //   showAutocomplete: false
+    // });
   },
 
 
@@ -27,12 +47,21 @@ var LandingSearchBar = React.createClass({
         placeholder: "Please set location"
       });
     } else {
-      var loc = this.state.loc.replace(/\W+/g, "-");
-      console.log("pushStatefromsearch")
-      this.props.history.pushState(null, 'search/' + loc)
-    }
+      setTimeout(this.redirectToSearch, 2000);
+      this.setState({
+        showSpinner: true
+      })
 
+    }
   },
+
+  redirectToSearch: function() {
+    var loc = this.state.loc.replace(/\W+/g, "-");
+    console.log("pushStatefromsearch");
+    this.props.history.pushState(null, 'search/' + loc);
+  },
+
+
 
   handleLocChange: function(e) {
     // console.log(this.refs.locinput.value);
@@ -79,7 +108,21 @@ var LandingSearchBar = React.createClass({
         </div>
       </div>
     );
+    var buttonSubmit = (
+      <span className="input-group-btn">
+        <button className="btn btn-default" type="button" onClick={this.handleSearch}>Search</button>
+      </span>
+    );
 
+    var buttonProgress = (
+      <span className="input-group-btn">
+        <button className="btn btn-default" disabled>
+          <div className="three-quarters-loader">
+            Loading…
+          </div>
+        </button>
+      </span>
+    );
     var design2 = (
       <div className="col-xs-12">
         <div className="row">
@@ -91,10 +134,12 @@ var LandingSearchBar = React.createClass({
                    className="form-control"
                    onChange={this.handleLocChange}
                    placeholder={this.state.placeholder}
-                   ref="locinput"/>
-                <span className="input-group-btn">
-                  <button className="btn btn-default" type="button" onClick={this.handleSearch}>Search</button>
-                </span>
+                   ref="locinput"
+                   onFocus={this.searchBarMoveUp}
+                   onBlur={this.searchBarMoveBack}/>
+
+                 {this.state.showSpinner ? buttonProgress : buttonSubmit}
+
               </form>
             </div>
           </div>
@@ -102,9 +147,12 @@ var LandingSearchBar = React.createClass({
       </div>
     );
 
+    // var showAutocomplete = (this.state.loc !== "") && this.state.showAutocomplete;
+    // console.log("toggle autocomplete: " + showAutocomplete)
     var showAutocomplete = (this.state.loc !== "");
     return (
-      <div className="col-xs-12" id="landing-search-bar">
+
+      <div className="col-xs-12" id="landing-search-bar" ref="searchbar">
         {design2}
         {showAutocomplete ? <DropDown
                               locinput={this.refs.locinput}
