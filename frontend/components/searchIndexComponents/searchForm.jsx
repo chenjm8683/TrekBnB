@@ -2,6 +2,7 @@ var React = require('react');
 var FilterStore = require('../../stores/filterStore.js');
 var FilterActions = require('../../actions/filterAction.js');
 var LinkedStateMixin = require('react-addons-linked-state-mixin');
+var DateTools = require('../../helpers/date.js');
 
 var SearchForm = React.createClass({
   mixins: [LinkedStateMixin],
@@ -12,29 +13,17 @@ var SearchForm = React.createClass({
     return ({
       checkin: dates.checkin,
       checkout: dates.checkout,
-      guests: FilterStore.currentGuests()
+      guests: FilterStore.currentGuests(),
+      focus: (dates.checkin === null ? "checkin" : null)
     })
   },
 
   initializeDateBounds: function() {
-    var min = new Date();
-    min.setHours(0,0,0,0);
-    this.minCheckin = new Date(min);
-    var max = new Date(min)
-    max.setFullYear(min.getFullYear() + 3);
-    this.maxCheckout = new Date(max);
-    max.setDate(max.getDate() - 1);
-    this.maxCheckin = new Date(max);
-    min.setDate(min.getDate() + 1);
-    this.minCheckout = new Date(min);
-    this.defaultCheckin = (this.minCheckin.getMonth() + 1) + '/'
-                        + this.minCheckin.getDate() + '/'
-                        + this.minCheckin.getFullYear();
-    this.defaultCheckout = (this.minCheckout.getMonth() + 1) + '/'
-                        + this.minCheckout.getDate() + '/'
-                        + this.minCheckout.getFullYear();
-
-                        // debugger;
+    this.minCheckin = DateTools.todayStr();
+    this.maxCheckin = DateTools.yearsAfterDateStr(3, this.minCheckin);
+    this.minCheckout = DateTools.nextDayStr(this.minCheckin);
+    this.maxCheckout = DateTools.nextDayStr(this.maxCheckin);
+    // debugger;
   },
 
   updateParams: function() {
@@ -42,16 +31,17 @@ var SearchForm = React.createClass({
     this.setState({
       checkin: dates.checkin,
       checkout: dates.checkout,
-      guests: FilterStore.currentGuests()
+      guests: FilterStore.currentGuests(),
+      focus: null
     });
   },
 
   // need to refactor: 1. validate date format, 2. validate checkin<checkout
-  updateCheckin: function(date) {
-    var checkin = this.validateCheckin(date);
-    // console.log(checkin);
-    if (this.state.checkout !== ""
-      && Date.parse(checkin) < Date.parse(this.state.checkout)) {
+  updateCheckin: function(dateStr) {
+    var checkin = this.validateCheckin(dateStr);
+    // debugger;
+    if (this.state.checkout !== null
+       && DateTools.compareDates(checkin, this.state.checkout) === -1) {
         this.setState({
           checkin: checkin
         });
@@ -59,42 +49,43 @@ var SearchForm = React.createClass({
     } else {
       this.setState({
         checkin: checkin,
-        checkout: ""
+        checkout: null,
+        focus: "checkout"
       });
     }
   },
 
-  updateCheckout: function(date) {
-    var checkout = this.validateCheckout(date);
-    if (this.state.checkin !== ""
-      && Date.parse(checkout) > Date.parse(this.state.checkin)) {
+  updateCheckout: function(dateStr) {
+    // debugger;
+    var checkout = this.validateCheckout(dateStr);
+    if (this.state.checkin !== null
+       && DateTools.compareDates(this.state.checkin, checkout) === -1) {
         this.setState({
           checkout: checkout
         });
         this.updateDates();
     } else {
       this.setState({
-        checkin: "",
-        checkout: checkout
+        checkin: null,
+        checkout: checkout,
+        focus: "checkin"
       });
     }
   },
 
-  validateCheckin: function(date) {
-    var inputDate = Date.parse(date);
-    if (inputDate < this.minCheckin || inputDate > this.maxCheckin) {
-      return this.defaultCheckout;
+  validateCheckin: function(dateStr) {
+    if (DateTools.inclBetween(dateStr, this.minCheckin, this.maxCheckout)) {
+      return dateStr;
     } else {
-      return date;
+      return this.defaultCheckin;
     }
   },
 
-  validateCheckout: function(date) {
-    var inputDate = Date.parse(date);
-    if (inputDate < this.minCheckout || inputDate > this.maxCheckout) {
-      return this.defaultCheckout;
+  validateCheckout: function(dateStr) {
+    if (DateTools.inclBetween(dateStr, this.minCheckin, this.maxCheckout)) {
+      return dateStr;
     } else {
-      return date;
+      return this.defaultCheckout;
     }
   },
 
@@ -118,15 +109,16 @@ var SearchForm = React.createClass({
     var _this = this;
     if (arguments.length === 0) {
       var checkin = "0";
-      var checkout = "+1D";
-    } else if (checkin !== "" && checkout === "") {
+      var checkout = "+1d";
+    } else if (checkin !== null && checkout === null) {
       // var checkoutDate = new Date(checkin);
       // checkoutDate.setDate(checkoutDate.getDate() + 1);
       // checkout = ((checkoutDate.getMonth() + 1) + '/'
       //           + checkoutDate.getDate() + '/'
       //           + checkoutDate.getFullYear());
-      checkout = (Date.parse(checkin) - this.minCheckin) / 86400000 + 1
-      console.log(checkout);
+      // checkout = (Date.parse(checkin) - this.minCheckin) / 86400000 + 1
+      // console.log(checkout);
+      var checkout = new Date(Date.parse(checkin) + 86400000);
     }
     $("#search-index-checkin").datepicker({
       minDate: "0",
@@ -141,8 +133,8 @@ var SearchForm = React.createClass({
     });
     // need to fix defaultDate of checkout date after checkin date is selected
     $("#search-index-checkout").datepicker({
-      minDate: "+1D",
-      defaultDate: "+" + checkout + "D",
+      minDate: "+1d",
+      defaultDate: checkout,
       changeMonth: true,
       onClose: function(checkoutDate) {
         // console.log("checkout"+ checkoutDate);
@@ -181,7 +173,15 @@ var SearchForm = React.createClass({
     this.loadDatePicker();
     this.loadPriceRange();
     this.formToken = FilterStore.addListener(this.updateParams);
+    // this.autoFocus();
   },
+
+  // autoFocus: function() {
+  //   if(this.state.focus !== null) {
+  //     var focusedId = "search-index-" + this.state.focus;
+  //     document.getElementById(focusedId).click();
+  //   }
+  // },
 
 
   render: function () {
@@ -204,7 +204,7 @@ var SearchForm = React.createClass({
                      autoComplete="off"
                      className="ui-datepicker-target"
                      placeholder="Check In"
-                     valueLink={this.state.checkin} />
+                     valueLink={this.state.checkin}/>
                 </div>
                 <div className="col-md-4 col-sm-6 row-space-1-sm">
                   <input

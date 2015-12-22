@@ -13,15 +13,17 @@ var LandingPage = React.createClass({
 
     var bgVideoUrl = {
       local: "/assets/background/landing_bg_1.mp4",
-      cloudinary: "http://res.cloudinary.com/chenjm8683/video/upload/v1450725867/landing_bg_1_fdoyao.mp4"
+      cloudinary: "http://res.cloudinary.com/chenjm8683/video/upload/v1450725867/landing_bg_1_fdoyao.mp4",
+      cloudinaryHD: "http://res.cloudinary.com/chenjm8683/video/upload/v1450765349/landing_bg_1_hd_frxo1m.mp4"
     };
 
 
     return (
       <div className="jumbotron jumbotron-landing" id="landing-page">
-        <div className="full-bg animated fadeIn">
+        <div className="full-bg animated animated-alternate animated-infinite fadeIn">
           <video loop muted autoPlay poster="/assets/background/94102_9.jpeg" className="full-bg-video">
-              <source src={bgVideoUrl.cloudinary} type="video/mp4" async/>
+              <source src={bgVideoUrl.cloudinaryHD} type="video/mp4" async/>
+              <source src={bgVideoUrl.cloudinaryHD} type="video/mp4" async/>
           </video>
         </div>
         <div className="container container-custom text-center">
