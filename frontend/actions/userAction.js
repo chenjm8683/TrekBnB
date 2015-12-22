@@ -1,10 +1,30 @@
 var AppDispatcher = require('../dispatcher/dispatcher.js');
 var UserConstants = require('../constants/userConstants.js');
+var ApiUtil = require('../util/apiUtil.js');
 
 var UserActions = {
-  createNewUser: function(user){
+
+  signUp: function(userInfo){
+    ApiUtil.createUserAccount(userInfo, this.receiveNewUser);
+  },
+
+  logIn: function(credentials) {
+    ApiUtil.createSession(credentials, this.receiveCurrentUser)
+  },
+
+  logOut: function() {
+    ApiUtil.destroySession(this.removeCurrentUser);
+  },
+
+  fetchSession: function() {
+    ApiUtil.fetchSession(this.receiveCurrentUser);
+  },
+
+// ============= Callbacks =============== //
+
+  receiveNewUser: function(user){
     AppDispatcher.dispatch({
-      actionType: UserConstants.CREATENEWUSER,
+      actionType: UserConstants.RECEIVENEWUSER,
       user: user
     });
   },
@@ -22,6 +42,7 @@ var UserActions = {
       user: ""
     });
   }
-}
+
+};
 
 module.exports = UserActions;

@@ -11,12 +11,17 @@ var LandingPage = React.createClass({
     //   backgroundImage: "url(https://a2.muscache.com/airbnb/static/landing_pages/pretzel/stills/croatia-887a17b9994536f0d95bfd3f43ed664c.jpg)"
     // };
 
+    var bgVideoUrl = {
+      local: "/assets/background/landing_bg_1.mp4",
+      cloudinary: "http://res.cloudinary.com/chenjm8683/video/upload/v1450725867/landing_bg_1_fdoyao.mp4"
+    };
+
 
     return (
       <div className="jumbotron jumbotron-landing" id="landing-page">
-        <div className="full-bg">
+        <div className="full-bg animated fadeIn">
           <video loop muted autoPlay poster="/assets/background/94102_9.jpeg" className="full-bg-video">
-              <source src="/assets/background/landing_bg_1.mp4" type="video/mp4" />
+              <source src={bgVideoUrl.cloudinary} type="video/mp4" async/>
           </video>
         </div>
         <div className="container container-custom text-center">

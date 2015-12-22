@@ -38,6 +38,7 @@ var SignUpLoginButtons = React.createClass({
   },
 
   render: function() {
+    var ModalForm = this.state.modalTitle === "Login" ? LoginModalForm : SignUpModalForm;
     var isLoginForm = (this.state.modalTitle === "Login");
     return (
       <div>
@@ -54,14 +55,13 @@ var SignUpLoginButtons = React.createClass({
           </li>
         </ul>
 
-        <Modal ref='navmodal' show={this.state.showModal} onHide={this.close}>
+
+        <Modal className="customclass" ref='navmodal' show={this.state.showModal} onHide={this.close}>
           <Modal.Header closeButton>
-            <Modal.Title>{this.state.modalTitle}</Modal.Title>
+            <Modal.Title id='ModalHeader'>{this.state.modalTitle}</Modal.Title>
           </Modal.Header>
           <Modal.Body>
-            {isLoginForm ?
-              (<LoginModalForm />) :
-              (<SignUpModalForm />)}
+            <ModalForm />
           </Modal.Body>
         </Modal>
       </div>

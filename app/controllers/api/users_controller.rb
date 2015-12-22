@@ -2,6 +2,7 @@ class Api::UsersController < ApplicationController
   before_action :require_no_user!
 
   def create
+    # @user = User.new_with_name(user_params)
     @user = User.new(user_params)
     if @user.save
       # @user.create_user_profile!
@@ -16,6 +17,6 @@ class Api::UsersController < ApplicationController
   private
 
   def user_params
-    params.require(:user).permit(:username, :password)
+    params.require(:user).permit(:username, :password, user_profile_attributes: [:fname, :lname])
   end
 end

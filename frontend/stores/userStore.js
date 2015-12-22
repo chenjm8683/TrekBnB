@@ -23,7 +23,7 @@ UserStore.all = function () {
 
 UserStore.__onDispatch = function (payload) {
   switch(payload.actionType) {
-    case UserConstants.CREATENEWUSER:
+    case UserConstants.RECEIVENEWUSER:
       receiveUser(payload.user);
       UserStore.__emitChange();
       break;

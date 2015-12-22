@@ -12,8 +12,8 @@
 
 class User < ActiveRecord::Base
   attr_reader :password
-  
-  has_one :user_profile, dependent: :destroy
+
+  has_one :user_profile, inverse_of: :user, dependent: :destroy
 
   has_many :listings,
     primary_key: "id",
@@ -25,6 +25,8 @@ class User < ActiveRecord::Base
   validates :password, length: { minimum: 6, allow_nil: true }
   validates :password_digest, presence: true
 
+  accepts_nested_attributes_for :user_profile
+
   after_initialize :ensure_session_token
 
   after_create :generate_user_profile!
@@ -34,6 +36,9 @@ class User < ActiveRecord::Base
     user = User.find_by(username: username)
     return nil if user.nil?
     user.is_password?(password) ? user : nil
+  end
+
+  def self.new_with_name(user_params)
   end
 
   def is_password?(password)
@@ -58,6 +63,6 @@ class User < ActiveRecord::Base
   end
 
   def generate_user_profile!
-    self.create_user_profile
+    self.create_user_profile if self.user_profile.nil?
   end
 end

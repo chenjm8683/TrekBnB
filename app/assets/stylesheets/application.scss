@@ -56,10 +56,18 @@ body {
    cursor: pointer;
  }
 
+
 // for navbar account options dropdown
  .dropdown:hover .dropdown-menu {
    display: block;
 }
+
+// for login_signup modals
+  @media screen and (min-width: 480px) {
+      .user-modal {
+          width: 450px;
+      }
+  }
 
  .jumbotron-landing {
    margin: 0 auto;
@@ -110,7 +118,8 @@ body {
 
  .jumbotron-landing > .container-custom > h4 {
    font-size: 18px;
-   font-weight: bold;
+  //  font-weight: bold;
+   font-weight: 400;
   //  color: #00ff00;
    color: #fff;
  }
@@ -238,4 +247,41 @@ body {
   text-indent: -9999px;
   width: 16px;
   height: 16px;
+}
+
+
+
+
+// fadein
+
+.animated {
+  -webkit-animation-duration: 30s;
+  animation-duration: 30s;
+  -webkit-animation-fill-mode: both;
+  animation-fill-mode: both;
+}
+
+@-webkit-keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+.fadeIn {
+  -webkit-animation-name: fadeIn;
+  animation-name: fadeIn;
 }

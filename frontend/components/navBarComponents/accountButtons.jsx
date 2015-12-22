@@ -1,11 +1,11 @@
 var React = require('react');
-var ApiUtil = require('../../util/apiUtil.js');
+var UserActions = require('../../actions/userAction.js');
 
 
 var AccountButtons = React.createClass({
 
   handleLogOut: function() {
-    ApiUtil.destroySession();
+    UserActions.logOut();
   },
 
   render: function() {

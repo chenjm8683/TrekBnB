@@ -1,7 +1,7 @@
 var React = require('react');
 var UserStore = require('../../stores/userStore.js');
 var Modal = require('react-bootstrap').Modal;
-var ApiUtil = require('../../util/apiUtil.js');
+var UserActions = require('../../actions/userAction.js');
 var AccountButtons = require('./accountButtons.jsx');
 var SignUpLoginButtons = require('./signUpLoginButtons.jsx');
 
@@ -9,14 +9,29 @@ var NavUserButtonIndex = React.createClass({
   getInitialState: function() {
     return ({
       currentUser: UserStore.all()
+      // preventRefresh: false
     });
   },
 
   _updateCurrentUser: function() {
-    this.setState({
-      currentUser: UserStore.all()
-    });
+    // if (preventRefresh === false){
+      this.setState({
+        currentUser: UserStore.all()
+      });
+    // }
   },
+
+  // refreshStop: function() {
+  //   this.setState({
+  //     preventRefresh: true
+  //   });
+  // },
+  // refreshResume: function() {
+  //   this.setState({
+  //     currentUser: UserStore.all(),
+  //     preventRefresh: false
+  //   });
+  // },
 
   componentWillUnmount: function() {
     // debugger;
@@ -25,7 +40,7 @@ var NavUserButtonIndex = React.createClass({
 
   componentDidMount: function() {
     this.nubiToken = UserStore.addListener(this._updateCurrentUser);
-    ApiUtil.fetchSession();
+    UserActions.fetchSession();
   },
 
   render: function() {

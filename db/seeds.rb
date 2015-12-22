@@ -9,10 +9,10 @@
 
 # users
 User.create([
-  {username: "colin", password: "colincolin"},
-  {username: "jeff", password: "jeffjeff"},
-  {username: "jon", password: "jonjon"},
-  {username: "max", password: "maxmax"}
+  {username: "chenjm8683@gmail.com", password: "colin123"},
+  {username: "jeff@jeff.com", password: "jeff123"},
+  {username: "jon@jon.com", password: "jon123"},
+  {username: "max@max.com", password: "max123"}
   ])
 
 Room.create([

@@ -1,15 +1,14 @@
-var UserAction = require('../actions/userAction.js');
 var FilterStore = require('../stores/filterStore.js');
 var RsvpStore = require('../stores/rsvpStore.js');
 
 var ApiUtil = {
-  createUserAccount: function(credentials) {
+  createUserAccount: function(credentials, receiveNewUser) {
     $.ajax({
       url: 'api/users',
       method: "post",
       data: {user: credentials},
-      success: function(success){
-                UserAction.createNewUser(user);
+      success: function(user){
+                receiveNewUser(user);
               },
       error: function(error, status){
                 debugger;
@@ -18,13 +17,13 @@ var ApiUtil = {
     });
   },
 
-  createSession: function(credentials) {
+  createSession: function(credentials, receiveCurrentUser) {
     $.ajax({
       url: 'api/session',
       method: "post",
       data: {user: credentials},
       success: function(user) {
-                UserAction.receiveCurrentUser(user);
+                receiveCurrentUser(user);
               },
       error: function(error, status) {
                 debugger;
@@ -33,17 +32,17 @@ var ApiUtil = {
     });
   },
 
-  checkAndFetchSession: function() {
+  // checkAndFetchSession: function() {
+  //
+  // },
 
-  },
-
-  fetchSession: function() {
+  fetchSession: function(receiveCurrentUser) {
     $.ajax({
       url: 'api/session',
       method: "get",
       success: function(user){
                   if (user !== null) {
-                    UserAction.receiveCurrentUser(user);
+                    receiveCurrentUser(user);
                   } else {
                     console.log("not logged in");
                   }
@@ -55,12 +54,12 @@ var ApiUtil = {
     });
   },
 
-  destroySession: function() {
+  destroySession: function(removeCurrentUser) {
     $.ajax({
       url: 'api/session',
       method: "delete",
       success: function(){
-                  UserAction.removeCurrentUser();
+                  removeCurrentUser();
                 },
       error: function(error, status){
                   debugger;
@@ -105,6 +104,7 @@ var ApiUtil = {
       url: 'api/rooms/'+ roomId,
       method: "get",
       success: function(room){
+        console.log(room);
                   receiveDetailCB(room);
                 },
       error: function(error, status){
