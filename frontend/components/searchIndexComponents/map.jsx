@@ -2,7 +2,9 @@ var React = require('react');
 var RoomAction = require('../../actions/roomAction.js');
 var ReactDOM = require('react-dom');
 var RoomStore = require('../../stores/roomStore.js');
-var FilterActions = require('../../actions/filterAction.js')
+var FilterActions = require('../../actions/filterAction.js');
+// var MarkerWithLabel = require('../../helpers/MarkerWithLabel.js');
+
 
 var Map = React.createClass({
 
@@ -19,6 +21,10 @@ var Map = React.createClass({
     });
     this._removeMarkers(removeRoomIds);
     this._addMarkers(addRoomIds, newRooms);
+    // debugger;
+
+    setTimeout(this._changeLabelContent,2000);
+    // google.maps.event.addListenerOnce(this.map, 'idle', this._changeLabelContent);
   },
 
   _removeMarkers: function(removeRoomIds) {
@@ -32,14 +38,61 @@ var Map = React.createClass({
   _addMarkers: function(addRoomIds, newRoomds) {
     var _markers = this.markers;
     var _map = this.map;
+    var image = "/assets/markers/pink.png";
+    var room, priceStr, pos;
+    // var pinSymbol = function(color) {
+    //   return {
+    //       path: 'M 0,0 C -2,-20 -10,-22 -10,-30 A 10,10 0 1,1 10,-30 C 10,-22 2,-20 0,0 z',
+    //       fillColor: color,
+    //       fillOpacity: 1,
+    //       strokeColor: '#000',
+    //       strokeWeight: 2,
+    //       scale: 2
+    //   };
+    // }
+
+
     addRoomIds.forEach(function(roomId) {
-      var room = newRoomds[roomId]
-      var pos = new google.maps.LatLng(room.lat, room.lng);
+      room = newRoomds[roomId];
+      priceStr = "$" + room.price.toString();
+      pos = new google.maps.LatLng(room.lat, room.lng);
       _markers[roomId] = new google.maps.Marker({
         position: pos,
-        map: _map
+        map: _map,
+        icon: {
+          url: image,
+          // size: new google.maps.Size(60, 60),
+          scaledSize: new google.maps.Size(55, 35)
+        },
+        label: {
+          text: " ",
+          fontFamily: 'Roboto, Arial, sans-serif, custom-label-' + roomId
+        }
       });
+      // debugger;
+      // $("[style*='custom-label-"+ roomId + "']")
+      // google.maps.event.addDomListener(_map, 'domready', function(){
+        // debugger;
+        // console.log("markerready")
+        // var label = ($("[style*='custom-label-"+ roomId + "']"))[0];
+        // label.innerHTML = priceStr;
+      // });
+
     });
+  },
+
+  _changeLabelContent: function() {
+    // debugger;
+    var rooms = RoomStore.all();
+    var labels = Array.prototype.slice.call($("[style*='custom-label']"));
+    // label.innerHTML = priceStr;
+    labels.forEach(function(label, idx) {
+      var roomIdStr = label.getAttribute('style').match(/custom-label-(.*);/)[1];
+      var priceStr = "$" + rooms[roomIdStr].price.toString();
+      label.innerHTML = priceStr;
+    });
+    return (labels.length === 0);
+    // var roomIdStr = labels[0].getAttribute('style').match(/custom-label-(.*);/)[1];
   },
 
   _registerGoogleMapsListener: function() {
@@ -50,6 +103,7 @@ var Map = React.createClass({
     // using dragend as the event
     // send updated bounds to FilterStore after each drag-end
     google.maps.event.addListener(_map, 'dragend', updateBounds);
+    // google.maps.event.addListener(_map, 'idle', this._changeLabelContent)
   },
 
   _updateFilterStoreBounds: function() {

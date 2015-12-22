@@ -35,6 +35,7 @@ var SignUpLoginButtons = React.createClass({
   componentWillUnmount: function() {
     // quick fix for "'scrollHeight'" issues after Modal is unmounted
     this.refs.navmodal._onHide();
+    // debugger;
   },
 
   render: function() {

@@ -45,6 +45,7 @@ var RoomIndex = React.createClass({
   render: function() {
     if (this.state.hasDetail) {
       var room = this.state.room;
+      debugger;
       // may need to refactor using nested route
       return (
         <div className="container-fluid full-width below-nav">
