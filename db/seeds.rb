@@ -32,7 +32,14 @@ User.create([
    user_profile_attributes: {
      fname: "Kardel",
      lname: "Sharpeye"
+     }},
+  {username: "pudge@dota.com",
+   password: "pudge123",
+   user_profile_attributes: {
+     fname: "Pudge",
+     lname: "Butcher"
      }}
+
   ])
 
 Room.create([

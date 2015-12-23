@@ -104,16 +104,45 @@ var SearchForm = React.createClass({
   //   e.currentTarget.onBlur(this.updateCheckin);
   // },
 
-  loadDateRangePicker: function() {
-    $(this.refs.dateRangeInput).daterangepicker({
-      autoApply: true,
-      minDate: this.minCheckin,
-      maxDate: this.maxCheckout
-    });
-  },
+  loadDatePicker: function(checkin, checkout) {
+    // need to refactor
+    var _this = this;
+    if (arguments.length === 0) {
+      var checkin = "0";
+      var checkout = "+1d";
+    } else if (checkin !== null && checkout === null) {
+      // var checkoutDate = new Date(checkin);
+      // checkoutDate.setDate(checkoutDate.getDate() + 1);
+      // checkout = ((checkoutDate.getMonth() + 1) + '/'
+      //           + checkoutDate.getDate() + '/'
+      //           + checkoutDate.getFullYear());
+      // checkout = (Date.parse(checkin) - this.minCheckin) / 86400000 + 1
+      // console.log(checkout);
+      var checkout = new Date(Date.parse(checkin) + 86400000);
+      // var minCheckout =
+    }
+    $("#search-index-checkin").datepicker({
+      minDate: "0",
+      defaultDate: checkin,
+      changeMonth: true,
+      onClose: function(checkinDate) {
+        // console.log("checkin"+ checkinDate);
+        _this.updateCheckin(checkinDate);
 
-  openDateRangePicker: function() {
-    this.refs.dateRangeInput.focus();
+        // $('#search-index-checkout').datepicker("option", "minDate", checkinDate);
+      }
+    });
+    // need to fix defaultDate of checkout date after checkin date is selected
+    $("#search-index-checkout").datepicker({
+      // minDate: "+1d",
+      minDate: checkin,
+      defaultDate: checkout,
+      changeMonth: true,
+      onClose: function(checkoutDate) {
+        // console.log("checkout"+ checkoutDate);
+        _this.updateCheckout(checkoutDate);
+      }
+    });
   },
 
   loadPriceRange: function() {
@@ -134,6 +163,7 @@ var SearchForm = React.createClass({
   },
 
   componentDidUpdate: function() {
+    this.loadDatePicker(this.state.checkin, this.state.checkout);
   },
 
   componentWillUnmount: function() {
@@ -142,7 +172,7 @@ var SearchForm = React.createClass({
 
   componentDidMount: function() {
     // console.log("componentDidMount")
-    this.loadDateRangePicker();
+    this.loadDatePicker();
     this.loadPriceRange();
     this.formToken = FilterStore.addListener(this.updateParams);
     // this.autoFocus();
@@ -168,27 +198,27 @@ var SearchForm = React.createClass({
             </div>
             <form className="col-lg-9">
               <div className="row row-condensed">
-                <div className="col-md-8 row-space-1-sm">
-                  <div className="input-group">
-                    <span className="input-group-btn">
-                      <button
-                        className="btn btn-secondary"
-                        type="button"
-                        onClick={this.openDateRangePicker}>
-                        <i className="glyphicon glyphicon-calendar fa fa-calendar" />
-                      </button>
-                    </span>
-                    <input
-                      name="daterange"
-                      id="search-index-daterange"
-                      ref="dateRangeInput"
-                      className="form-control"
-                      type="text"
-                      autoComplete="off"
-                      placeholder="Check In - Check Out" />
-                  </div>
+                <div className="col-md-4 col-sm-6 row-space-1-sm">
+                  <input
+                     name="checkin"
+                     id="search-index-checkin"
+                     type="text"
+                     autoComplete="off"
+                     className="ui-datepicker-target"
+                     placeholder="Check In"
+                     valueLink={this.state.checkin}/>
                 </div>
-                <div className="col-md-4">
+                <div className="col-md-4 col-sm-6 row-space-1-sm">
+                  <input
+                     name="checkout"
+                     id="search-index-checkout"
+                     type="text"
+                     autoComplete="off"
+                     className="ui-datepicker-target"
+                     placeholder="Check Out"
+                     valueLink={this.state.checkout} />
+                </div>
+                <div className="col-md-4 col-sm-12">
                   <select
                      name="guests"
                      id="search-index-guest-select"

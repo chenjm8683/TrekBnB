@@ -127,11 +127,11 @@ var SearchIndex = React.createClass({
         <div className="container-fluid below-nav" id="sidx">
           <div className="col-xs-12 col-md-7 search-result" id="sidx-left">
             <div className="row">
-              <h2>Search Filter Placeholder</h2>
+              <h2 style={{display: "none"}}>Search Filter Placeholder</h2>
               <SearchForm />
             </div>
             <div className="row search-list-result" >
-              <h2>Search Result Header Placeholder</h2>
+              <h2 style={{display: "none"}}>Search Result Header Placeholder</h2>
               <List rooms={this.state.rooms} history={this.props.history} />
             </div>
           </div>
