@@ -211,6 +211,8 @@ body {
    margin: 6.25px 0 0;
    font-weight: normal;
    overflow: hidden;
+   text-overflow: ellipsis;
+   white-space: nowrap;
  }
 
  .body-container {
