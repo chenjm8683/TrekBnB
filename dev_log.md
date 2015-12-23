@@ -54,3 +54,5 @@ rails g controller Api::Reservations
 
 12/22/2015
 https://www.facilities.umd.edu/Style%20Library/FM%20Publishing/JQuery/daterangepicker/website/index.html#license
+styledMarker
+use canvas drawing for google markers

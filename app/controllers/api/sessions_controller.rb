@@ -10,7 +10,7 @@ class Api::SessionsController < ApplicationController
       render json: {error: "User not found"}, status: 401
     else
       login_user!(user)
-      render json: user
+      render json: current_user, :include => :user_profile
     end
   end
 
@@ -20,6 +20,6 @@ class Api::SessionsController < ApplicationController
   end
 
   def show
-    render json: current_user
+    render json: current_user, :include => :user_profile
   end
 end

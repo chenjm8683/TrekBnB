@@ -1,3 +1,5 @@
+// Not working
+
 /**
  * @name MarkerWithLabel for V3
  * @version 1.1.10 [April 8, 2014]
@@ -81,7 +83,7 @@ function MarkerLabel_(marker, crossURL, handCursorURL) {
   this.crossDiv_ = MarkerLabel_.getSharedCross(crossURL);
 }
 
-inherits(MarkerLabel_, new google.maps.OverlayView);
+inherits(MarkerLabel_, google.maps.OverlayView);
 
 /**
  * Returns the DIV for the cross used when dragging a marker when the

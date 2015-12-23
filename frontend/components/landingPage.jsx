@@ -13,8 +13,8 @@ var LandingPage = React.createClass({
 
     var bgVideoUrl = {
       local: "/assets/background/landing_bg_1.mp4",
-      cloudinary: "http://res.cloudinary.com/chenjm8683/video/upload/v1450725867/landing_bg_1_fdoyao.mp4",
-      cloudinaryHD: "http://res.cloudinary.com/chenjm8683/video/upload/v1450765349/landing_bg_1_hd_frxo1m.mp4"
+      cloudinary: "https://res.cloudinary.com/chenjm8683/video/upload/v1450725867/landing_bg_1_fdoyao.mp4",
+      cloudinaryHD: "https://res.cloudinary.com/chenjm8683/video/upload/v1450765349/landing_bg_1_hd_frxo1m.mp4"
     };
 
 

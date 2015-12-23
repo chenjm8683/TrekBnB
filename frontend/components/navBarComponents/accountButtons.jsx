@@ -19,7 +19,7 @@ var AccountButtons = React.createClass({
              aria-haspopup='true'
              aria-expanded='false'
              >
-            {this.props.currentUser.username}
+            {this.props.currentUser.user_profile.fname}
             <span className='caret'></span>
           </a>
           <ul className='dropdown-menu'>

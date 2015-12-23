@@ -29,6 +29,8 @@ html, body, #root, #app {
 
 body {
   background-color: #f5f5f5;
+  color: #565a5c;
+  line-height: 1.43;
 }
 
 .cursor-pointer {
@@ -182,9 +184,39 @@ body {
 
 
  .list-item-image {
-  //  padding-bottom: 67%;
-   height: 67%;
+   padding-bottom: 67%;
+  //  height: 67%;
    position: relative;
+   overflow: hidden;
+ }
+
+ .image-container {
+   position: absolute;
+   top: 0;
+   bottom: 0;
+   left: 0;
+   right: 0;
+ }
+
+ .list-item-body {
+   padding: 10px;
+   position: relative;
+ }
+
+ .body-container {
+
+ }
+ h3.listing-name {
+   font-size: 16px;
+   margin: 6.25px 0 0;
+   font-weight: normal;
+   overflow: hidden;
+ }
+
+ .body-container {
+   margin-bottom: 0;
+   margin-top: 0;
+
  }
 
  // for testing

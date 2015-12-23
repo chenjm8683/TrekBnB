@@ -1,5 +1,6 @@
 var React = require('react');
 var ListItemImage= require('./listItemImage.jsx');
+var ListItemBody = require('./listItemBody.jsx');
 
 
 
@@ -15,14 +16,13 @@ var ListItem = React.createClass({
   render: function() {
     var room = this.props.room;
     return(
-      <div className="col-xs-12 col-sm-6 row-space-2 col-md-6">
+      <div className="col-xs-12 col-sm-6 row-space-2">
         <div
           className="container-fluid cursor-pointer"
-          onClick={this.handleClick}>
-          <ListItemImage room={room}/>
-          <div className="list-item-body">
-            {this.props.room.id}
-          </div>
+          onClick={this.handleClick}
+          id={"room-" + room.id}>
+          <ListItemImage room={room} />
+          <ListItemBody room={room} />
         </div>
       </div>
     );

@@ -1,4 +1,5 @@
 json.id                       room.id
+json.title                    room.title
 json.host_fname               room.host_profile.fname
 json.type_id                  room.type_id
 json.type_string              Room::ROOM_TYPE[room.type_id]

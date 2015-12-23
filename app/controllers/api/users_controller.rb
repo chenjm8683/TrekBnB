@@ -7,7 +7,7 @@ class Api::UsersController < ApplicationController
     if @user.save
       # @user.create_user_profile!
       login_user!(@user)
-      render json: @user
+      render json: current_user, :include => :user_profile
       # render :user_account
     else
       render json: @user.errors.full_messages, status: 400

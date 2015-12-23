@@ -9,10 +9,30 @@
 
 # users
 User.create([
-  {username: "chenjm8683@gmail.com", password: "colin123"},
-  {username: "jeff@jeff.com", password: "jeff123"},
-  {username: "jon@jon.com", password: "jon123"},
-  {username: "max@max.com", password: "max123"}
+  {username: "colin@colinology.com",
+   password: "colin123",
+   user_profile_attributes: {
+     fname: "Colin",
+     lname: "Chen"
+     }},
+  {username: "axe@dota.com",
+   password: "axe123",
+   user_profile_attributes: {
+     fname: "Mogul",
+     lname: "Khan"
+     }},
+  {username: "storm@dota.com",
+   password: "storm123",
+   user_profile_attributes: {
+     fname: "Raijin",
+     lname: "Thunderkeg"
+     }},
+  {username: "sniper@dota.com",
+   password: "sniper123",
+   user_profile_attributes: {
+     fname: "Kardel",
+     lname: "Sharpeye"
+     }}
   ])
 
 Room.create([
@@ -68,7 +88,7 @@ Room.create([
     },
     {
       room_id: "3",
-      pic_url: "/v1450394753/8390615_1_a2mraa.webp"
+      pic_url: "/v1450819532/8390615_1_a2mraa.webp"
     }
     ])
 

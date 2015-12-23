@@ -135,7 +135,7 @@ var SearchIndex = React.createClass({
               <List rooms={this.state.rooms} history={this.props.history} />
             </div>
           </div>
-          <div className="col-md-5 search-map hidden-sm">
+          <div className="col-md-5 search-map hidden-xs">
             <Map centerLatLng={this.state.centerLatLng}/>
           </div>
         </div>

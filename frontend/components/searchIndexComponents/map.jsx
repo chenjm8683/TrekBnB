@@ -23,7 +23,7 @@ var Map = React.createClass({
     this._addMarkers(addRoomIds, newRooms);
     // debugger;
 
-    setTimeout(this._changeLabelContent,2000);
+    setTimeout(this._changeLabelContent,1000);
     // google.maps.event.addListenerOnce(this.map, 'idle', this._changeLabelContent);
   },
 
@@ -39,6 +39,7 @@ var Map = React.createClass({
     var _markers = this.markers;
     var _map = this.map;
     var image = "/assets/markers/pink.png";
+    var imageBlue = "/assets/markers/blue.png";
     var room, priceStr, pos;
     // var pinSymbol = function(color) {
     //   return {
@@ -77,6 +78,25 @@ var Map = React.createClass({
         // var label = ($("[style*='custom-label-"+ roomId + "']"))[0];
         // label.innerHTML = priceStr;
       // });
+      var toggleBounce = function(marker, status) {
+        if (status) {
+          marker.setAnimation(google.maps.Animation.BOUNCE);
+        } else {
+          marker.setAnimation(null);
+        }
+      };
+      google.maps.event.addDomListener(document.getElementById('room-' + roomId),
+                                      "mouseenter",
+                                       function() {
+        toggleBounce(_markers[roomId], true);
+      });
+      google.maps.event.addDomListener(document.getElementById('room-' + roomId),
+                                      "mouseleave",
+                                       function() {
+        toggleBounce(_markers[roomId], false);
+      });
+
+
 
     });
   },
