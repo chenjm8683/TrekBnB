@@ -1,11 +1,11 @@
 var React = require('react');
-var UserActions = require('../../actions/userAction.js');
+var SessionActions = require('../../actions/sessionAction.js');
 
 
 var AccountButtons = React.createClass({
 
   handleLogOut: function() {
-    UserActions.logOut();
+    SessionActions.logOut();
   },
 
   render: function() {

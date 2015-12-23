@@ -1,6 +1,6 @@
 var React = require('react');
 var LinkedStateMixin = require('react-addons-linked-state-mixin');
-var UserActions = require('../../actions/userAction.js');
+var SessionActions = require('../../actions/sessionAction.js');
 
 
 var SignUpForm = React.createClass({
@@ -28,7 +28,7 @@ var SignUpForm = React.createClass({
         errors: this.errors
       });
     } else {
-      UserActions.signUp({
+      SessionActions.signUp({
         username: this.state.username,
         password: this.state.password,
         user_profile_attributes: {

@@ -1,6 +1,6 @@
 var React = require('react');
 var LinkedStateMixin = require('react-addons-linked-state-mixin');
-var UserActions = require('../../actions/userAction.js');
+var SessionActions = require('../../actions/sessionAction.js');
 
 var LoginModalForm = React.createClass({
   mixins: [LinkedStateMixin],
@@ -15,7 +15,7 @@ var LoginModalForm = React.createClass({
   handleSubmit: function(e) {
     e.preventDefault();
     // this.props.closeModal();
-    UserActions.logIn({
+    SessionActions.logIn({
       username: this.state.username,
       password: this.state.password
     });

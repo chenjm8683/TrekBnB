@@ -6,7 +6,7 @@ var RoomImage = React.createClass({
       <div className="room-img-container">
         <img
           src="/assets/rooms/51557_1.jpg"
-          className="img-responsive" />
+          className="img-responsive room-img" />
       </div>
     );
   }

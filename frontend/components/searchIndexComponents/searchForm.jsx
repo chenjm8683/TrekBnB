@@ -13,8 +13,7 @@ var SearchForm = React.createClass({
     return ({
       checkin: dates.checkin,
       checkout: dates.checkout,
-      guests: FilterStore.currentGuests(),
-      focus: (dates.checkin === null ? "checkin" : null)
+      guests: FilterStore.currentGuests()
     })
   },
 
@@ -99,10 +98,6 @@ var SearchForm = React.createClass({
   updateGuests: function() {
     FilterActions.updateGuests(this.state.guests);
   },
-
-  // registerOnBlur: function(e) {
-  //   e.currentTarget.onBlur(this.updateCheckin);
-  // },
 
   loadDateRangePicker: function() {
     $(this.refs.dateRangeInput).daterangepicker({
@@ -192,6 +187,7 @@ var SearchForm = React.createClass({
                   <select
                      name="guests"
                      id="search-index-guest-select"
+                     className="form-control"
                      onChange={this.updateGuests}>
                      <option value="1">1 Guest</option>
                      <option value="2">2 Guest</option>

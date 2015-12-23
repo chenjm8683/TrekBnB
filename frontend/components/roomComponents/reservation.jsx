@@ -222,17 +222,17 @@ var Reservation = React.createClass({
     );
 
     return(
-      <div className="col-md-4">
-        <div className="row">
+      <div className="col-md-4 rsvp-tab">
+        <div className="row rsvp-ppn">
           <h3>{"$" + pricePerNight + " Per Night"}</h3>
         </div>
-        <div className="row">
+        <div className="row rsvp-params">
           <ReservationDatesGuests room={this.props.room}/>
         </div>
-        <div className="row">
+        <div className="row rsvp-calc">
           Price Calc
         </div>
-        <div className="row" style={{height: "300px"}}>
+        <div className="row rsvp-button" style={{height: "300px"}}>
           blank box
         </div>
       </div>

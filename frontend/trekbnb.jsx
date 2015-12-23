@@ -8,7 +8,8 @@ var Router = ReactRouter.Router;
 var LandingPage = require('./components/landingPage.jsx');
 var NavBar = require('./components/navBar.jsx');
 var SearchIndex = require('./components/searchIndex.jsx');
-var RoomIndex = require('./components/roomIndex.jsx')
+var RoomIndex = require('./components/roomIndex.jsx');
+var UserIndex = require('./components/userIndex.jsx');
 
 
 var JSLoaderAction = require('./actions/jsLoaderAction.js');
@@ -38,6 +39,7 @@ var routes = (
     <IndexRoute component={LandingPage} />
     <Route path="search/:loc" component={SearchIndex}></Route>
     <Route path="rooms/:roomId" component={RoomIndex}></Route>
+    <Route path="users/" component={UserIndex}></Route>
   </Route>
 );
 
