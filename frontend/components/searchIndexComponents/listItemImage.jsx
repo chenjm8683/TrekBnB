@@ -11,7 +11,7 @@ var ListItemImage = React.createClass({
           <img
             src={img_url}
             alt="/assets/rooms/51557_0.jpg"
-            className="img-responsive">
+            className="img-responsive list-image">
           </img>
         </div>
       </div>

@@ -182,6 +182,15 @@ body {
  }
 
 
+ .row-space-5 {
+   margin-top: 5%;
+ }
+
+ .search-list-listings {
+   padding-bottom: 10%;
+ }
+
+
 
  .list-item-image {
    padding-bottom: 67%;
@@ -198,9 +207,15 @@ body {
    right: 0;
  }
 
+ .list-image {
+   border-radius: 12px;
+ }
+
  .list-item-body {
    padding: 10px;
    position: relative;
+   border-radius: 0 0 12px 12px;
+   background: #E7ECEE;
  }
 
  .body-container {

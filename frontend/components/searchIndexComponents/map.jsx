@@ -124,6 +124,10 @@ var Map = React.createClass({
     this.markerBg = document.getElementById("pinkmarker");
   },
 
+  componentWillUnmount: function() {
+    this.mapToken.remove();
+  },
+
   componentWillReceiveProps: function(newProps) {
     var newCenter = newProps.centerLatLng;
     // if the new center is the same, do nothing
