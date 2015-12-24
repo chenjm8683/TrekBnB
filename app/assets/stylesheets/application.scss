@@ -33,6 +33,19 @@ body {
   line-height: 1.43;
 }
 
+.span-btn-stylefix {
+  z-index: 1000;
+}
+
+.btn-stylefix {
+  background-color: rgba(0, 0, 0, 0.1);
+  border: 1px solid #ccc;
+
+}
+.input-stylefix {
+  z-index:900;
+}
+
 .cursor-pointer {
   cursor: pointer;
 }
@@ -260,12 +273,13 @@ body {
 
  .rsvp-tab {
    position: absolute;
-   padding-left: 0;
-   padding-right: 0;
+   padding-left: 15px;
+   padding-right: 15px;
    right: 10%;
    top: calc(80% - 45px);
-   background-color: hsla(120,100%,25%,0.3);
+   background-color: rgba(203, 42, 248, 0.08);
  }
+
  .tsvp-tab > div {
    left: 0;
    position:absolute;
@@ -273,13 +287,18 @@ body {
    padding-right: 0;
    height: 45px;
    width: 100%;
+   border-left: 1px solid #dce0e0;
  }
  .rsvp-ppn {
   //  top: 0;
    height: 45px;
   //  width: 100%;
-   background-color: hsla(290,60%,70%,0.3);
-   color: red;
+   background-color: rgba(5, 51, 168, 0.75);
+ }
+ .rsvp-ppn>h3 {
+   margin-top: 10px;
+   padding: 6px;
+   color: rgb(42, 231, 248);
  }
 
  // for testing

@@ -4,10 +4,11 @@ var LinkedStateMixin = require('react-addons-linked-state-mixin');
 var RsvpStore = require('../../stores/rsvpStore.js');
 var RsvpActions = require('../../actions/rsvpAction.js');
 var FilterActions = require('../../actions/filterAction.js');
+var DateTools = require('../../helpers/date.js');
 
 
 var ReservationDatesGuests = React.createClass({
-  // mixins: [LinkedStateMixin],
+  mixins: [LinkedStateMixin],
   getInitialState: function() {
     // debugger;
 
@@ -15,86 +16,105 @@ var ReservationDatesGuests = React.createClass({
     return ({
       checkin: dates.checkin,
       checkout: dates.checkout,
+      dateRange: (dates.checkin === null ? "" : dates.checkin + " - " + dates.checkout),
       guests: FilterStore.currentGuests(),
-      showResult: false
+      showResult: false,
+      disableInput: false
     });
   },
 
   updateResult: function() {
     this.setState({
+      disableInput: false,
       showResult: RsvpStore.isVerified()
     });
   },
 
   checkAvailability: function() {
     RsvpActions.checkAvailability(this.props.room.id);
+    // this.setState({
+    //   disableInput: true
+    // });
   },
 
-  updateInputCheckin: function(e) {
-    this.setState({
-      checkin: e.currentTarget.value,
-      showResult: false
-    });
-  },
-
-  updateInputCheckout: function(e) {
-    this.setState({
-      checkout: e.currentTarget.value,
-      showResult: false
-    });
-  },
-
-  updateCheckin: function(checkinDate) {
-    this.setState({
-      checkin: checkinDate,
-      showResult: false
-    });
-    this.verifyAndUpdateDates();
-  },
+  // updateDateRange: function(e) {
+  //   // debugger;
+  //   var dates = e.currentTarget.value.split(" - ");
+  //   FilterActions.updateDates({
+  //     checkin: dates[0],
+  //     checkout: dates[1]
+  //   });
+  //   this.setState({
+  //     checkin: dates[0],
+  //     checkout: dates[1],
+  //     dateRange: e.currentTarget.value,
+  //     showResult: false
+  //   });
+  // },
 
 
-  updateCheckout: function(checkoutDate) {
-    this.setState({
-      checkout: checkoutDate,
-      showResult: false
-    });
-    this.verifyAndUpdateDates();
-  },
-
-  verifyAndUpdateDates: function() {
-    var checkin = this.state.checkin;
-    var checkout = this.state.checkout;
-    if (checkin !== null && checkout !== null && Date.parse(checkin) < Date.parse(checkout)){
-      FilterActions.updateDates({
-        checkin: checkin,
-        checkout: checkout
-      });
-    }
-  },
-
-
-
-  // simple version, need to add beforeShowDay function to disable unavailable days
-  loadDatePicker: function(checkin, checkout) {
+  loadDateRangePicker: function() {
+    var minDate = DateTools.todayStr();
+    var maxDate = DateTools.yearsAfterDateStr(3, minDate);
+    var inputDomNode = this.refs.roomDateRangeInput;
     var _this = this;
-    console.log("loadPicker");
-    var defaultCheckin = _this.state.checkin || Date.now()
-    $("#room-index-checkin").datepicker({
-      minDate: "0",
-      defaultDate: _this.state.checkin,
-      dateFormat: 'mm/dd/yy',
-      // defaultDate: '12/30/2015',
-      onClose: function(checkinDate) {
-        _this.updateCheckin(checkinDate);
+    $(inputDomNode).daterangepicker({
+      autoApply: true,
+      drops: "up",
+      showDropdowns: true,
+      minDate: minDate,
+      maxDate: maxDate,
+      autoUpdateInput: false
+    });
+    // $(inputDomNode).on('apply.daterangepicker', function(ev, picker) {
+    //   var checkin = picker.startDate.format('MM/DD/YYYY');
+    //   var checkout = picker.endDate.format('MM/DD/YYYY');
+    //   _this.updateFilterParams(checkin, checkout);
+    //   _this.disableInput(checkin, checkout);
+    // });
+    $(inputDomNode).on('hide.daterangepicker', function(ev, picker) {
+      console.log('hide')
+      var checkin = picker.startDate.format('MM/DD/YYYY');
+      var checkout = picker.endDate.format('MM/DD/YYYY');
+      var momentToday = moment().startOf('day');
+      var validInput = ( moment(checkin, "MM-DD-YYYY").diff(momentToday) >= 0
+                        && moment(checkout, "MM-DD-YYYY").diff(momentToday) > 0
+                        && moment(checkout, "MM-DD-YYYY").diff(moment(checkin, "MM-DD-YYYY")) > 0
+                      );
+      if (validInput) {
+        _this.updateFilterParams(checkin, checkout);
+        _this.updateDateRangeInput(checkin, checkout);
+      } else {
+        console.log('invalid');
+        _this.dateRange = "";
+        // debugger;
+        $(_this.refs.roomDateRangeInput).data('daterangepicker').autoUpdateInput = false;
+        $(_this.refs.roomDateRangeInput).val("");
+        RsvpActions.resetRsvp();
+        // $(_this.refs.roomDateRangeInput).data('daterangepicker').setStartDate("");
+        // $(_this.refs.roomDateRangeInput).data('daterangepicker').setEndDate("");
+        // $(_this.refs.roomDateRangeInput).value = "";
       }
     });
-    $("#room-index-checkout").datepicker({
-      minDate: "0",
-      defaultDate: _this.state.checkout,
-      dateFormat: 'mm/dd/yy',
-      onClose: function(checkoutDate) {
-        _this.updateCheckout(checkoutDate);
-      }
+  },
+
+  updateFilterParams: function(checkin, checkout) {
+    FilterActions.updateDates({
+      checkin: checkin,
+      checkout: checkout
+    });
+  },
+
+  updateDateRangeInput: function(checkin, checkout) {
+    console.log(checkin + checkout);
+    $(this.refs.roomDateRangeInput).data('daterangepicker').autoUpdateInput = true;
+    $(this.refs.roomDateRangeInput).data('daterangepicker').setStartDate(checkin);
+    $(this.refs.roomDateRangeInput).data('daterangepicker').setEndDate(checkout);
+    this.dateRange = checkin + " - " + checkout;
+    this.setState({
+      checkin: checkin,
+      checkout: checkout,
+      disableInput: true
     });
   },
 
@@ -105,10 +125,9 @@ var ReservationDatesGuests = React.createClass({
   },
 
   componentDidMount: function() {
-    this.loadDatePicker();
+    this.loadDateRangePicker();
     this.filterStoreToken = FilterStore.addListener(this.checkAvailability);
     this.rsvpStoreToken = RsvpStore.addListener(this.updateResult);
-    this.verifyAndUpdateDates();
   },
 
 
@@ -118,6 +137,7 @@ var ReservationDatesGuests = React.createClass({
   },
 
   render: function() {
+    // console.log("rsvpDG renders")
     var buildGuestOptions = function(n) {
       n = parseInt(n);
       var i = 1;
@@ -130,35 +150,28 @@ var ReservationDatesGuests = React.createClass({
       }
       return guestOptions;
     };
-    console.log("beforeloading")
+    // console.log("beforeloading")
     var result = "";
     if(this.state.showResult) {
       result = RsvpStore.isAvailable() ? "Available" : "Those dates are not available"
     }
+
+    // var dateRange = this.state.checkin + " - " + this.state.checkout;
+    // if (this.state.checkin)
     return (
-      <form className="col-md-12">
+      <div className="col-md-12">
         <div className="row row-condensed">
-          <div className="col-sm-4 row-space-1-sm">
+          <div className="col-sm-9 row-space-1-sm">
             <input
-               name="checkin"
-               id="room-index-checkin"
+               name="daterange"
+               id="room-index-daterange"
+               ref="roomDateRangeInput"
                type="text"
                autoComplete="off"
-               className="ui-datepicker-target col-sm-12"
-               placeholder="Check In"
-               value={this.state.checkin}
-               onChange={this.updateInputCheckin}/>
-          </div>
-          <div className="col-sm-4 row-space-1-sm">
-            <input
-               name="checkout"
-               id="room-index-checkout"
-               type="text"
-               autoComplete="off"
-               className="ui-datepicker-target col-sm-12"
-               placeholder="Check Out"
-               value={this.state.checkout}
-               onChange={this.updateInputCheckout} />
+               className="form-control"
+               placeholder="Check In - Check Out"
+               disabled={this.state.disableInput}
+               value={this.dateRange}/>
           </div>
           <div className="col-sm-2">
             <select
@@ -172,7 +185,7 @@ var ReservationDatesGuests = React.createClass({
         <div className="row">
           <p>{result}</p>
         </div>
-      </form>
+      </div>
     );
   }
 });

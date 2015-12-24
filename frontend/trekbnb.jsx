@@ -4,12 +4,14 @@ var ReactRouter = require('react-router');
 var Route = ReactRouter.Route;
 var IndexRoute = ReactRouter.IndexRoute;
 var Router = ReactRouter.Router;
+var Redirect = ReactRouter.Redirect;
 
 var LandingPage = require('./components/landingPage.jsx');
 var NavBar = require('./components/navBar.jsx');
 var SearchIndex = require('./components/searchIndex.jsx');
 var RoomIndex = require('./components/roomIndex.jsx');
 var UserIndex = require('./components/userIndex.jsx');
+var TripIndex = require('./components/TripIndex.jsx');
 
 
 var JSLoaderAction = require('./actions/jsLoaderAction.js');
@@ -34,12 +36,21 @@ var App = React.createClass({
   }
 });
 
+// var SearchRedirectToDefaultValue = React.createClass({
+//   willTransitionTo: function(transition) {
+//     transition.redirect('/search/san-francisco');
+//   },
+//   render: function() { return null; }
+// });
+
 var routes = (
   <Route path="/" component={App}>
     <IndexRoute component={LandingPage} />
-    <Route path="search/:loc" component={SearchIndex}></Route>
+    <Route path="/search/:loc" component={SearchIndex} />
+    <Redirect path="/search" to="/search/san-francisco" />
     <Route path="rooms/:roomId" component={RoomIndex}></Route>
     <Route path="users/" component={UserIndex}></Route>
+    <Route path="trips/" component={TripIndex} />
   </Route>
 );
 

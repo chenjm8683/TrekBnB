@@ -81,6 +81,19 @@ Room.create([
     primary_pic_id: "3",
     max_guest_num: "2",
     bed_num: "1"
+  },
+  # airbnb:6993593
+  {
+    host_id: "3",
+    title: "Beautiful San Francisco Ca.",
+    type_id: "2",
+    price: "142",
+    city: "San Francisco",
+    lat: "37.803448",
+    lng: "-122.410559",
+    primary_pic_id: "4",
+    max_guest_num: "2",
+    bed_num: "1"
   }
   ])
 
@@ -96,6 +109,10 @@ Room.create([
     {
       room_id: "3",
       pic_url: "/v1450819532/8390615_1_a2mraa.webp"
+    },
+    {
+      room_id: "4",
+      pic_url: "/v1450912662/6993593_1_s9xabc.webp"
     }
     ])
 

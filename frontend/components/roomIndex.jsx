@@ -49,7 +49,7 @@ var RoomIndex = React.createClass({
       // may need to refactor using nested route
       return (
         <div className="container-fluid full-width below-nav room">
-          <RoomImage />
+          <RoomImage room={room}/>
           <RoomDetails room={room}/>
           <Reservation room={room}/>
         </div>

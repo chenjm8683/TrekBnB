@@ -100,7 +100,7 @@ var SearchForm = React.createClass({
   },
 
   loadDateRangePicker: function() {
-    $(this.refs.dateRangeInput).daterangepicker({
+    $(this.refs.searchDateRangeInput).daterangepicker({
       autoApply: true,
       minDate: this.minCheckin,
       maxDate: this.maxCheckout
@@ -108,7 +108,7 @@ var SearchForm = React.createClass({
   },
 
   openDateRangePicker: function() {
-    this.refs.dateRangeInput.focus();
+    this.refs.searchDateRangeInput.focus();
   },
 
   loadPriceRange: function() {
@@ -165,9 +165,9 @@ var SearchForm = React.createClass({
               <div className="row row-condensed">
                 <div className="col-md-8 row-space-1-sm">
                   <div className="input-group">
-                    <span className="input-group-btn">
+                    <span className="input-group-btn span-btn-stylefix">
                       <button
-                        className="btn btn-secondary"
+                        className="btn btn-secondary btn-stylefix"
                         type="button"
                         onClick={this.openDateRangePicker}>
                         <i className="glyphicon glyphicon-calendar fa fa-calendar" />
@@ -176,8 +176,8 @@ var SearchForm = React.createClass({
                     <input
                       name="daterange"
                       id="search-index-daterange"
-                      ref="dateRangeInput"
-                      className="form-control"
+                      ref="searchDateRangeInput"
+                      className="form-control input-stylefix"
                       type="text"
                       autoComplete="off"
                       placeholder="Check In - Check Out" />
