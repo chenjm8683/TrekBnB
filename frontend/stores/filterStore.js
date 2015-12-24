@@ -55,11 +55,25 @@ FilterStore.currentDates = function() {
   //   return _currentParams.dates;
   // }
   return _currentParams.dates || {checkin: null, checkout: null};
-},
+};
+
+FilterStore.hasDates = function() {
+  return _currentParams.dates && _currentParams.dates.checkin && _currentParams.dates.checkout;
+};
+
+FilterStore.nights = function() {
+  if (FilterStore.hasDates()) {
+    var mCheckin = moment(_currentParams.dates.checkin, 'MM-DD-YYYY');
+    var mCheckout = moment(_currentParams.dates.checkout, 'MM-DD-YYYY');
+    return mCheckout.diff(mCheckin, 'days');
+  } else {
+    return null;
+  }
+};
 
 FilterStore.currentGuests = function() {
   return _currentParams.guests || "1";
-}
+};
 
 
 

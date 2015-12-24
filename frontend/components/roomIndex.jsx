@@ -32,6 +32,16 @@ var RoomIndex = React.createClass({
     });
   },
 
+  componentWillReceiveProps: function(newProps) {
+    var newRoomId = newProps.params.roomId;
+    if(this.state.room.id.toString() !== newRoomId) {
+      this.setState({
+        hasDetail: false
+      });
+      RoomAction.fetchRoomDetail(newRoomId);
+    }
+  },
+
   componentWillUnmount: function() {
     this.roomIndexToken.remove();
   },

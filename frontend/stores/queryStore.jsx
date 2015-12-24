@@ -1,7 +1,7 @@
 var Store = require('flux/utils').Store;
 var AppDispatcher = require('../dispatcher/dispatcher.js');
-var RsvpConstants = require('../constants/rsvpConstants.js');
-var RsvpStore = new Store(AppDispatcher);
+var QueryConstants = require('../constants/queryConstants.js');
+var QueryStore = new Store(AppDispatcher);
 
 var _rsvpConfParams = {
   roomId: "",
@@ -41,29 +41,29 @@ var verified = function(avail) {
     verified: true,
     avail: avail
   };
-};
+}
 
-RsvpStore.all = function() {
+QueryStore.all = function() {
   return Object.assign({}, _rsvpParams);
 };
 
-RsvpStore.isVerified = function(){
+QueryStore.isVerified = function(){
   return _rsvpStatus.verified;
 };
 
-RsvpStore.isAvailable = function(){
-  return _rsvpStatus.verified && _rsvpStatus.avail;
+QueryStore.isAvailable = function(){
+  return _rsvpStatus.avail;
 };
 
-RsvpStore.__onDispatch = function(payload) {
+QueryStore.__onDispatch = function(payload) {
   switch(payload.actionType) {
     case RsvpConstants.DETAILS_RECEIVED:
       verified(payload.avail);
-      RsvpStore.__emitChange();
+      QueryStore.__emitChange();
       break;
     case RsvpConstants.RESET_RSVPSTORE:
-      resetRsvpStore();
-      RsvpStore.__emitChange();
+      resetQueryStore();
+      QueryStore.__emitChange();
       break;
 
       // phase B datepicker
@@ -73,4 +73,4 @@ RsvpStore.__onDispatch = function(payload) {
 };
 
 
-module.exports = RsvpStore;
+module.exports = QueryStore;

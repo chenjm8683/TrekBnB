@@ -2,7 +2,8 @@ var React = require('react');
 // var FilterStore = require('../../stores/filterStore.js');
 // var FilterActions = require('../../actions/filterAction.js');
 
-var ReservationDatesGuests = require('./ReservationDatesGuests');
+var ReservationDatesGuests = require('./reservationDatesGuests.jsx');
+var Pricing = require('./pricing.jsx');
 
 
 var Reservation = React.createClass({
@@ -13,6 +14,7 @@ var Reservation = React.createClass({
   },
 
   componentWillReceiveProps: function(newProps) {
+    debugger;
     this.setState({
       room: newProps.room
     })
@@ -32,13 +34,13 @@ var Reservation = React.createClass({
           <ReservationDatesGuests room={this.state.room}/>
         </div>
         <div className="row rsvp-calc">
-          Price Calc
+          <Pricing room={this.state.room} />
         </div>
         <div className="row rsvp-button" style={{height: "300px"}}>
           blank box
         </div>
       </div>
-    )
+    );
   }
 });
 

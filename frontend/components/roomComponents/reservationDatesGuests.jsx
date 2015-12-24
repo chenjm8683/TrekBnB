@@ -58,14 +58,30 @@ var ReservationDatesGuests = React.createClass({
     var maxDate = DateTools.yearsAfterDateStr(3, minDate);
     var inputDomNode = this.refs.roomDateRangeInput;
     var _this = this;
-    $(inputDomNode).daterangepicker({
+    var dateRangeOptions = {
       autoApply: true,
       drops: "up",
       showDropdowns: true,
       minDate: minDate,
       maxDate: maxDate,
       autoUpdateInput: false
-    });
+    }
+    if(this.state.dateRange !== "") {
+      dateRangeOptions.autoUpdateInput = true;
+      dateRangeOptions.startDate = this.state.checkin;
+      dateRangeOptions.endDate = this.state.checkout;
+    }
+    // $(inputDomNode).daterangepicker({
+    //   autoApply: true,
+    //   drops: "up",
+    //   showDropdowns: true,
+    //   minDate: minDate,
+    //   maxDate: maxDate,
+    //   autoUpdateInput: false
+    // });
+
+    $(inputDomNode).daterangepicker(dateRangeOptions);
+
     // $(inputDomNode).on('apply.daterangepicker', function(ev, picker) {
     //   var checkin = picker.startDate.format('MM/DD/YYYY');
     //   var checkout = picker.endDate.format('MM/DD/YYYY');
@@ -120,6 +136,7 @@ var ReservationDatesGuests = React.createClass({
 
 
   componentWillUnmount: function() {
+    console.log("calendar unmounted")
     this.filterStoreToken.remove();
     this.rsvpStoreToken.remove();
   },
@@ -131,10 +148,8 @@ var ReservationDatesGuests = React.createClass({
   },
 
 
+  // fixed! need to fix the issue: when params.roomId changes, checkin-checkout values will not be displayed
 
-  componentWillReceiveProps: function() {
-    // this.loadDatePicker();
-  },
 
   render: function() {
     // console.log("rsvpDG renders")
