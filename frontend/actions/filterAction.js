@@ -35,6 +35,12 @@ var FilterActions = {
       actionType: FilterConstants.UPDATEGUESTS,
       guests: guests
     });
+  },
+
+  resetDates: function() {
+    AppDispatcher.dispatch({
+      actionType: FilterConstants.RESETDATES
+    });
   }
 
 

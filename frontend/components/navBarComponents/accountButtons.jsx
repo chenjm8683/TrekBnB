@@ -4,7 +4,8 @@ var SessionActions = require('../../actions/sessionAction.js');
 
 var AccountButtons = React.createClass({
 
-  handleLogOut: function() {
+  handleLogOut: function(e) {
+    e.preventDefault();
     SessionActions.logOut();
   },
 

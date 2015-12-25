@@ -31,7 +31,12 @@ var ReservationDatesGuests = React.createClass({
   },
 
   checkAvailability: function() {
-    RsvpActions.checkAvailability(this.props.room.id);
+    if (FilterStore.hasDates()) {
+      RsvpActions.checkAvailability(this.props.room.id);
+    } else {
+      // console.log("action: resetrsvp")
+
+    }
     // this.setState({
     //   disableInput: true
     // });
@@ -59,12 +64,12 @@ var ReservationDatesGuests = React.createClass({
     var inputDomNode = this.refs.roomDateRangeInput;
     var _this = this;
     var dateRangeOptions = {
-      autoApply: true,
-      drops: "up",
-      showDropdowns: true,
-      minDate: minDate,
-      maxDate: maxDate,
-      autoUpdateInput: false
+      "autoApply": true,
+      "opens": "left",
+      "showDropdowns": true,
+      "minDate": minDate,
+      "maxDate": maxDate,
+      "autoUpdateInput": false
     }
     if(this.state.dateRange !== "") {
       dateRangeOptions.autoUpdateInput = true;
@@ -106,6 +111,7 @@ var ReservationDatesGuests = React.createClass({
         // debugger;
         $(_this.refs.roomDateRangeInput).data('daterangepicker').autoUpdateInput = false;
         $(_this.refs.roomDateRangeInput).val("");
+        FilterActions.resetDates();
         RsvpActions.resetRsvp();
         // $(_this.refs.roomDateRangeInput).data('daterangepicker').setStartDate("");
         // $(_this.refs.roomDateRangeInput).data('daterangepicker').setEndDate("");
@@ -177,6 +183,13 @@ var ReservationDatesGuests = React.createClass({
       <div className="col-md-12">
         <div className="row row-condensed">
           <div className="col-sm-9 row-space-1-sm">
+            <h5 style={{textAlign:"center"}}>
+              {this.state.checkin === null ? "" : "Check In - Check Out"}
+            </h5>
+          </div>
+        </div>
+        <div className="row row-condensed">
+          <div className="col-sm-9 row-space-1-sm">
             <input
                name="daterange"
                id="room-index-daterange"
@@ -186,7 +199,8 @@ var ReservationDatesGuests = React.createClass({
                className="form-control"
                placeholder="Check In - Check Out"
                disabled={this.state.disableInput}
-               value={this.dateRange}/>
+               value={this.dateRange}
+               style={{textAlign:"center"}}/>
           </div>
           <div className="col-sm-2">
             <select

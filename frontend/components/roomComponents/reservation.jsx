@@ -4,6 +4,7 @@ var React = require('react');
 
 var ReservationDatesGuests = require('./reservationDatesGuests.jsx');
 var Pricing = require('./pricing.jsx');
+var ReservationButton = require('./reservationButton.jsx');
 
 
 var Reservation = React.createClass({
@@ -37,7 +38,7 @@ var Reservation = React.createClass({
           <Pricing room={this.state.room} />
         </div>
         <div className="row rsvp-button" style={{height: "300px"}}>
-          blank box
+          <ReservationButton />
         </div>
       </div>
     );

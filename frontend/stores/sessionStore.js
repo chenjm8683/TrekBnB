@@ -21,6 +21,10 @@ SessionStore.all = function () {
   return _currentUser;
 };
 
+SessionStore.hasCurrentUser = function() {
+  return Object.keys(_currentUser).length > 0;
+};
+
 SessionStore.__onDispatch = function (payload) {
   switch(payload.actionType) {
     case SessionConstants.RECEIVENEWUSER:

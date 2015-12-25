@@ -8,10 +8,15 @@ var LandingSearchBar = React.createClass({
   // mixins: [LinkedStateMixin],
 
   getInitialState: function() {
+    this.styleSheetShow = document.createElement('style');
+    this.styleSheetShow.innerHTML = ".pac-container {display: block;}";
+    // this.styleSheetHide = document.createElement('style');
+    // this.styleSheetHide.innerHTML = ".pac-container {display: none;}";
+
     return ({
       loc: "",
       placeholder: "Where do you want to go?",
-      // showAutocomplete: false,
+      showAutocomplete: false,
       showSpinner: false
     });
   },
@@ -20,23 +25,43 @@ var LandingSearchBar = React.createClass({
     // debugger;
     // this.refs.searchbar.style{{bottom: "10%"}}
     $("#landing-search-bar").css("bottom", "20%");
-    // setTimeout(function(){
-    //     this.setState({
-    //       showAutocomplete: true
-    //     });
-    // }.bind(this), 2000);
+    setTimeout(function(){
+        this.setState({
+          showAutocomplete: true
+        });
+        // debugger;
+    }.bind(this), 1800);
+    // this.hideAutocomplete();
+    // this.tempToken = setTimeout(this.showAutocomplete, 2000);
   },
+
+  // showAutocomplete: function() {
+  //   // document.body.appendChild(this.styleSheetShow);
+  //   document.body.appendChild(this.styleSheetShow);
+  // },
+  //
+  // hideAutocomplete: function() {
+  //   // clearTimeout(this.tempToken);
+  //   // document.body.appendChild(this.styleSheetHide);
+  // },
 
   searchBarMoveBack: function() {
     $("#landing-search-bar").css("bottom", "0%");
-    // this.setState({
-    //   showAutocomplete: false
-    // });
+    // this.hideAutocomplete();
+
+    // setTimeout(function(){
+      this.setState({
+        showAutocomplete: false
+      });
+    //     // debugger;
+    // }.bind(this), 500);
   },
 
 
   handleSearch: function(e) {
-    // e.preventDefault();
+    if (arguments.length > 0) {
+      e.preventDefault();
+    }
 
     // may use History mixins;
     // this.history.pushState(null, 'search/' + this.state.loc)
@@ -128,10 +153,11 @@ var LandingSearchBar = React.createClass({
         <div className="row">
           <div className="col-xs-offset-2 col-xs-8">
             <div className="col-xs-offset-2 col-xs-8">
-              <form className="input-group" role="form">
+              <form className="input-group" role="form" onSubmit={this.handleSearch}>
                 <input
                    type="text"
                    className="form-control"
+                   id="landing-search-input"
                    onChange={this.handleLocChange}
                    placeholder={this.state.placeholder}
                    ref="locinput"
@@ -147,9 +173,9 @@ var LandingSearchBar = React.createClass({
       </div>
     );
 
-    // var showAutocomplete = (this.state.loc !== "") && this.state.showAutocomplete;
+    var showAutocomplete = (this.state.loc !== "") && this.state.showAutocomplete;
     // console.log("toggle autocomplete: " + showAutocomplete)
-    var showAutocomplete = (this.state.loc !== "");
+    // var showAutocomplete = (this.state.loc !== "");
     return (
 
       <div className="col-xs-12" id="landing-search-bar" ref="searchbar">

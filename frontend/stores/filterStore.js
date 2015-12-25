@@ -26,6 +26,11 @@ var _updateGuests = function(guests) {
   _currentParams.guests = guests;
 };
 
+var _resetDates = function() {
+  console.log("dates-reset")
+  _currentParams.dates = {checkin: null, checkout: null};
+};
+
 
 
 
@@ -96,6 +101,10 @@ FilterStore.__onDispatch = function(payload) {
       FilterStore.__emitChange();
     case FilterConstants.UPDATEGUESTS:
       _updateGuests(payload.guests);
+      FilterStore.__emitChange();
+      break;
+    case FilterConstants.RESETDATES:
+      _resetDates();
       FilterStore.__emitChange();
       break;
   }

@@ -307,6 +307,13 @@ body {
   -webkit-transition: bottom 2s, -webkit-transform 2s;
   transition: bottom 2s, transform 2s;
 }
+
+.pac-container {
+  -webkit-transition: all 2s, -webkit-transform 2s;
+  transition: all 2s, transform 2s;
+}
+
+
 // #landing-search-bar:hover {
 //   bottom: 10%;
 // }
@@ -369,8 +376,8 @@ body {
 // fadein
 
 .animated {
-  -webkit-animation-duration: 15s;
-  animation-duration: 15s;
+  -webkit-animation-duration: 10.5s;
+  animation-duration: 10.5s;
   -webkit-animation-fill-mode: both;
   animation-fill-mode: both;
 }
