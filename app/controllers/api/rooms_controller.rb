@@ -73,7 +73,7 @@ class Api::RoomsController < ApplicationController
                             :southWest => [:lat, :lng]
                            },
                     :dates => [:checkin, :checkout]
-                           })
+                           }, :guests)
     # params.require(:filter)
   end
 

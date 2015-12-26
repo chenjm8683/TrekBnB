@@ -24,7 +24,10 @@ var ReservationButton = React.createClass({
   },
 
   openCalendar: function() {
-    debugger;
+    document.getElementById('room-index-daterange').focus();
+  },
+  openLogin: function() {
+    document.getElementsByClassName('glyphicon-log-in')[0].click();
   },
 
   componentWillUnmount: function() {
@@ -38,11 +41,13 @@ var ReservationButton = React.createClass({
   },
 
   render: function() {
+    debugger;
     var buttons = {
       login: (
         <button
           type="button"
-          className="btn btn-lg btn-primary center-block">
+          className="btn btn-lg btn-primary center-block"
+          onClick={this.openLogin}>
           Login to book
         </button>
       ),
@@ -65,7 +70,7 @@ var ReservationButton = React.createClass({
     var selection;
     if(this.state.loggedIn && this.state.verifiedDates) {
       selection = buttons.request;
-    } else if(this.state.loggedIn) {
+    } else if(!this.state.verifiedDates) {
       selection = buttons.selectDates;
     } else {
       selection = buttons.login;

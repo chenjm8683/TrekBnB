@@ -10,7 +10,7 @@ var DropDown = React.createClass({
   },
 
   componentWillUnmount: function() {
-    // document.getElementById('html-body').removeChild(document.getElementsByClassName("pac-container")[0])
+    document.getElementById('html-body').removeChild(document.getElementsByClassName("pac-container")[0])
     // ReactDOM.unmountComponentAtNode(document.getElementsByClassName("pac-container")[0]);
   },
 

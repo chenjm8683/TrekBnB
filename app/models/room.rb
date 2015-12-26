@@ -2,16 +2,19 @@
 #
 # Table name: rooms
 #
-#  id         :integer          not null, primary key
-#  host_id    :integer          not null
-#  title      :string           not null
-#  type_id    :integer          not null
-#  price      :integer          not null
-#  city       :string           not null
-#  lat        :float            not null
-#  lng        :float            not null
-#  created_at :datetime         not null
-#  updated_at :datetime         not null
+#  id             :integer          not null, primary key
+#  host_id        :integer          not null
+#  title          :string           not null
+#  type_id        :integer          not null
+#  price          :integer          not null
+#  city           :string           not null
+#  lat            :float            not null
+#  lng            :float            not null
+#  created_at     :datetime         not null
+#  updated_at     :datetime         not null
+#  primary_pic_id :integer          not null
+#  max_guest_num  :integer          not null
+#  bed_num        :integer          not null
 #
 
 class Room < ActiveRecord::Base
@@ -55,13 +58,22 @@ class Room < ActiveRecord::Base
                 :lng => lng_range[0]..lng_range[1])
   end
 
-  def self.search_result(geo_bounds)
+  # conditional chaining
+  def self.search_result(geo_bounds, start_date, end_date, guests=1)
     lat_range = [geo_bounds['southWest']['lat'], geo_bounds['northEast']['lat']]
     lng_range = [geo_bounds['southWest']['lng'], geo_bounds['northEast']['lng']]
-    Room.includes(:room_pics)
-        .where(:lat => lat_range[0]..lat_range[1],
+    Room.includes(:room_pics).
+        where(:lat => lat_range[0]..lat_range[1],
                :lng => lng_range[0]..lng_range[1])
   end
+
+  # def self.search_result(geo_bounds)
+  #   lat_range = [geo_bounds['southWest']['lat'], geo_bounds['northEast']['lat']]
+  #   lng_range = [geo_bounds['southWest']['lng'], geo_bounds['northEast']['lng']]
+  #   Room.includes(:room_pics)
+  #       .where(:lat => lat_range[0]..lat_range[1],
+  #              :lng => lng_range[0]..lng_range[1])
+  # end
 
 
   def self.all_with_details
@@ -70,11 +82,15 @@ class Room < ActiveRecord::Base
 
   def self.filtered_all_with_details(filter_params)
     geo_bounds = filter_params[:bounds]
+    guests = filter_params[:guests] || 1
     lat_range = [geo_bounds['southWest']['lat'], geo_bounds['northEast']['lat']]
     lng_range = [geo_bounds['southWest']['lng'], geo_bounds['northEast']['lng']]
-    Room.includes(:primary_pic).includes(:room_pics).includes(:host_profile)
-        .where(:lat => lat_range[0]..lat_range[1],
-           :lng => lng_range[0]..lng_range[1])
+    Room.includes(:primary_pic).
+        includes(:room_pics).
+        includes(:host_profile).
+        where(:lat => lat_range[0]..lat_range[1],
+              :lng => lng_range[0]..lng_range[1]).
+        where('max_guest_num >= ?', guests)
   end
 
   def self.find_by_id_with_details(roomId)

@@ -95,8 +95,8 @@ var SearchForm = React.createClass({
     })
   },
 
-  updateGuests: function() {
-    FilterActions.updateGuests(this.state.guests);
+  updateGuests: function(newGuests) {
+    FilterActions.updateGuests(newGuests);
   },
 
   loadDateRangePicker: function() {
@@ -154,6 +154,11 @@ var SearchForm = React.createClass({
   render: function () {
     console.log("render searchForm" + this.state.checkin + "<>" + this.state.checkout);
 
+    var guestsValueLink = {
+      value: this.state.guests,
+      requestChange: this.updateGuests
+    };
+
     return (
       <div className="search-filters">
         <div>
@@ -188,13 +193,13 @@ var SearchForm = React.createClass({
                      name="guests"
                      id="search-index-guest-select"
                      className="form-control"
-                     onChange={this.updateGuests}>
-                     <option value="1">1 Guest</option>
-                     <option value="2">2 Guest</option>
-                     <option value="3">3 Guest</option>
-                     <option value="4">4 Guest</option>
-                     <option value="5">5 Guest</option>
-                     <option value="6">6 Guest</option>
+                     valueLink={guestsValueLink}>
+                     <option value={"1"}>1 Guest</option>
+                     <option value={"2"}>2 Guest</option>
+                     <option value={"3"}>3 Guest</option>
+                     <option value={"4"}>4 Guest</option>
+                     <option value={"5"}>5 Guest</option>
+                     <option value={"6"}>6 Guest</option>
                   </select>
                 </div>
               </div>

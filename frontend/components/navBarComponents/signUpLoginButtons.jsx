@@ -27,8 +27,9 @@ var SignUpLoginButtons = React.createClass({
 
   close: function() {
     this.setState({
-      showModal: false,
-      modalTitle: ""
+      showModal: false
+      // showModal: false,
+      // modalTitle: ""
     });
   },
 
@@ -39,8 +40,15 @@ var SignUpLoginButtons = React.createClass({
   },
 
   render: function() {
+    // var ModalForm;
+    // if(this.state.modalTitle === "Login") {
+    //   ModalForm = LoginModalForm;
+    // } else if (this.state.modalTitle === "Sign Up") {
+    //   ModalForm = SignUpModalForm;
+    // } else (
+    //   ModalForm = React.createClass({render: function(){ return null; }})
+    // )
     var ModalForm = this.state.modalTitle === "Login" ? LoginModalForm : SignUpModalForm;
-    var isLoginForm = (this.state.modalTitle === "Login");
     return (
       <div>
         <ul className="nav navbar-nav navbar-right">
