@@ -7,11 +7,16 @@ var RsvpActions = {
     ApiUtil.queryAvailability(roomId, this.updateAvailability);
   },
 
+  submitReservation: function(roomId, message) {
+    ApiUtil.createReservation(roomId, message, this.receiveRsvpConf);
+  },
+
   resetRsvp: function(rsvpParams) {
     AppDispatcher.dispatch({
       actionType: RsvpConstants.RESET_RSVPSTORE
     });
   },
+
 
   updateAvailability: function(avail) {
     AppDispatcher.dispatch({
@@ -20,8 +25,11 @@ var RsvpActions = {
     });
   },
 
-  receiveRsvpConf: function() {
-
+  receiveRsvpConf: function(reservation) {
+    AppDispatcher.dispatch({
+      actionType: RsvpConstants.RSVP_CONFIRMED,
+      reservation: reservation
+    });
   }
 };
 

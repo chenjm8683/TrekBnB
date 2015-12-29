@@ -116,17 +116,39 @@ var ApiUtil = {
 
   queryAvailability: function(roomId, queryCB) {
     // debugger;
-    var queryData = FilterStore.currentDates();
+    var dates = FilterStore.currentDates();
     $.ajax({
       url: 'api/reservations/query/',
       method: "get",
       data: {rquery: {
         room_id: roomId,
-        start_date: new Date(queryData.checkin),
-        end_date: new Date(queryData.checkout)
+        start_date: new Date(dates.checkin),
+        end_date: new Date(dates.checkout)
       }},
       success: function(avail){
                   queryCB(avail);
+                },
+      error: function(error, status){
+                  debugger;
+                  // console.log(status)
+                }
+    });
+  },
+
+  createReservation: function(roomId, message, receiveRsvpConfCB) {
+    var dates = FilterStore.currentDates();
+    $.ajax({
+      url: 'api/reservations/',
+      method: "post",
+      dataType: "json",
+      data: {reservation: {
+        room_id: roomId,
+        start_date: new Date(dates.checkin),
+        end_date: new Date(dates.checkout),
+        message: message
+      }},
+      success: function(reservation){
+                  receiveRsvpConfCB(reservation);
                 },
       error: function(error, status){
                   debugger;

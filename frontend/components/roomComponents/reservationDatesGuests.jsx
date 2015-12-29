@@ -165,7 +165,7 @@ var ReservationDatesGuests = React.createClass({
       var guestOptions = [];
       while(i <= n) {
         guestOptions.push(
-          <option key={i + "options"} value={i}>{i + " Guest"}</option>
+          <option key={i + "options"} value={i}>{i + (i > 1 ? " Guests" : " Guest")}</option>
         );
         i++;
       }
@@ -180,7 +180,7 @@ var ReservationDatesGuests = React.createClass({
     // var dateRange = this.state.checkin + " - " + this.state.checkout;
     // if (this.state.checkin)
     return (
-      <div className="col-md-12">
+      <div className="container-fluid col-xs-12">
         <div className="row row-condensed">
           <div className="col-sm-9 row-space-1-sm">
             <h5 style={{textAlign:"center"}}>
@@ -189,7 +189,7 @@ var ReservationDatesGuests = React.createClass({
           </div>
         </div>
         <div className="row row-condensed">
-          <div className="col-sm-9 row-space-1-sm">
+          <div className="col-md-offset-0 col-md-8 col-xs-offset-1 col-xs-10 md-no-right-padding">
             <input
                name="daterange"
                id="room-index-daterange"
@@ -202,11 +202,13 @@ var ReservationDatesGuests = React.createClass({
                value={this.dateRange}
                style={{textAlign:"center"}}/>
           </div>
-          <div className="col-sm-2">
+          <div className="col-md-offset-0 col-md-4 col-xs-offset-1 col-xs-10 md-no-left-padding">
             <select
                name="guests"
                id="room-index-guest-select"
-               onChange={this.updateGuests}>
+               className="form-control"
+               onChange={this.updateGuests}
+               style={{textAlign:"center"}}>
                {buildGuestOptions(this.props.room.max_guest_num)}
             </select>
           </div>

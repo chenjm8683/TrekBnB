@@ -41,13 +41,14 @@ var ReservationButton = React.createClass({
   },
 
   render: function() {
-    debugger;
+    // debugger;
     var buttons = {
       login: (
         <button
           type="button"
           className="btn btn-lg btn-primary center-block"
-          onClick={this.openLogin}>
+          onClick={this.openLogin}
+          style={{minWidth: "100%"}}>
           Login to book
         </button>
       ),
@@ -55,14 +56,17 @@ var ReservationButton = React.createClass({
         <button
           type="button"
           className="btn btn-lg btn-info center-block"
-          onClick={this.openCalendar}>
+          onClick={this.openCalendar}
+          style={{minWidth: "100%"}}>
           Select Dates
         </button>
       ),
       request: (
         <button
           type="button"
-          className="btn btn-lg btn-success center-block">
+          className="btn btn-lg btn-success center-block"
+          style={{minWidth: "100%"}}
+          onClick={this.props.openModal}>
           Request to book
         </button>
       )
@@ -80,7 +84,9 @@ var ReservationButton = React.createClass({
     return (
       <div className="col-md-12 text-center">
         <div className="row">
-          {selection}
+          <div className="col-md-offset-2 col-md-8 col-xs-offset-1 col-xs-10">
+            {selection}
+          </div>
         </div>
       </div>
     );

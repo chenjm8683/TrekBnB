@@ -1,10 +1,12 @@
 var React = require('react');
+// var Modal = require('react-bootstrap').Modal;
 // var FilterStore = require('../../stores/filterStore.js');
 // var FilterActions = require('../../actions/filterAction.js');
 
 var ReservationDatesGuests = require('./reservationDatesGuests.jsx');
 var Pricing = require('./pricing.jsx');
 var ReservationButton = require('./reservationButton.jsx');
+var ReservationReviewModal = require('./reservationReviewModal.jsx');
 
 var RsvpStore = require('../../stores/rsvpStore.js');
 
@@ -14,37 +16,50 @@ var Reservation = React.createClass({
   getInitialState: function() {
     return ({
       room: this.props.room,
-      showModal: false
+      showReviewModal: false
     })
   },
 
-  openModal: function() {
+  openReviewModal: function() {
     this.setState({
-      showModal: true
+      showReviewModal: true
     });
   },
 
+  close: function() {
+    this.setState({
+      showReviewModal: false,
+      showConfModal: false
+      // showReviewModal: false,
+      // modalTitle: ""
+    });
+  },
+
+  submitReservation: function(message) {
+
+  },
 
 
   componentWillReceiveProps: function(newProps) {
     // debugger;
     this.setState({
       room: newProps.room,
-      showModal: false
+      showReviewModal: false
     })
   },
 
   componentDidMount: function() {
-
   },
+
+
 
 
   render: function() {
     // debugger;
     var pricePerNight = this.state.room.price;
-    console.log("reservation renders")
+    // console.log("reservation renders")
     return(
-      <div className="col-md-3 rsvp-tab">
+      <div className="col-md-4 rsvp-tab">
         <div className="row rsvp-ppn">
           <h3>{"$" + pricePerNight + " Per Night"}</h3>
         </div>
@@ -55,21 +70,21 @@ var Reservation = React.createClass({
           <Pricing room={this.state.room} />
         </div>
         <div className="row rsvp-button" style={{height: "300px"}}>
-          <ReservationButton openModal={this.openModal}/>
+          <ReservationButton openModal={this.openReviewModal}/>
         </div>
 
-        <Modal
-          className="customclass"
-          ref="rsvpmodal"
-          show={this.state.showModal}
+        <ReservationReviewModal
+          {...this.props}
+          show={this.state.showReviewModal}
+          submitReservation={this.submitReservation}
           onHide={this.close}>
-          <Modal.Header>
-            <Modal.Title id="ModalHeader">Confirm Your Booking</Modal.Title>
-          </Modal.Header>
-          <Modal.Body>
+        </ReservationReviewModal>
 
-          </Modal.Body>
-        </Modal>
+        <ReservationConfModal
+          {...this.props}
+          show={this.state.showConfModal}
+          onHide={this.close}>
+        </ReservationConfModal>
       </div>
     );
   }

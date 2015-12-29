@@ -14,7 +14,7 @@ var _rsvpConfParams = {
 var _rsvpStatus = {
   verified: false,
   avail: false,
-  booked: false
+  booked: null
 };
 
  // phase B datepicker
@@ -32,15 +32,33 @@ var resetRsvpStore = function() {
   _rsvpStatus = {
     verified: false,
     avail: false,
-    booked: false
+    booked: null
   }
 };
 
 var verified = function(avail) {
   _rsvpStatus = {
     verified: true,
-    avail: avail
+    avail: avail,
+    booked: null
   };
+};
+
+var receiveNewRsvp = function(reservation) {
+  // _rsvpConfParams = {
+  //   reservationId: reservation.id,
+  //   roomId: reservation.roomId,
+  //   checkin: "",
+  //   checkout: "",
+  //   guests: "",
+  //   status: ""
+  // };
+
+  _rsvpStatus = {
+    verified: true,
+    avail: true,
+    booked: "new"
+  }
 };
 
 RsvpStore.all = function() {
@@ -61,6 +79,9 @@ RsvpStore.__onDispatch = function(payload) {
       verified(payload.avail);
       RsvpStore.__emitChange();
       break;
+    case RsvpConstants.RSVP_CONFIRMED:
+      receiveNewRsvp(reservation);
+      RsvpStore.__emitChange();
     case RsvpConstants.RESET_RSVPSTORE:
       resetRsvpStore();
       RsvpStore.__emitChange();

@@ -6,6 +6,7 @@ json.type_string              Room::ROOM_TYPE[room.type_id]
 json.price                    room.price
 json.max_guest_num            room.max_guest_num
 json.bed_num                  room.bed_num
+json.city                     room.city
 json.lat                      room.lat
 json.lng                      room.lng
 json.primary_pic_id           room.primary_pic_id

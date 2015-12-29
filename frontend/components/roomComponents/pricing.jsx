@@ -18,7 +18,7 @@ var Pricing = React.createClass({
   },
 
   componentWillReceiveProps: function(newProps) {
-    debugger;
+    // debugger;
     this.setState({
       ppn: newProps.room.price,
       showResult: RsvpStore.isAvailable()

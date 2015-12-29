@@ -51,6 +51,17 @@ body {
   cursor: pointer;
 }
 
+// bootstrap md
+@media only screen and (min-width : 992px) {
+  .md-no-left-padding {
+    padding-left: 0;
+  }
+  .md-no-right-padding {
+    padding-right: 0;
+  }
+}
+
+
 .loading-screen {
   position: relative;
   margin: 50px;
