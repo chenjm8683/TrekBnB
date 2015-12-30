@@ -29,7 +29,13 @@ var Reservation = React.createClass({
     });
   },
 
-  close: function() {
+  openConfModal: function() {
+    this.setState({
+      showConfModal: true
+    });
+  },
+
+  closeModal: function() {
     this.setState({
       showReviewModal: false,
       showConfModal: false
@@ -43,12 +49,10 @@ var Reservation = React.createClass({
   },
 
   showConfirmation: function() {
-    this.setState({
-      showReviewModal: false,
-      showConfModal: true
-      // showReviewModal: false,
-      // modalTitle: ""
-    });
+    // debugger;
+    window.openConfModal = this.openConfModal;
+    setTimeout(this.openConfModal, 1000);
+    this.closeModal();
   },
 
 
@@ -56,8 +60,9 @@ var Reservation = React.createClass({
     // debugger;
     this.setState({
       room: newProps.room,
-      showReviewModal: false
-    })
+      showReviewModal: false,
+      showConfModal: false
+    });
   },
 
   componentDidMount: function() {
@@ -92,15 +97,17 @@ var Reservation = React.createClass({
 
         <ReservationReviewModal
           {...this.props}
-          show={this.state.showReviewModal}
           submitReservation={this.submitReservation}
-          onHide={this.close}>
+          show={this.state.showReviewModal}
+          onHide={this.closeModal}>
         </ReservationReviewModal>
 
         <ReservationConfModal
           {...this.props}
+          room={this.state.room}
+          trip={TripStore.newTrip()}
           show={this.state.showConfModal}
-          onHide={this.close}>
+          onHide={this.closeModal}>
         </ReservationConfModal>
       </div>
     );

@@ -140,7 +140,7 @@ var ApiUtil = {
 
   createReservation: function(message, receiveNewTripConfCB) {
     var queryResult = QueryStore.all();
-    debugger;
+    // debugger;
     $.ajax({
       url: 'api/reservations/',
       method: "post",

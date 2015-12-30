@@ -3,11 +3,11 @@ var Modal = require('react-bootstrap').Modal;
 var TripStore = require('../../stores/tripStore.js');
 
 var ReservationConfModal = React.createClass({
-  getInitialState: function() {
-    return ({
-      reservation: TripStore.newRsvp()
-    });
-  },
+  // getInitialState: function() {
+  //   return ({
+  //     trip: TripStore.newTrip()
+  //   });
+  // },
 
   closeModal: function() {
     this.props.onHide();
@@ -15,86 +15,142 @@ var ReservationConfModal = React.createClass({
 
 
   render: function() {
+    // debugger;
+    if(!this.props.show) {
+      return null;
+    }
     var room = this.props.room;
-    var rsvp = this.state.reservation;
+    var trip = this.props.trip;
+    var hasMessage = trip.message.length > 0;
+    // need to refactor pricing
+    var ppn = room.price;
+    var cleaningFee = 30;
+    var serviceFee = 30;
+    var taxesP = 0.1;
+    var nights = TripStore.nights(trip.id);
+    var checkinStr = moment(trip.checkin, 'MM-DD-YYYY').format('ddd, MMM DD, YYYY');
+    var checkoutStr = moment(trip.checkout, 'MM-DD-YYYY').format('ddd, MMM DD, YYYY');
     return (
       <Modal
         {...this.props}
-        ref="rsvpmodal"
+        ref="rsvpconfmodal"
         className="customclass"
-        bsSize="large"
-        backdrop="static">
+        bsSize="large">
         <Modal.Header closeButton>
-          <Modal.Title id="RsvpModalHeader">Request Submitted</Modal.Title>
+          <Modal.Title id="RsvpConfModalHeader">Request Submitted</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <div className="container-fluid">
             <div className="col-xs-12 col-md-8">
-              <form
-                 className="input-group col-xs-12"
-                 onSubmit={this.handleSubmit}>
                 <div className="row">
                   <h3>Your request has been sent to your host {room.host_fname}.</h3>
-                  <p>You can expect a response from {room.host_fname} within the next 12 hours.</p>
+                  <ul>
+                    <li>You can expect a response from {room.host_fname} within the next 12 hours.</li>
+                    <li>Your credit card will not be charged until your request is approved.</li>
+                    <li>You will be provided with the room's address and {room.host_fname + "'s"} contact information once {room.host_fname} approves your request.</li>
+                  </ul>
                 </div>
 
                 <div className="row">
                   <h3>Summary of Your Request</h3>
-                  <ul>
-                    <li>Checkin  : </li>
-                    <li>Checkout : </li>
-                    <li>Nights   : </li>
-                  </ul>
+                  <table className="table">
+                    <tbody>
+                      <tr>
+                        <td>
+                          Checkin
+                        </td>
+                        <td>
+                          {checkinStr}
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>
+                          Checkout
+                        </td>
+                        <td>
+                          {checkoutStr}
+                        </td>
+                      </tr>
+                      <tr style={{borderBottom: "2px solid #ddd"}}>
+                        <td>
+                          Nights
+                        </td>
+                        <td>
+                          {nights}
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>
+                          {"$" + ppn + " per night × " + nightsStr}
+                        </td>
+                        <td>
+                          {"$" + ppn*nights}
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>
+                          Cleaning fee
+                        </td>
+                        <td>
+                          {"$" + cleaningFee}
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>
+                          Service fee
+                        </td>
+                        <td>
+                          {"$" + serviceFee}
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>
+                          Occupancy Taxes
+                        </td>
+                        <td>
+                          {"$" + Math.floor(ppn*nights*taxesP)}
+                        </td>
+                      </tr>
+                      <tr  style={{borderBottom: "2px solid #ddd"}}>
+                        <td>
+                          Total
+                        </td>
+                        <td>
+                          {"$" + (ppn*nights + cleaningFee + serviceFee + Math.floor(ppn*nights*taxesP))}
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>
+                          Credit Card
+                        </td>
+                        <td>
+                          AMEX xxxxxxxxxx3001
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
                 </div>
 
-                <div className="row">
-                  <h3>Introduce Yourself to {room.host_fname}</h3>
-                  <p>Giving your host more information will make them more likely to confirm your booking request:</p>
-                  <ul>
-                    <li>Tell John a little about yourself</li>
-                    <li>What brings you to {room.city}? Who’s joining you?</li>
-                    <li>What do you love about this listing? Mention it!</li>
-                  </ul>
-                  <div className="input-group col-xs-offset-1 col-xs-8">
-                    <div className="row">
-                      <textarea
-                        className="form-control"
-                        rows="5"
-                        placeholder="Message your host..."
-                        valueLink={this.linkState("message")}
-                        disabled={isDisabled}>
-                      </textarea>
-                    </div>
+                {hasMessage ? (
+                  <div className="row">
+                    <h3>Your Message to {room.host_fname}</h3>
+                    <p>
+                      {trip.message}
+                    </p>
                   </div>
-                </div>
+                ) : ""}
 
                 <div className="row">
                   <div className="col-xs-12">
                     <div className="row">
-                      <div className="checkbox">
-                        <label>
-                          <input
-                            type="checkbox"
-                            value="agreement"
-                            required
-                            title="Before booking agree to the House Rules and Terms."
-                            disabled={isDisabled}>
-                          </input>
-                          I agree to the House Rules, Cancellation Policy, and to the Guest Refund Policy. I also agree to pay the total amount shown, which includes Occupancy Taxes and Service Fees.
-                        </label>
-                      </div>
-                    </div>
-                    <div className="row">
                       <button
-                        type="submit"
-                        className="btn btn-primary"
-                        disabled={isDisabled}>
-                        {isDisabled ? "Processing..." : "Confirm Booking"}
+                        type="button"
+                        className="btn btn-primary">
+                        Okay
                       </button>
                     </div>
                   </div>
                 </div>
-              </form>
             </div>
 
             <div className="col-xs-12 col-md-4">

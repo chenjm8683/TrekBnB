@@ -69,7 +69,6 @@ var ReservationReviewModal = React.createClass({
                          className="form-control"
                          id="payment-method"
                          disabled={isDisabled}>
-                        <option>VISA xxxxxxxxxx7403</option>
                         <option>AMEX xxxxxxxxxx3001</option>
                       </select>
                     </div>

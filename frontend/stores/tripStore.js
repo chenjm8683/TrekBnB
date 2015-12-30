@@ -12,6 +12,9 @@ var TripStore = new Store(AppDispatcher);
 //   status: null
 // };
 
+// trip is the same as reservation but from guest perspective
+
+
 var _trips = {};
 
 var _newTripReservationId = null;
@@ -25,10 +28,22 @@ var resetTripStore = function() {
   _newTripReservationId = null;
 };
 
+var tripDetailConversion = function(trip) {
+  return ({
+    id: trip.id,
+    roomId: trip.room_id,
+    checkin: moment(trip.start_date, "YYYY-MM-DD").format("MM/DD/YYYY"),
+    checkout: moment(trip.end_date, "YYYY-MM-DD").format("MM/DD/YYYY"),
+    guests: trip.guest_num,
+    message: trip.message
+  });
+};
 
 
 var receiveNewTrip = function(newTrip) {
-  _trips[newTrip.id] = newTrip;
+  _newTripReservationId = newTrip.id;
+  _trips[_newTripReservationId] = tripDetailConversion(newTrip);
+  // debugger;
 };
 
 TripStore.all = function() {
@@ -36,17 +51,23 @@ TripStore.all = function() {
 };
 
 TripStore.newTrip = function(){
-  return _trips[_newTripReservationId];
+  return _trips[_newTripReservationId] || {};
+};
+
+TripStore.nights = function(tripId) {
+  var mCheckin = moment(_trips[tripId].checkin, 'MM-DD-YYYY');
+  var mCheckout = moment(_trips[tripId].checkout, 'MM-DD-YYYY');
+  return mCheckout.diff(mCheckin, 'days');
 };
 
 
 
 TripStore.__onDispatch = function(payload) {
   switch(payload.actionType) {
-    case TripConstants.DETAILS_RECEIVED:
-      verified(payload.avail);
-      TripStore.__emitChange();
-      break;
+    // case TripConstants.DETAILS_RECEIVED:
+    //   verified(payload.avail);
+    //   TripStore.__emitChange();
+    //   break;
     case TripConstants.TRIP_REQUEST_SUBMITTED:
       receiveNewTrip(payload.newTrip);
       TripStore.__emitChange();
