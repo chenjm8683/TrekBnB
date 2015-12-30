@@ -10,8 +10,8 @@ var ReservationReviewModal = require('./reservationReviewModal.jsx');
 var ReservationConfModal = require('./reservationConfModal.jsx');
 
 
-var RsvpStore = require('../../stores/rsvpStore.js');
-var RsvpActions = require('../../actions/rsvpAction.js');
+var TripStore = require('../../stores/tripStore.js');
+var TripActions = require('../../actions/tripAction.js');
 
 
 
@@ -39,11 +39,16 @@ var Reservation = React.createClass({
   },
 
   submitReservation: function(message) {
-    RsvpActions.submitReservation(message);
+    TripActions.submitReservation(message);
   },
 
   showConfirmation: function() {
-
+    this.setState({
+      showReviewModal: false,
+      showConfModal: true
+      // showReviewModal: false,
+      // modalTitle: ""
+    });
   },
 
 
@@ -56,11 +61,11 @@ var Reservation = React.createClass({
   },
 
   componentDidMount: function() {
-    this.rsvpToken = RsvpStore.addListener(this.showConfirmation);
+    this.tripToken = TripStore.addListener(this.showConfirmation);
   },
 
   componentWillUnmount: function() {
-    this.rsvpToken.remove();
+    this.tripToken.remove();
   },
 
 

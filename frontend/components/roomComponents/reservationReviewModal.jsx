@@ -52,7 +52,7 @@ var ReservationReviewModal = React.createClass({
              disabled={isDisabled}>
              Cancel
            </button>
-          <Modal.Title id="RsvpModalHeader">Confirm Your Booking</Modal.Title>
+          <Modal.Title id="RsvpModalHeader">Confirm Your Request</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <div className="container-fluid">
@@ -63,8 +63,8 @@ var ReservationReviewModal = React.createClass({
                 <div className="row">
                   <div className="payment-container">
                     <h3>Payment</h3>
-                      <div className="form-group col-xs-6">
-                      <label htmlFor="payment-method">Payment Method</label>
+                    <div className="form-group col-xs-6">
+                    <label htmlFor="payment-method">Payment Method</label>
                       <select
                          className="form-control"
                          id="payment-method"

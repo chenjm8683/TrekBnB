@@ -1,5 +1,5 @@
 var FilterStore = require('../stores/filterStore.js');
-var RsvpStore = require('../stores/rsvpStore.js');
+// var RsvpStore = require('../stores/rsvpStore.js');
 var QueryStore = require('../stores/queryStore.js');
 
 var ApiUtil = {
@@ -138,7 +138,7 @@ var ApiUtil = {
     });
   },
 
-  createReservation: function(message, receiveRsvpConfCB) {
+  createReservation: function(message, receiveNewTripConfCB) {
     var queryResult = QueryStore.all();
     debugger;
     $.ajax({
@@ -153,9 +153,9 @@ var ApiUtil = {
         ,
         message: message
       }},
-      success: function(reservation){
-                  debugger;
-                  receiveRsvpConfCB(reservation);
+      success: function(newTrip){
+                  // debugger;
+                  receiveNewTripConfCB(newTrip);
                 },
       error: function(error, status){
                   debugger;

@@ -4,18 +4,15 @@ var RsvpConstants = require('../constants/rsvpConstants.js');
 var RsvpStore = new Store(AppDispatcher);
 
 var _rsvpConfParams = {
-  roomId: "",
-  checkin: "",
-  checkout: "",
-  guests: "",
-  status: ""
+  roomId: null,
+  host_fname: null,
+  checkin: null,
+  checkout: null,
+  guests: null,
+  status: null
 };
 
-var _rsvpStatus = {
-  verified: false,
-  avail: false,
-  booked: null
-};
+var _newRsvpId = null;
 
  // phase B datepicker
 // var _unavailableDates = [];

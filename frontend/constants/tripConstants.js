@@ -1,0 +1,7 @@
+var TripConstants = {
+  TRIP_REQUEST_SUBMITTED: "TRIP_REQUEST_SUBMITTED",
+  RSVP_CONFIRMED: "RSVP_CONFIRMED",
+  RESET_TRIPSTORE: "RESET_TRIPSTORE"
+}
+
+module.exports = TripConstants;

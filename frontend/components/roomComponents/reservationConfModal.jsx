@@ -1,14 +1,22 @@
 var React = require('react');
 var Modal = require('react-bootstrap').Modal;
+var TripStore = require('../../stores/tripStore.js');
 
 var ReservationConfModal = React.createClass({
   getInitialState: function() {
-    return null;
+    return ({
+      reservation: TripStore.newRsvp()
+    });
+  },
+
+  closeModal: function() {
+    this.props.onHide();
   },
 
 
   render: function() {
-    return null;
+    var room = this.props.room;
+    var rsvp = this.state.reservation;
     return (
       <Modal
         {...this.props}
@@ -16,17 +24,8 @@ var ReservationConfModal = React.createClass({
         className="customclass"
         bsSize="large"
         backdrop="static">
-        <Modal.Header>
-          <button
-             type="button"
-             className="btn btn-warning"
-             aria-label="Close"
-             style={{float: "right"}}
-             onClick={this.closeModal}
-             disabled={isDisabled}>
-             Cancel
-           </button>
-          <Modal.Title id="RsvpModalHeader">Confirm Your Booking</Modal.Title>
+        <Modal.Header closeButton>
+          <Modal.Title id="RsvpModalHeader">Request Submitted</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <div className="container-fluid">
@@ -35,19 +34,17 @@ var ReservationConfModal = React.createClass({
                  className="input-group col-xs-12"
                  onSubmit={this.handleSubmit}>
                 <div className="row">
-                  <div className="payment-container">
-                    <h3>Payment</h3>
-                      <div className="form-group col-xs-6">
-                      <label htmlFor="payment-method">Payment Method</label>
-                      <select
-                         className="form-control"
-                         id="payment-method"
-                         disabled={isDisabled}>
-                        <option>VISA xxxxxxxxxx7403</option>
-                        <option>AMEX xxxxxxxxxx3001</option>
-                      </select>
-                    </div>
-                  </div>
+                  <h3>Your request has been sent to your host {room.host_fname}.</h3>
+                  <p>You can expect a response from {room.host_fname} within the next 12 hours.</p>
+                </div>
+
+                <div className="row">
+                  <h3>Summary of Your Request</h3>
+                  <ul>
+                    <li>Checkin  : </li>
+                    <li>Checkout : </li>
+                    <li>Nights   : </li>
+                  </ul>
                 </div>
 
                 <div className="row">

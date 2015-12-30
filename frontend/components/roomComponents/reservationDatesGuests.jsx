@@ -2,11 +2,10 @@ var React = require('react');
 var FilterStore = require('../../stores/filterStore.js');
 var LinkedStateMixin = require('react-addons-linked-state-mixin');
 
-var RsvpStore = require('../../stores/rsvpStore.js');
-var RsvpActions = require('../../actions/rsvpAction.js');
+// var RsvpStore = require('../../stores/rsvpStore.js');
+// var RsvpActions = require('../../actions/rsvpAction.js');
 
 var QueryStore = require('../../stores/queryStore.js');
-
 var QueryActions = require('../../actions/queryAction.js');
 var FilterActions = require('../../actions/filterAction.js');
 var DateTools = require('../../helpers/date.js');
