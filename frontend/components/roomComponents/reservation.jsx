@@ -11,6 +11,7 @@ var ReservationConfModal = require('./reservationConfModal.jsx');
 
 
 var RsvpStore = require('../../stores/rsvpStore.js');
+var RsvpActions = require('../../actions/rsvpAction.js');
 
 
 
@@ -38,8 +39,11 @@ var Reservation = React.createClass({
   },
 
   submitReservation: function(message) {
-    RsvpStore.addListener
-    RsvpActions.submitReservation(this.state.room.id, message);
+    RsvpActions.submitReservation(message);
+  },
+
+  showConfirmation: function() {
+
   },
 
 
@@ -52,6 +56,11 @@ var Reservation = React.createClass({
   },
 
   componentDidMount: function() {
+    this.rsvpToken = RsvpStore.addListener(this.showConfirmation);
+  },
+
+  componentWillUnmount: function() {
+    this.rsvpToken.remove();
   },
 
 

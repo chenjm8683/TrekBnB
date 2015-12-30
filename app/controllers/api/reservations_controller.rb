@@ -12,6 +12,7 @@ class Api::ReservationsController < ApplicationController
 
   def create
     @rsvp = current_user.trip_reservations.new(rsvp_params)
+    # debugger
     if @rsvp.save
       render json: @rsvp, status: 201
     else
@@ -29,7 +30,7 @@ class Api::ReservationsController < ApplicationController
   end
 
   def rsvp_params
-    params.require(:rquery).permit(:room_id, :guest_num, :start_date, :end_date, :message)
+    params.require(:reservation).permit(:room_id, :guest_num, :start_date, :end_date, :message)
   end
 
 end

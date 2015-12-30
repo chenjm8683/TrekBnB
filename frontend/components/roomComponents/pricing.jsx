@@ -1,5 +1,4 @@
 var React = require('react');
-var FilterStore = require('../../stores/filterStore.js');
 var QueryStore = require('../../stores/queryStore.js');
 
 // simple pricing component that will calculate cost locally
@@ -42,7 +41,7 @@ var Pricing = React.createClass({
       var serviceFee = 30;
       var taxesP = 0.1;
       // need to move to QueryStore
-      var nights = FilterStore.nights();
+      var nights = QueryStore.nights();
       nightsStr = nights > 1 ? nights + " nights" : nights + " night";
       return (
         <div className="col-md-12" >

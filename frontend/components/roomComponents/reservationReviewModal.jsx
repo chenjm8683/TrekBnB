@@ -80,7 +80,7 @@ var ReservationReviewModal = React.createClass({
                   <h3>Introduce Yourself to {room.host_fname}</h3>
                   <p>Giving your host more information will make them more likely to confirm your booking request:</p>
                   <ul>
-                    <li>Tell John a little about yourself</li>
+                    <li>Tell {room.host_fname} a little about yourself</li>
                     <li>What brings you to {room.city}? Who’s joining you?</li>
                     <li>What do you love about this listing? Mention it!</li>
                   </ul>

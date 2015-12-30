@@ -1,5 +1,6 @@
 var FilterStore = require('../stores/filterStore.js');
 var RsvpStore = require('../stores/rsvpStore.js');
+var QueryStore = require('../stores/queryStore.js');
 
 var ApiUtil = {
   createUserAccount: function(credentials, receiveNewUser) {
@@ -137,18 +138,19 @@ var ApiUtil = {
     });
   },
 
-  createReservation: function(roomId, message, receiveRsvpConfCB) {
-    var dates = FilterStore.currentDates();
-    var guests = FilterStore.currentGuests();
+  createReservation: function(message, receiveRsvpConfCB) {
+    var queryResult = QueryStore.all();
+    debugger;
     $.ajax({
       url: 'api/reservations/',
       method: "post",
       dataType: "json",
       data: {reservation: {
-        room_id: roomId,
-        start_date: new Date(dates.checkin),
-        end_date: new Date(dates.checkout),
-        guest_num: guests,
+        room_id: queryResult.roomId,
+        start_date: new Date(queryResult.checkin),
+        end_date: new Date(queryResult.checkout),
+        guest_num: queryResult.guests
+        ,
         message: message
       }},
       success: function(reservation){

@@ -80,7 +80,7 @@ RsvpStore.__onDispatch = function(payload) {
       RsvpStore.__emitChange();
       break;
     case RsvpConstants.RSVP_CONFIRMED:
-      receiveNewRsvp(reservation);
+      receiveNewRsvp(payload.reservation);
       RsvpStore.__emitChange();
     case RsvpConstants.RESET_RSVPSTORE:
       resetRsvpStore();

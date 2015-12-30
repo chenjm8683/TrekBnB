@@ -36,7 +36,7 @@ var receiveResponse = function(response) {
     checkout: moment(response.end_date, "YYYY-MM-DD").format("MM/DD/YYYY"),
     guests: response.guest_num
   };
-  debugger;
+  // debugger;
 };
 
 var resetQueryStore = function() {
@@ -52,7 +52,7 @@ var resetQueryStore = function() {
 
 
 QueryStore.all = function() {
-  return Object.assign({}, _rsvpParams);
+  return Object.assign({}, _currentQuery);
 };
 
 QueryStore.isVerified = function(){
