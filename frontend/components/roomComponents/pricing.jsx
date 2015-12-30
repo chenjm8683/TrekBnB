@@ -1,19 +1,19 @@
 var React = require('react');
 var FilterStore = require('../../stores/filterStore.js');
-var RsvpStore = require('../../stores/rsvpStore.js');
+var QueryStore = require('../../stores/queryStore.js');
 
 // simple pricing component that will calculate cost locally
 var Pricing = React.createClass({
   getInitialState: function() {
     return({
       ppn: this.props.room.price,
-      showResult: RsvpStore.isAvailable()
+      showResult: QueryStore.isAvailable()
     });
   },
 
   updateAvail: function() {
     this.setState({
-      showResult: RsvpStore.isAvailable()
+      showResult: QueryStore.isAvailable()
     })
   },
 
@@ -21,7 +21,7 @@ var Pricing = React.createClass({
     // debugger;
     this.setState({
       ppn: newProps.room.price,
-      showResult: RsvpStore.isAvailable()
+      showResult: QueryStore.isAvailable()
     });
   },
 
@@ -32,7 +32,7 @@ var Pricing = React.createClass({
 
 
   componentDidMount: function() {
-    this.rsvpToken = RsvpStore.addListener(this.updateAvail);
+    this.rsvpToken = QueryStore.addListener(this.updateAvail);
   },
 
   render: function() {
@@ -41,6 +41,7 @@ var Pricing = React.createClass({
       var cleaningFee = 30;
       var serviceFee = 30;
       var taxesP = 0.1;
+      // need to move to QueryStore
       var nights = FilterStore.nights();
       nightsStr = nights > 1 ? nights + " nights" : nights + " night";
       return (

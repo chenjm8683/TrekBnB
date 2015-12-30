@@ -1,20 +1,20 @@
 var React = require('react');
 
 var SessionStore = require('../../stores/sessionStore.js');
-var RsvpStore = require('../../stores/rsvpStore.js');
+var QueryStore = require('../../stores/queryStore.js');
 
 
 var ReservationButton = React.createClass({
   getInitialState: function() {
     return({
       loggedIn: SessionStore.hasCurrentUser(),
-      verifiedDates: RsvpStore.isAvailable()
+      verifiedDates: QueryStore.isAvailable()
     });
   },
 
   updateAvail: function() {
     this.setState({
-      verifiedDates: RsvpStore.isAvailable()
+      verifiedDates: QueryStore.isAvailable()
     });
   },
   updateLoginStatus: function() {
@@ -37,7 +37,7 @@ var ReservationButton = React.createClass({
 
   componentDidMount: function() {
     this.buttonSessionToken = SessionStore.addListener(this.updateLoginStatus);
-    this.buttonRsvpToken = RsvpStore.addListener(this.updateAvail);
+    this.buttonRsvpToken = QueryStore.addListener(this.updateAvail);
   },
 
   render: function() {

@@ -7,6 +7,8 @@ var ReservationDatesGuests = require('./reservationDatesGuests.jsx');
 var Pricing = require('./pricing.jsx');
 var ReservationButton = require('./reservationButton.jsx');
 var ReservationReviewModal = require('./reservationReviewModal.jsx');
+var ReservationConfModal = require('./reservationConfModal.jsx');
+
 
 var RsvpStore = require('../../stores/rsvpStore.js');
 
@@ -17,7 +19,7 @@ var Reservation = React.createClass({
     return ({
       room: this.props.room,
       showReviewModal: false
-    })
+    });
   },
 
   openReviewModal: function() {
@@ -36,7 +38,8 @@ var Reservation = React.createClass({
   },
 
   submitReservation: function(message) {
-
+    RsvpStore.addListener
+    RsvpActions.submitReservation(this.state.room.id, message);
   },
 
 

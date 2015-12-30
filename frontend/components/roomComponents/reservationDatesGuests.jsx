@@ -1,8 +1,13 @@
 var React = require('react');
 var FilterStore = require('../../stores/filterStore.js');
 var LinkedStateMixin = require('react-addons-linked-state-mixin');
+
 var RsvpStore = require('../../stores/rsvpStore.js');
 var RsvpActions = require('../../actions/rsvpAction.js');
+
+var QueryStore = require('../../stores/queryStore.js');
+
+var QueryActions = require('../../actions/queryAction.js');
 var FilterActions = require('../../actions/filterAction.js');
 var DateTools = require('../../helpers/date.js');
 
@@ -26,13 +31,13 @@ var ReservationDatesGuests = React.createClass({
   updateResult: function() {
     this.setState({
       disableInput: false,
-      showResult: RsvpStore.isVerified()
+      showResult: QueryStore.isVerified()
     });
   },
 
   checkAvailability: function() {
     if (FilterStore.hasDates()) {
-      RsvpActions.checkAvailability(this.props.room.id);
+      QueryActions.checkAvailability(this.props.room.id);
     } else {
       // console.log("action: resetrsvp")
 
@@ -112,7 +117,7 @@ var ReservationDatesGuests = React.createClass({
         $(_this.refs.roomDateRangeInput).data('daterangepicker').autoUpdateInput = false;
         $(_this.refs.roomDateRangeInput).val("");
         FilterActions.resetDates();
-        RsvpActions.resetRsvp();
+        QueryActions.resetQuery();
         // $(_this.refs.roomDateRangeInput).data('daterangepicker').setStartDate("");
         // $(_this.refs.roomDateRangeInput).data('daterangepicker').setEndDate("");
         // $(_this.refs.roomDateRangeInput).value = "";
@@ -144,13 +149,13 @@ var ReservationDatesGuests = React.createClass({
   componentWillUnmount: function() {
     console.log("calendar unmounted")
     this.filterStoreToken.remove();
-    this.rsvpStoreToken.remove();
+    this.QueryStoreToken.remove();
   },
 
   componentDidMount: function() {
     this.loadDateRangePicker();
     this.filterStoreToken = FilterStore.addListener(this.checkAvailability);
-    this.rsvpStoreToken = RsvpStore.addListener(this.updateResult);
+    this.QueryStoreToken = QueryStore.addListener(this.updateResult);
   },
 
 
@@ -174,7 +179,7 @@ var ReservationDatesGuests = React.createClass({
     // console.log("beforeloading")
     var result = "";
     if(this.state.showResult) {
-      result = RsvpStore.isAvailable() ? "Available" : "Those dates are not available"
+      result = QueryStore.isAvailable() ? "Available" : "Those dates are not available"
     }
 
     // var dateRange = this.state.checkin + " - " + this.state.checkout;

@@ -1,9 +1,22 @@
 class Api::ReservationsController < ApplicationController
 
+  before_action :require_login!, only: :create
+
 # for availability query
   def query
-    rsvp = Reservation.new(query_params)
-    render json: rsvp.overlapping_unbookable_period.empty?
+    # rsvp = Reservation.new(query_params)
+    # render json: rsvp.overlapping_unbookable_period.empty?
+    @queryRsvp = Reservation.new(query_params)
+    render :query, status: 200
+  end
+
+  def create
+    @rsvp = current_user.trip_reservations.new(rsvp_params)
+    if @rsvp.save
+      render json: @rsvp, status: 201
+    else
+      render json: @rsvp.errors.full_messages, status: 401
+    end
   end
 
 
@@ -12,7 +25,11 @@ class Api::ReservationsController < ApplicationController
 
   private
   def query_params
-    params.require(:rquery).permit(:room_id, :start_date, :end_date)
+    params.require(:rquery).permit(:room_id, :guest_num, :start_date, :end_date)
+  end
+
+  def rsvp_params
+    params.require(:rquery).permit(:room_id, :guest_num, :start_date, :end_date, :message)
   end
 
 end

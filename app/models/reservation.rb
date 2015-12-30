@@ -71,6 +71,10 @@ class Reservation < ActiveRecord::Base
     overlapping_requests.where(status: [1, 5])
   end
 
+  def query_availability
+    overlapping_unbookable_period.empty? && self.guest_num <= self.room.max_guest_num
+  end
+
 
   private
 

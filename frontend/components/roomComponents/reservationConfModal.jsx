@@ -3,11 +3,12 @@ var Modal = require('react-bootstrap').Modal;
 
 var ReservationConfModal = React.createClass({
   getInitialState: function() {
-
+    return null;
   },
 
 
   render: function() {
+    return null;
     return (
       <Modal
         {...this.props}
@@ -113,4 +114,4 @@ var ReservationConfModal = React.createClass({
 
 });
 
-module.exports = ReservationConfModal
+module.exports = ReservationConfModal;

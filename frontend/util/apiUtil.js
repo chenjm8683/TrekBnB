@@ -117,16 +117,18 @@ var ApiUtil = {
   queryAvailability: function(roomId, queryCB) {
     // debugger;
     var dates = FilterStore.currentDates();
+    var guests = FilterStore.currentGuests();
     $.ajax({
       url: 'api/reservations/query/',
       method: "get",
       data: {rquery: {
         room_id: roomId,
         start_date: new Date(dates.checkin),
-        end_date: new Date(dates.checkout)
+        end_date: new Date(dates.checkout),
+        guest_num: guests
       }},
-      success: function(avail){
-                  queryCB(avail);
+      success: function(response){
+                  queryCB(response);
                 },
       error: function(error, status){
                   debugger;
@@ -137,6 +139,7 @@ var ApiUtil = {
 
   createReservation: function(roomId, message, receiveRsvpConfCB) {
     var dates = FilterStore.currentDates();
+    var guests = FilterStore.currentGuests();
     $.ajax({
       url: 'api/reservations/',
       method: "post",
@@ -145,9 +148,11 @@ var ApiUtil = {
         room_id: roomId,
         start_date: new Date(dates.checkin),
         end_date: new Date(dates.checkout),
+        guest_num: guests,
         message: message
       }},
       success: function(reservation){
+                  debugger;
                   receiveRsvpConfCB(reservation);
                 },
       error: function(error, status){

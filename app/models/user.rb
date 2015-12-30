@@ -15,6 +15,11 @@ class User < ActiveRecord::Base
 
   has_one :user_profile, inverse_of: :user, dependent: :destroy
 
+  has_many :trip_reservations,
+    foreign_key: :requester_id,
+    primary_key: :id,
+    class_name: 'Reservation'
+
   has_many :listings,
     primary_key: "id",
     foreign_key: "host_id",
