@@ -8,11 +8,11 @@ var SearchForm = React.createClass({
   mixins: [LinkedStateMixin],
 
   getInitialState: function() {
+    this.initializeDateBounds();
     var dates = FilterStore.currentDates();
     return ({
       checkin: dates.checkin,
       checkout: dates.checkout,
-      dateRange: (dates.checkin === null ? "" : dates.checkin + " - " + dates.checkout),
       guests: FilterStore.currentGuests()
     });
   },

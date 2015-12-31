@@ -27,7 +27,7 @@ var ReservationDatesGuests = React.createClass({
     });
   },
 
-  updateResult: function() {
+  receiveResult: function() {
     this.setState({
       disableInput: false,
       showResult: QueryStore.isVerified()
@@ -46,20 +46,9 @@ var ReservationDatesGuests = React.createClass({
     // });
   },
 
-  // updateDateRange: function(e) {
-  //   // debugger;
-  //   var dates = e.currentTarget.value.split(" - ");
-  //   FilterActions.updateDates({
-  //     checkin: dates[0],
-  //     checkout: dates[1]
-  //   });
-  //   this.setState({
-  //     checkin: dates[0],
-  //     checkout: dates[1],
-  //     dateRange: e.currentTarget.value,
-  //     showResult: false
-  //   });
-  // },
+  updateGuests: function(newGuests) {
+    FilterActions.updateGuests(newGuests);
+  },
 
 
   loadDateRangePicker: function() {
@@ -80,23 +69,9 @@ var ReservationDatesGuests = React.createClass({
       dateRangeOptions.startDate = this.state.checkin;
       dateRangeOptions.endDate = this.state.checkout;
     }
-    // $(inputDomNode).daterangepicker({
-    //   autoApply: true,
-    //   drops: "up",
-    //   showDropdowns: true,
-    //   minDate: minDate,
-    //   maxDate: maxDate,
-    //   autoUpdateInput: false
-    // });
 
     $(inputDomNode).daterangepicker(dateRangeOptions);
 
-    // $(inputDomNode).on('apply.daterangepicker', function(ev, picker) {
-    //   var checkin = picker.startDate.format('MM/DD/YYYY');
-    //   var checkout = picker.endDate.format('MM/DD/YYYY');
-    //   _this.updateFilterParams(checkin, checkout);
-    //   _this.disableInput(checkin, checkout);
-    // });
     $(inputDomNode).on('hide.daterangepicker', function(ev, picker) {
       console.log('hide')
       var checkin = picker.startDate.format('MM/DD/YYYY');
@@ -117,9 +92,6 @@ var ReservationDatesGuests = React.createClass({
         $(_this.refs.roomDateRangeInput).val("");
         FilterActions.resetDates();
         QueryActions.resetQuery();
-        // $(_this.refs.roomDateRangeInput).data('daterangepicker').setStartDate("");
-        // $(_this.refs.roomDateRangeInput).data('daterangepicker').setEndDate("");
-        // $(_this.refs.roomDateRangeInput).value = "";
       }
     });
   },
@@ -146,7 +118,7 @@ var ReservationDatesGuests = React.createClass({
 
 
   componentWillUnmount: function() {
-    console.log("calendar unmounted")
+    // console.log("calendar unmounted")
     this.filterStoreToken.remove();
     this.QueryStoreToken.remove();
   },
@@ -154,7 +126,7 @@ var ReservationDatesGuests = React.createClass({
   componentDidMount: function() {
     this.loadDateRangePicker();
     this.filterStoreToken = FilterStore.addListener(this.checkAvailability);
-    this.QueryStoreToken = QueryStore.addListener(this.updateResult);
+    this.QueryStoreToken = QueryStore.addListener(this.receiveResult);
   },
 
 
@@ -163,6 +135,11 @@ var ReservationDatesGuests = React.createClass({
 
   render: function() {
     // console.log("rsvpDG renders")
+    var guestsValueLink = {
+      value: this.state.guests,
+      requestChange: this.updateGuests
+    };
+
     var buildGuestOptions = function(n) {
       n = parseInt(n);
       var i = 1;
@@ -211,7 +188,7 @@ var ReservationDatesGuests = React.createClass({
                name="guests"
                id="room-index-guest-select"
                className="form-control"
-               onChange={this.updateGuests}
+               valueLink={guestsValueLink}
                style={{textAlign:"center"}}>
                {buildGuestOptions(this.props.room.max_guest_num)}
             </select>

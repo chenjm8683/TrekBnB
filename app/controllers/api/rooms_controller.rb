@@ -69,11 +69,14 @@ class Api::RoomsController < ApplicationController
     # .permit(:bounds) doesn't work
     # debugger
     params.require(:filter)
-          .permit({bounds: {:northEast => [:lat, :lng],
-                            :southWest => [:lat, :lng]
-                           },
-                    :dates => [:checkin, :checkout]
-                           }, :guests)
+          .permit({
+            bounds: {
+              northEast: [:lat, :lng],
+              southWest: [:lat, :lng]
+                    },
+            dates: [:checkin, :checkout],
+            },
+           :guests)
     # params.require(:filter)
   end
 

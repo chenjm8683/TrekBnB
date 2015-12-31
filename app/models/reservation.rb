@@ -39,7 +39,8 @@ class Reservation < ActiveRecord::Base
   def self.unavailable_room_ids(start_date, end_date)
     result = Reservation.where('(start_date < ? AND end_date > ?)',
                               end_date, start_date)
-                        .where(status: [1, 5])
+                        .where(status: [0, 1, 5])
+                        # .where(status: [1, 5])
     result.map(&:room_id).uniq
   end
 
@@ -67,8 +68,13 @@ class Reservation < ActiveRecord::Base
     overlapping_requests.where(status: 0)
   end
 
+  # def overlapping_unbookable_period
+  #   overlapping_requests.where(status: [1, 5])
+  # end
+
+  # including pending
   def overlapping_unbookable_period
-    overlapping_requests.where(status: [1, 5])
+    overlapping_requests.where(status: [0, 1, 5])
   end
 
   def query_availability
