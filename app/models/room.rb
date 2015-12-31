@@ -85,16 +85,17 @@ class Room < ActiveRecord::Base
     lat_range = [geo_bounds['southWest']['lat'], geo_bounds['northEast']['lat']]
     lng_range = [geo_bounds['southWest']['lng'], geo_bounds['northEast']['lng']]
     guests = filter_params[:guests] || 1
-    start_date = filter_params.dates.checkin
-    end_date = filter_params.dates.checkout
+    start_date = filter_params["dates"]["checkin"]
+    end_date = filter_params["dates"]["checkout"]
     unavailable_room_ids = Reservation.unavailable_room_ids(start_date, end_date)
+    # debugger
     Room.includes(:primary_pic).
         includes(:room_pics).
         includes(:host_profile).
         where(:lat => lat_range[0]..lat_range[1],
               :lng => lng_range[0]..lng_range[1]).
         where('max_guest_num >= ?', guests).
-        where('rooms.id NOT IN (?)', unavailable_room_ids)
+        where.not(id: unavailable_room_ids)
   end
 
   def self.find_by_id_with_details(roomId)

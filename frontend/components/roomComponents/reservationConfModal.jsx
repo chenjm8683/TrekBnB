@@ -37,13 +37,14 @@ var ReservationConfModal = React.createClass({
         className="customclass"
         bsSize="large">
         <Modal.Header closeButton>
-          <Modal.Title id="RsvpConfModalHeader">Request Submitted</Modal.Title>
+          <Modal.Title id="RsvpConfModalHeader">Reservation Request Submitted</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <div className="container-fluid">
             <div className="col-xs-12 col-md-8">
                 <div className="row">
                   <h3>Your request has been sent to your host {room.host_fname}.</h3>
+                  <h4>Reservation id: {trip.id}</h4>
                   <ul>
                     <li>You can expect a response from {room.host_fname} within the next 12 hours.</li>
                     <li>Your credit card will not be charged until your request is approved.</li>
@@ -71,7 +72,7 @@ var ReservationConfModal = React.createClass({
                           {checkoutStr}
                         </td>
                       </tr>
-                      <tr style={{borderBottom: "2px solid #ddd"}}>
+                      <tr>
                         <td>
                           Nights
                         </td>
@@ -79,6 +80,15 @@ var ReservationConfModal = React.createClass({
                           {nights}
                         </td>
                       </tr>
+                      <tr style={{borderBottom: "2px solid #ddd"}}>
+                        <td>
+                          Guest(s)
+                        </td>
+                        <td>
+                          {trip.guests}
+                        </td>
+                      </tr>
+
                       <tr>
                         <td>
                           {"$" + ppn + " per night × " + nightsStr}

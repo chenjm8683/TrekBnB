@@ -17,14 +17,6 @@ var SearchForm = React.createClass({
     });
   },
 
-  initializeDateBounds: function() {
-    this.minCheckin = DateTools.todayStr();
-    this.maxCheckin = DateTools.yearsAfterDateStr(3, this.minCheckin);
-    this.minCheckout = DateTools.nextDayStr(this.minCheckin);
-    this.maxCheckout = DateTools.nextDayStr(this.maxCheckin);
-    // debugger;
-  },
-
   updateParams: function() {
     var dates = FilterStore.currentDates();
     this.setState({
@@ -99,11 +91,75 @@ var SearchForm = React.createClass({
     FilterActions.updateGuests(newGuests);
   },
 
+  // loadDateRangePicker: function() {
+  //   $(this.refs.searchDateRangeInput).daterangepicker({
+  //     autoApply: true,
+  //     minDate: this.minCheckin,
+  //     maxDate: this.maxCheckout
+  //   });
+  // },
+
   loadDateRangePicker: function() {
-    $(this.refs.searchDateRangeInput).daterangepicker({
-      autoApply: true,
-      minDate: this.minCheckin,
-      maxDate: this.maxCheckout
+    var minDate = DateTools.todayStr();
+    var maxDate = DateTools.yearsAfterDateStr(3, minDate);
+    var inputDomNode = this.refs.searchDateRangeInput;
+    var _this = this;
+    var dateRangeOptions = {
+      "autoApply": true,
+      // "opens": "left",
+      "showDropdowns": true,
+      "minDate": minDate,
+      "maxDate": maxDate,
+      "autoUpdateInput": false
+    }
+    if(this.state.dateRange !== "") {
+      dateRangeOptions.autoUpdateInput = true;
+      dateRangeOptions.startDate = this.state.checkin;
+      dateRangeOptions.endDate = this.state.checkout;
+    }
+
+    $(inputDomNode).daterangepicker(dateRangeOptions);
+
+    $(inputDomNode).on('hide.daterangepicker', function(ev, picker) {
+      console.log('hide')
+      var checkin = picker.startDate.format('MM/DD/YYYY');
+      var checkout = picker.endDate.format('MM/DD/YYYY');
+      var momentToday = moment().startOf('day');
+      var validInput = ( moment(checkin, "MM-DD-YYYY").diff(momentToday) >= 0
+                        && moment(checkout, "MM-DD-YYYY").diff(momentToday) > 0
+                        && moment(checkout, "MM-DD-YYYY").diff(moment(checkin, "MM-DD-YYYY")) > 0
+                      );
+      if (validInput) {
+        _this.updateFilterParams(checkin, checkout);
+        _this.updateDateRangeInput(checkin, checkout);
+      } else {
+        console.log('invalid');
+        _this.dateRange = "";
+        // debugger;
+        $(_this.refs.searchDateRangeInput).data('daterangepicker').autoUpdateInput = false;
+        $(_this.refs.searchDateRangeInput).val("");
+        FilterActions.resetDates();
+      }
+    });
+  },
+
+  updateFilterParams: function(checkin, checkout) {
+    FilterActions.updateDates({
+      checkin: checkin,
+      checkout: checkout
+    });
+  },
+
+  updateDateRangeInput: function(checkin, checkout) {
+    console.log(checkin + checkout);
+    $(this.refs.searchDateRangeInput).data('daterangepicker').autoUpdateInput = true;
+    $(this.refs.searchDateRangeInput).data('daterangepicker').setStartDate(checkin);
+    $(this.refs.searchDateRangeInput).data('daterangepicker').setEndDate(checkout);
+    this.dateRange = checkin + " - " + checkout;
+    this.setState({
+      checkin: checkin,
+      checkout: checkout,
+      disableInput: true
     });
   },
 
@@ -186,7 +242,9 @@ var SearchForm = React.createClass({
                       className="form-control input-stylefix"
                       type="text"
                       autoComplete="off"
-                      placeholder="Check In - Check Out" />
+                      placeholder="Check In - Check Out"
+                      value={this.dateRange}
+                      style={{textAlign:"center"}}/>
                   </div>
                 </div>
                 <div className="col-md-4">
@@ -196,11 +254,11 @@ var SearchForm = React.createClass({
                      className="form-control"
                      valueLink={guestsValueLink}>
                      <option value={"1"}>1 Guest</option>
-                     <option value={"2"}>2 Guest</option>
-                     <option value={"3"}>3 Guest</option>
-                     <option value={"4"}>4 Guest</option>
-                     <option value={"5"}>5 Guest</option>
-                     <option value={"6"}>6 Guest</option>
+                     <option value={"2"}>2 Guests</option>
+                     <option value={"3"}>3 Guests</option>
+                     <option value={"4"}>4 Guests</option>
+                     <option value={"5"}>5 Guests</option>
+                     <option value={"6"}>6 Guests</option>
                   </select>
                 </div>
               </div>

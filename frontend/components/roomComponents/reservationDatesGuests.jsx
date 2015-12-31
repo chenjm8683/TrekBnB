@@ -37,10 +37,15 @@ var ReservationDatesGuests = React.createClass({
   checkAvailability: function() {
     if (FilterStore.hasDates()) {
       QueryActions.checkAvailability(this.props.room.id);
-    } else {
-      // console.log("action: resetrsvp")
-
     }
+    // var newGuests = FilterStore.currentGuests();
+    // if (this.state.guests !== newGuests) {
+    //   this.setState({
+    //     guests: newGuests
+    //   })
+    // } else if (FilterStore.hasDates()) {
+    //   QueryActions.checkAvailability(this.props.room.id);
+    // }
     // this.setState({
     //   disableInput: true
     // });
@@ -48,6 +53,9 @@ var ReservationDatesGuests = React.createClass({
 
   updateGuests: function(newGuests) {
     FilterActions.updateGuests(newGuests);
+    this.setState({
+      guests: newGuests
+    });
   },
 
 
@@ -146,7 +154,7 @@ var ReservationDatesGuests = React.createClass({
       var guestOptions = [];
       while(i <= n) {
         guestOptions.push(
-          <option key={i + "options"} value={i}>{i + (i > 1 ? " Guests" : " Guest")}</option>
+          <option key={i + "options"} value={i.toString()}>{i + (i > 1 ? " Guests" : " Guest")}</option>
         );
         i++;
       }
