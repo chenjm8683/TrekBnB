@@ -223,7 +223,7 @@ var SearchForm = React.createClass({
             <div className="col-lg-2 col-md-12 text-center-sm text-center-md row-space-sm-1">
               <label>Dates</label>
             </div>
-            <form className="col-lg-9">
+            <div className="col-lg-9">
               <div className="row row-condensed">
                 <div className="col-md-8 row-space-1-sm">
                   <div className="input-group">
@@ -262,15 +262,15 @@ var SearchForm = React.createClass({
                   </select>
                 </div>
               </div>
-            </form>
+            </div>
           </div>
           <div className="row">
             <div className="col-lg-2 col-md-12 text-center-sm text-center-md row-space-sm-1">
               <label>Room Type</label>
             </div>
-            <form className="col-lg-9">
+            <div className="col-lg-9">
 
-            </form>
+            </div>
           </div>
           <div className="row">
             <div className="col-lg-2 col-md-12 text-center-sm text-center-md row-space-sm-1">

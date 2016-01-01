@@ -70,12 +70,12 @@ var ApiUtil = {
   },
 
   // for initial testing only
-  fetchAllRooms: function(receiveAllCB) {
+  fetchAllRooms: function(receiveAllRoomsCB) {
     $.ajax({
       url: 'api/rooms',
       method: "get",
       success: function(rooms){
-                  receiveAllCB(rooms);
+                  receiveAllRoomsCB(rooms);
                 },
       error: function(error, status){
                   debugger;
@@ -84,14 +84,14 @@ var ApiUtil = {
     });
   },
 
-  fetchFilteredRooms: function(receiveAllCB) {
+  fetchFilteredRooms: function(receiveFilteredRoomsCB) {
     // debugger;
     $.ajax({
       url: 'api/rooms',
       method: "get",
       data: {filter: FilterStore.params()},
       success: function(rooms){
-                  receiveAllCB(rooms);
+                  receiveFilteredRoomsCB(rooms);
                 },
       error: function(error, status){
                   debugger;
@@ -156,6 +156,20 @@ var ApiUtil = {
       success: function(newTrip){
                   // debugger;
                   receiveNewTripConfCB(newTrip);
+                },
+      error: function(error, status){
+                  debugger;
+                  // console.log(status)
+                }
+    });
+  },
+
+  fetchTrips: function(receiveUserTripsCB) {
+    $.ajax({
+      url: 'api/reservations/trips',
+      method: "get",
+      success: function(trips){
+                  receiveUserTripsCB(trips);
                 },
       error: function(error, status){
                   debugger;

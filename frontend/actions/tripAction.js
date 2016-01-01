@@ -11,6 +11,10 @@ var TripActions = {
     ApiUtil.createReservation(message, this.receiveNewTripConf);
   },
 
+  fetchUserTrips: function() {
+    ApiUtil.fetchTrips(this.receiveUserTrips)
+  },
+
 
 
   // updateAvailability: function(avail) {
@@ -31,7 +35,15 @@ var TripActions = {
     AppDispatcher.dispatch({
       actionType: TripConstants.RESET_TRIPSTORE
     });
+  },
+
+  receiveUserTrips: function(trips) {
+    AppDispatcher.dispatch({
+      actionType: TripConstants.TRIPS_RECEIVED,
+      trips: trips
+    });
   }
+
 };
 
 module.exports = TripActions;

@@ -67,7 +67,10 @@ var LoginModalForm = React.createClass({
 
   render: function() {
     return(
-      <form className='form-signin modal-form' onSubmit={this.handleSubmit}>
+      <form
+         className='form-signin modal-form'
+         autocomplete="off"
+         onSubmit={this.handleSubmit}>
         <div className="input-group input-group-lg">
           <span className="input-group-addon" id="sizing-addon1">
             <span className="glyphicon glyphicon-envelope" />

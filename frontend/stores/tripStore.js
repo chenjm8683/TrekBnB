@@ -28,7 +28,7 @@ var resetTripStore = function() {
   _newTripReservationId = null;
 };
 
-var tripDetailConversion = function(trip) {
+var tripBasicInfoConversion = function(trip) {
   return ({
     id: trip.id,
     roomId: trip.room_id,
@@ -39,12 +39,28 @@ var tripDetailConversion = function(trip) {
   });
 };
 
+var addTripDetails = function(responseTrip, convertedTrip) {
+  convertedTrip["room_city"] = responseTrip.room_city;
+  convertedTrip["room_title"] = responseTrip.room_title;
+  convertedTrip["room_pic"] = responseTrip.room_pic;
+  convertedTrip["host_fname"] = responseTrip.host_fname;
+  convertedTrip["status"] = responseTrip.status;
+  return convertedTrip;
+};
 
 var receiveNewTrip = function(newTrip) {
   _newTripReservationId = newTrip.id;
-  _trips[_newTripReservationId] = tripDetailConversion(newTrip);
+  _trips[_newTripReservationId] = tripBasicInfoConversion(newTrip);
   // debugger;
 };
+
+var receiveUserTrips = function(trips) {
+  resetTripStore();
+  trips.forEach(function(trip) {
+    convertedTrip = tripBasicInfoConversion(trip);
+    _trips[trip.id] = addTripDetails(trip, convertedTrip);
+  });
+}
 
 TripStore.all = function() {
   return Object.assign({}, _trips);
@@ -55,23 +71,44 @@ TripStore.newTrip = function(){
 };
 
 TripStore.nights = function(tripId) {
-  var mCheckin = moment(_trips[tripId].checkin, 'MM-DD-YYYY');
-  var mCheckout = moment(_trips[tripId].checkout, 'MM-DD-YYYY');
-  return mCheckout.diff(mCheckin, 'days');
+  if (tripId in _trips) {
+    var mCheckin = moment(_trips[tripId].checkin, 'MM-DD-YYYY');
+    var mCheckout = moment(_trips[tripId].checkout, 'MM-DD-YYYY');
+    return mCheckout.diff(mCheckin, 'days');
+  } else {
+    return null;
+  }
+};
+
+TripStore.pastTrips = function() {
+  var result = {};
+};
+
+TripStore.currentTrips = function() {
+  var result = {};
+};
+
+TripStore.pastTrips = function() {
+  var result = {};
 };
 
 
 
 TripStore.__onDispatch = function(payload) {
   switch(payload.actionType) {
-    // case TripConstants.DETAILS_RECEIVED:
-    //   verified(payload.avail);
-    //   TripStore.__emitChange();
-    //   break;
+    case TripConstants.TRIPS_RECEIVED:
+      receiveUserTrips(payload.trips);
+      TripStore.__emitChange();
+      break;
     case TripConstants.TRIP_REQUEST_SUBMITTED:
       receiveNewTrip(payload.newTrip);
       TripStore.__emitChange();
       break;
+    case TripConstants.RESET_TRIPSTORE:
+      resetTripStore();
+      TripStore.__emitChange();
+      break;
+
 
       // phase B datepicker
     // case RsvpConstants.UNAVAILABILITY_RECEIVED:

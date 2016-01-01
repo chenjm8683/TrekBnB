@@ -5,18 +5,18 @@ var ApiUtil = require('../util/apiUtil.js');
 var RoomActions = {
   // for initial testing only
   fetchAllRooms: function() {
-    ApiUtil.fetchAllRooms(this.receiveAll);
+    ApiUtil.fetchAllRooms(this.receiveAllRooms);
   },
 
   fetchFilteredRooms: function() {
-    ApiUtil.fetchFilteredRooms(this.receiveAll);
+    ApiUtil.fetchFilteredRooms(this.receiveFilteredRooms);
   },
 
   fetchRoomDetail: function(roomId) {
     ApiUtil.fetchRoomDetail(roomId, this.receiveRoomDetail);
   },
 
-  receiveAll: function(rooms){
+  receiveFilteredRooms: function(rooms){
     AppDispatcher.dispatch({
       actionType: RoomConstants.ROOMS_RECEIVED,
       rooms: rooms

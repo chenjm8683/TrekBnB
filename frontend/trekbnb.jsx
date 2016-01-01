@@ -6,6 +6,8 @@ var IndexRoute = ReactRouter.IndexRoute;
 var Router = ReactRouter.Router;
 var Redirect = ReactRouter.Redirect;
 
+var SessionStore = require('./stores/sessionStore.js');
+
 var LandingPage = require('./components/landingPage.jsx');
 var NavBar = require('./components/navBar.jsx');
 var SearchIndex = require('./components/searchIndex.jsx');
@@ -28,7 +30,7 @@ var App = React.createClass({
     // );
     return (
       <div id="app">
-        <NavBar />
+        <NavBar history={this.props.history}/>
         {this.props.children}
 
       </div>
@@ -42,6 +44,12 @@ var App = React.createClass({
 //   },
 //   render: function() { return null; }
 // });
+var requireAuth = function(nextState, replaceState) {
+  // need to fix async session check
+  if(!SessionStore.hasCurrentUser()) {
+    replaceState({ nextPathname: nextState.location.pathname }, '/')
+  }
+};
 
 var routes = (
   <Route path="/" component={App}>
@@ -50,7 +58,7 @@ var routes = (
     <Redirect path="/search" to="/search/san-francisco" />
     <Route path="rooms/:roomId" component={RoomIndex}></Route>
     <Route path="users/" component={UserIndex}></Route>
-    <Route path="trips/" component={TripIndex} />
+    <Route path="trips/" component={TripIndex} onEnter={requireAuth}></Route>
   </Route>
 );
 

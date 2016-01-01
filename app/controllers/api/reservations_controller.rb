@@ -1,6 +1,6 @@
 class Api::ReservationsController < ApplicationController
 
-  before_action :require_login!, only: :create
+  before_action :require_login!, except: :query
 
 # for availability query
   def query
@@ -8,6 +8,11 @@ class Api::ReservationsController < ApplicationController
     # render json: rsvp.overlapping_unbookable_period.empty?
     @queryRsvp = Reservation.new(query_params)
     render :query, status: 200
+  end
+
+  def trips
+    @trips = Reservation.user_trips_with_details(current_user)
+    render :trips, status: 200
   end
 
   def create
@@ -19,6 +24,7 @@ class Api::ReservationsController < ApplicationController
       render json: @rsvp.errors.full_messages, status: 401
     end
   end
+
 
 
 

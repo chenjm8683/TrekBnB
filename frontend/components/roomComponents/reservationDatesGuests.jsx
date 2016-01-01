@@ -135,6 +135,7 @@ var ReservationDatesGuests = React.createClass({
     this.loadDateRangePicker();
     this.filterStoreToken = FilterStore.addListener(this.checkAvailability);
     this.QueryStoreToken = QueryStore.addListener(this.receiveResult);
+    this.checkAvailability();
   },
 
 
@@ -163,7 +164,8 @@ var ReservationDatesGuests = React.createClass({
     // console.log("beforeloading")
     var result = "";
     if(this.state.showResult) {
-      result = QueryStore.isAvailable() ? "Available" : "Those dates are not available"
+      // result = QueryStore.isAvailable() ? "Available" : "Those dates are not available"
+      result = QueryStore.isAvailable() ? "" : "Those dates are not available"
     }
 
     // var dateRange = this.state.checkin + " - " + this.state.checkout;
@@ -203,7 +205,9 @@ var ReservationDatesGuests = React.createClass({
           </div>
         </div>
         <div className="row">
-          <p>{result}</p>
+          <div className="col-xs-offset-1 col-xs-10">
+            <p>{result}</p>
+          </div>
         </div>
       </div>
     );

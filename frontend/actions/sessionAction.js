@@ -38,8 +38,7 @@ var SessionActions = {
 
   removeCurrentUser: function(){
     AppDispatcher.dispatch({
-      actionType: SessionConstants.REMOVECURRENTUSER,
-      user: ""
+      actionType: SessionConstants.REMOVECURRENTUSER
     });
   }
 

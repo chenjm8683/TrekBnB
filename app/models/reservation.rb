@@ -29,6 +29,15 @@ class Reservation < ActiveRecord::Base
     foreign_key: :requester_id,
     primary_key: :id,
     class_name: 'User'
+  has_one :host,
+    through: :room,
+    source: :host
+  has_one :host_profile,
+    through: :room,
+    source: :host_profile
+  has_one :room_primary_pic,
+    through: :room,
+    source: :primary_pic
 
   validates :room_id, :requester_id, :guest_num, presence: true
   validate :start_date_before_end_date
@@ -37,11 +46,16 @@ class Reservation < ActiveRecord::Base
   after_initialize :assign_pending_status
 
   def self.unavailable_room_ids(start_date, end_date)
+    return [] if (start_date == "" || end_date == "")
     result = Reservation.where('(start_date < ? AND end_date > ?)',
                               end_date, start_date)
                         .where(status: [0, 1, 5])
                         # .where(status: [1, 5])
     result.map(&:room_id).uniq
+  end
+
+  def self.user_trips_with_details(user)
+    user.trip_reservations.includes(:room, :host, :host_profile, :room_primary_pic).where("reservations.status != ?", 5)
   end
 
   # def self.isAvailable(query_params)
@@ -80,6 +94,7 @@ class Reservation < ActiveRecord::Base
   def query_availability
     overlapping_unbookable_period.empty? && self.guest_num <= self.room.max_guest_num
   end
+
 
 
   private

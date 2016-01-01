@@ -113,7 +113,7 @@ var NavBar = React.createClass({
                   <li><a href="#">Contact</a></li>
                   <li><a href="#">About</a></li>
               </ul>
-              <NavUserButtonIndex />
+              <NavUserButtonIndex history={this.props.history}/>
             </div>
           </div>
         </nav>

@@ -8,6 +8,7 @@ Rails.application.routes.draw do
     resources :rooms, only: [:index, :create, :update, :destroy, :show]
     resources :reservations, only: [:create]
     get '/reservations/query', to: 'reservations#query'
+    get '/reservations/trips', to: 'reservations#trips'
   end
 
 

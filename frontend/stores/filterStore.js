@@ -4,7 +4,14 @@ var FilterConstants = require('../constants/filterConstants.js');
 
 var FilterStore = new Store(AppDispatcher);
 
-var _currentParams = {};
+var _currentParams = {
+  bounds: null,
+  dates: {
+    checkin: null,
+    checkout: null
+        },
+  guests: 1
+};
 
 var _updateBounds = function(bounds) {
   _currentParams.bounds = bounds;
@@ -49,6 +56,7 @@ FilterStore.params = function() {
   //   }
   // }
   // // for initial testing only
+  // debugger;
 
   return Object.assign({}, _currentParams);
 };
