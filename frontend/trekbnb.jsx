@@ -14,6 +14,7 @@ var SearchIndex = require('./components/searchIndex.jsx');
 var RoomIndex = require('./components/roomIndex.jsx');
 var UserIndex = require('./components/userIndex.jsx');
 var TripIndex = require('./components/TripIndex.jsx');
+var TripDetail = require('./components/tripComponents/tripDetail.jsx');
 
 
 var JSLoaderAction = require('./actions/jsLoaderAction.js');
@@ -58,7 +59,9 @@ var routes = (
     <Redirect path="/search" to="/search/san-francisco" />
     <Route path="rooms/:roomId" component={RoomIndex}></Route>
     <Route path="users/" component={UserIndex}></Route>
-    <Route path="trips/" component={TripIndex} onEnter={requireAuth}></Route>
+    <Route path="trips/" component={TripIndex} onEnter={requireAuth}>
+      <Route path=":tripId" component={TripDetail} />
+    </Route>
   </Route>
 );
 

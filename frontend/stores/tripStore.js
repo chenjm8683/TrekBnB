@@ -19,6 +19,12 @@ var _trips = {};
 
 var _newTripReservationId = null;
 
+var _categories = {
+  upcoming: [],
+  current: null,
+  past: []
+};
+
  // phase B datepicker
 // var _unavailableDates = [];
 
@@ -26,6 +32,12 @@ var resetTripStore = function() {
   _trips = {};
 
   _newTripReservationId = null;
+
+  _categories = {
+    upcoming: [],
+    current: [],
+    past: []
+  };
 };
 
 var tripBasicInfoConversion = function(trip) {
@@ -58,9 +70,23 @@ var receiveUserTrips = function(trips) {
   resetTripStore();
   trips.forEach(function(trip) {
     convertedTrip = tripBasicInfoConversion(trip);
+    categorize(convertedTrip);
     _trips[trip.id] = addTripDetails(trip, convertedTrip);
   });
-}
+};
+
+var categorize = function(trip) {
+  var mCheckin = moment(trip.checkin, "MM-DD-YYYY");
+  var mCheckout = moment(trip.checkout, "MM-DD-YYYY");
+  var mToday = moment().startOf('day');
+  if (mCheckout.diff(mToday) < 0) {
+    _categories.past.push(trip.id)
+  } else if (mCheckin.diff(mToday) > 0) {
+    _categories.upcoming.push(trip.id)
+  } else {
+    _categories.current.push(trip.id);
+  }
+};
 
 TripStore.all = function() {
   return Object.assign({}, _trips);
@@ -80,8 +106,20 @@ TripStore.nights = function(tripId) {
   }
 };
 
-TripStore.pastTrips = function() {
-  var result = {};
+TripStore.find_by_id = function(tripId) {
+  return _trips[tripId] || null;
+};
+
+TripStore.getTripsInCategory = function(category) {
+  if (category === "all trips") {
+    return TripStore.all();
+  } else {
+    var result = {};
+    _categories[category].forEach(function(tripId) {
+      result[tripId] = _trips[tripId];
+    });
+    return result;
+  }
 };
 
 TripStore.currentTrips = function() {

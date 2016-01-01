@@ -4,6 +4,7 @@ var TripStore = require('../stores/tripStore.js');
 var TripAction = require('../actions/tripAction.js');
 
 var TripList = require('./tripComponents/tripList.jsx');
+var TripDetail = require('./tripComponents/tripDetail.jsx');
 
 var TripIndex = React.createClass({
   getInitialState: function() {
@@ -14,7 +15,8 @@ var TripIndex = React.createClass({
       "Past"
     ];
     return({
-      activeTab: 0,
+      activeTabId: 0,
+      activeTripId: null,
       trips: TripStore.all()
     });
   },
@@ -28,10 +30,12 @@ var TripIndex = React.createClass({
 
   toggleTab: function(e) {
     e.preventDefault();
-    clickedTab = this.tabs.indexOf(e.target.innerHTML);
-    if (clickedTab !== this.state.activeTab) {
+    var clickedTabName = e.target.innerHTML;
+    var clickedTabId = this.tabs.indexOf(clickedTabName);
+    if (clickedTabId !== this.state.activeTabId) {
       this.setState({
-        activeTab: clickedTab
+        activeTabId: clickedTabId,
+        trips: TripStore.getTripsInCategory(clickedTabName.toLowerCase())
       });
     }
   },
@@ -44,6 +48,12 @@ var TripIndex = React.createClass({
   componentWillUnmount: function() {
   //   this.sessionToken.remove();
     this.tripToken.remove();
+  },
+
+  showTripDetail: function(tripId) {
+    this.setState({
+      activeTripId: tripId
+    })
   },
 
   // componentWillMount: function() {
@@ -64,24 +74,24 @@ var TripIndex = React.createClass({
 
 
   render: function() {
-    var activeTab = this.state.activeTab;
+    var activeTabId = this.state.activeTabId;
     return (
       <div className="container-fluid below-nav fixed-full-screen" id="tidx">
-        <div className="col-xs-1">
+        <div className="col-xs-1" style={{maxWidth:"40px"}}>
           <ul
             className="nav nav-tabs tabs-left sideways"
             onClick={this.toggleTab}>
             <li
-              className={activeTab === 0 ? "active" : ""}>
+              className={activeTabId === 0 ? "active" : ""}>
               <a>{this.tabs[0]}</a>
             </li>
-            <li className={activeTab === 1 ? "active" : ""}>
+            <li className={activeTabId === 1 ? "active" : ""}>
               <a>{this.tabs[1]}</a>
             </li>
-            <li className={activeTab === 2 ? "active" : ""}>
+            <li className={activeTabId === 2 ? "active" : ""}>
               <a>{this.tabs[2]}</a>
             </li>
-            <li className={activeTab === 3 ? "active" : ""}>
+            <li className={activeTabId === 3 ? "active" : ""}>
               <a>{this.tabs[3]}</a>
             </li>
           </ul>
@@ -89,12 +99,16 @@ var TripIndex = React.createClass({
         <div className="col-xs-4 trip-list-panel">
           <div>
             <div>
-              <TripList trips={this.state.trips}></TripList>
+              <TripList
+                trips={this.state.trips}
+                history={this.props.history}
+                tabName={this.tabs[this.state.activeTabId]} />
             </div>
           </div>
         </div>
         <div className="col-xs-7">
           tripDetailPlaceholder
+          {this.props.children}
         </div>
       </div>
     );
