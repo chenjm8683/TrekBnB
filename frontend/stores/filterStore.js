@@ -10,7 +10,12 @@ var _currentParams = {
     checkin: null,
     checkout: null
         },
-  guests: 1
+  guests: 1,
+  roomTypes: {
+    1: true,
+    2: true,
+    3: true
+  }
 };
 
 var _updateBounds = function(bounds) {
@@ -31,6 +36,10 @@ var _updateDates = function(dates) {
 
 var _updateGuests = function(guests) {
   _currentParams.guests = guests;
+};
+
+var _toggleRoomType = function(roomType) {
+  _currentParams.roomTypes[roomType] = !(_currentParams.roomTypes[roomType]);
 };
 
 var _resetDates = function() {
@@ -88,6 +97,15 @@ FilterStore.currentGuests = function() {
   return _currentParams.guests || "1";
 };
 
+FilterStore.currentRoomTypes = function() {
+  // return Object.keys(_currentParams.roomTypes).filter(function(roomType) {
+  //   return _currentParams.roomTypes[roomType];
+  // });
+  return Object.assign({}, _currentParams.roomTypes)
+};
+
+
+
 
 
 FilterStore.__onDispatch = function(payload) {
@@ -111,10 +129,15 @@ FilterStore.__onDispatch = function(payload) {
       _updateGuests(payload.guests);
       FilterStore.__emitChange();
       break;
+    case FilterConstants.TOGGLE_ROOM_TYPE:
+      _toggleRoomType(payload.roomType);
+      FilterStore.__emitChange();
+      break;
     case FilterConstants.RESETDATES:
       _resetDates();
       FilterStore.__emitChange();
       break;
+
   }
 };
 

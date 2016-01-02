@@ -13,7 +13,8 @@ var SearchForm = React.createClass({
       checkin: dates.checkin,
       checkout: dates.checkout,
       dateRange: (dates.checkin === null ? "" : dates.checkin + " - " + dates.checkout),
-      guests: FilterStore.currentGuests()
+      guests: FilterStore.currentGuests(),
+      roomTypes: FilterStore.currentRoomTypes(),
     });
   },
 
@@ -22,8 +23,9 @@ var SearchForm = React.createClass({
     this.setState({
       checkin: dates.checkin,
       checkout: dates.checkout,
+      dateRange: (dates.checkin === null ? "" : dates.checkin + " - " + dates.checkout),
       guests: FilterStore.currentGuests(),
-      focus: null
+      roomTypes: FilterStore.currentRoomTypes()
     });
   },
 
@@ -89,6 +91,11 @@ var SearchForm = React.createClass({
 
   updateGuests: function(newGuests) {
     FilterActions.updateGuests(newGuests);
+  },
+
+  updateRoomTypeSelection: function(e) {
+    e.preventDefault;
+    FilterActions.toggleRoomType(e.currentTarget.value);
   },
 
   // loadDateRangePicker: function() {
@@ -216,10 +223,18 @@ var SearchForm = React.createClass({
       requestChange: this.updateGuests
     };
 
+    var roomTypes = this.state.roomTypes;
+
+    var chkedBtnClass = "btn btn-default active";
+    var unchkedBtnClass = "btn btn-default";
+
+    var chkedIconClass = "glyphicon glyphicon-check";
+    var unchkedIconClass = "glyphicon glyphicon-unchecked";
+
     return (
       <div className="search-filters">
         <div>
-          <div className="row">
+          <div className="row row-filter">
             <div className="col-lg-2 col-md-12 text-center-sm text-center-md row-space-sm-1">
               <label>Dates</label>
             </div>
@@ -264,20 +279,57 @@ var SearchForm = React.createClass({
               </div>
             </div>
           </div>
-          <div className="row">
+          <div className="row row-filter">
             <div className="col-lg-2 col-md-12 text-center-sm text-center-md row-space-sm-1">
               <label>Room Type</label>
             </div>
-            <div className="col-lg-9">
-
+            <div className="col-lg-9 col-md-12">
+              <div className="row">
+                <div className="col-xs-4 filter-type-selection">
+                  <span className="button-checkbox">
+                      <button
+                         type="button"
+                         className={roomTypes[1] ? chkedBtnClass : unchkedBtnClass}
+                         onClick={this.updateRoomTypeSelection}
+                         value="1">
+                         <i className={roomTypes[1] ? chkedIconClass : unchkedIconClass} />
+                         {" Entire home/apt"}
+                       </button>
+                  </span>
+                </div>
+                <div className="col-xs-4 filter-type-selection">
+                  <span className="button-checkbox">
+                      <button
+                         type="button"
+                         className={roomTypes[2] ? chkedBtnClass : unchkedBtnClass}
+                         onClick={this.updateRoomTypeSelection}
+                         value="2">
+                         <i className={roomTypes[2] ? chkedIconClass : unchkedIconClass} />
+                         {" Private room"}
+                       </button>
+                  </span>
+                </div>
+                <div className="col-xs-4 filter-type-selection">
+                  <span className="button-checkbox">
+                      <button
+                         type="button"
+                         className={roomTypes[3] ? chkedBtnClass : unchkedBtnClass}
+                         onClick={this.updateRoomTypeSelection}
+                         value="3">
+                         <i className={roomTypes[3] ? chkedIconClass : unchkedIconClass} />
+                         {" Shared room"}
+                       </button>
+                  </span>
+                </div>
+              </div>
             </div>
           </div>
-          <div className="row">
+          <div className="row row-filter">
             <div className="col-lg-2 col-md-12 text-center-sm text-center-md row-space-sm-1">
               <label>Price Range</label>
               <input type="text" id="search-index-amount" readOnly="" style={{border:'0', color:'#f6931f', fontWeight:'bold', background: "transparent"}} />
             </div>
-            <div className="col-lg-9">
+            <div className="col-lg-9 col-md-12 price-range-container">
               <div id="search-index-price-range" className="ui-slider ui-slider-horizontal ui-widget ui-widget-content ui-corner-all">
                 <div id="min-max-range" className="ui-slider-range ui-widget-header ui-corner-all" style={{left: '15%', width: '30%'}}>
                 </div>

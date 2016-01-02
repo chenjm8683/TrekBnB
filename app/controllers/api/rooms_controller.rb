@@ -75,6 +75,7 @@ class Api::RoomsController < ApplicationController
               southWest: [:lat, :lng]
                     },
             dates: [:checkin, :checkout],
+            roomTypes: ["1", "2", "3"]
             },
            :guests)
     # params.require(:filter)

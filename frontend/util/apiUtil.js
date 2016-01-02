@@ -89,6 +89,7 @@ var ApiUtil = {
     $.ajax({
       url: 'api/rooms',
       method: "get",
+      dataType: 'json',
       data: {filter: FilterStore.params()},
       success: function(rooms){
                   receiveFilteredRoomsCB(rooms);

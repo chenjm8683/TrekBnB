@@ -37,6 +37,13 @@ var FilterActions = {
     });
   },
 
+  toggleRoomType: function(roomType) {
+    AppDispatcher.dispatch({
+      actionType: FilterConstants.TOGGLE_ROOM_TYPE,
+      roomType: roomType
+    });
+  },
+
   resetDates: function() {
     AppDispatcher.dispatch({
       actionType: FilterConstants.RESETDATES
