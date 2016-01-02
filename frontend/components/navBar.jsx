@@ -109,9 +109,26 @@ var NavBar = React.createClass({
 
             <div id="navbar" className="navbar-collapse collapse">
               <ul className="nav navbar-nav navbar-left">
-                  <li><a href="#">TrekBnB</a></li>
-                  <li><a href="#">Contact</a></li>
-                  <li><a href="#">About</a></li>
+                  <li>
+                    <a
+                      href="#">
+                      TrekBnB
+                    </a>
+                  </li>
+                  <li>
+                    <a
+                      target="_blank"
+                      href="https://github.com/chenjm8683/TrekBnB">
+                      GitHub
+                    </a>
+                  </li>
+                  <li>
+                    <a
+                      target="_blank"
+                      href="https://www.linkedin.com/in/jcolinchen">
+                      LinkedIn
+                    </a>
+                  </li>
               </ul>
               <NavUserButtonIndex history={this.props.history}/>
             </div>

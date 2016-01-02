@@ -13,31 +13,41 @@ User.create([
    password: "colin123",
    user_profile_attributes: {
      fname: "Colin",
-     lname: "Chen"
+     lname: "Chen",
+     phone: "830-444-0724",
+     profile_pic_url: "/v1451666932/colin_metz32.jpg"
      }},
   {username: "axe@dota.com",
    password: "axe123",
    user_profile_attributes: {
      fname: "Mogul",
-     lname: "Khan"
+     lname: "Khan",
+     phone: "202-555-0136",
+     profile_pic_url: "/v1451666932/mogul_z8kxdn.jpg"
      }},
   {username: "storm@dota.com",
    password: "storm123",
    user_profile_attributes: {
      fname: "Raijin",
-     lname: "Thunderkeg"
+     lname: "Thunderkeg",
+     phone: "717-555-0165",
+     profile_pic_url: "/v1451666932/raijin_ikwv6q.jpg"
      }},
   {username: "sniper@dota.com",
    password: "sniper123",
    user_profile_attributes: {
      fname: "Kardel",
-     lname: "Sharpeye"
+     lname: "Sharpeye",
+     phone: "467-555-8925",
+     profile_pic_url: "/v1451666932/sniper_jd07vf.jpg"
      }},
   {username: "pudge@dota.com",
    password: "pudge123",
    user_profile_attributes: {
      fname: "Pudge",
-     lname: "Butcher"
+     lname: "Butcher",
+     phone: "410-555-0195",
+     profile_pic_url: "/v1451666932/pudge_qm9mhs.jpg"
      }}
 
   ])
@@ -54,11 +64,12 @@ Room.create([
     lng: "-122.428713",
     primary_pic_id: "1",
     max_guest_num: "2",
-    bed_num: "1"
+    bed_num: "1",
+    description: "A centrally-located classic San Francisco Victorian apartment. All major transit lines cross within 2 blocks of the apartment. Great neighborhood for shopping, small cafes and restaurants. Perfect for corporate or longer term stays. Welcome. Colin"
   },
   # airbnb:3667334
   {
-    host_id: "1",
+    host_id: "3",
     title: "Cherry Nob Hill Studio",
     type_id: "1",
     price: "150",
@@ -67,11 +78,12 @@ Room.create([
     lng: "-122.417614",
     primary_pic_id: "2",
     max_guest_num: "2",
-    bed_num: "1"
+    bed_num: "1",
+    description: "Atop the centrally located and beautiful Nob Hill, this studio is a welcoming spot for your San Francisco experience. You may stay steps away from Grace Cathedral, Union Square, Chinatown, Polk Gulch and even Fisherman's Wharf."
   },
   # airbnb:8390615
   {
-    host_id: "2",
+    host_id: "3",
     title: "Central Dorm Queen Bedroom",
     type_id: "2",
     price: "85",
@@ -80,11 +92,12 @@ Room.create([
     lng: "-122.418843",
     primary_pic_id: "3",
     max_guest_num: "2",
-    bed_num: "1"
+    bed_num: "1",
+    description: "Hi! This is a very cozy and in the perfect central location to access just about everything you can imagine within walking distance. The location offers boutiques, bomb breakfast spots, sweet cafes and wicked views."
   },
   # airbnb:6993593
   {
-    host_id: "3",
+    host_id: "4",
     title: "Beautiful San Francisco Ca.",
     type_id: "2",
     price: "142",
@@ -93,7 +106,8 @@ Room.create([
     lng: "-122.410559",
     primary_pic_id: "4",
     max_guest_num: "2",
-    bed_num: "1"
+    bed_num: "1",
+    description: "Beautiful 3br flat built in 1904. Come & stay experience the craftsmanship detail that isn't seen in today's home. Plus you go up to a fully furnished rooftop Get the best view of the Golden Gate Bridge coffee then wine in the evening You will love it"
   }
   ])
 
@@ -119,8 +133,8 @@ Room.create([
 
 Reservation.create([
   {
-    room_id: "1",
-    requester_id: "2",
+    room_id: "4",
+    requester_id: "1",
     guest_num: "2",
     start_date: "2016-01-01",
     end_date: "2016-01-05",
@@ -135,7 +149,7 @@ Reservation.create([
     status: "1"
   },
   {
-    room_id: "1",
+    room_id: "3",
     requester_id: "2",
     guest_num: "1",
     start_date: "2016-02-01",

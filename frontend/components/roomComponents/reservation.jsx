@@ -85,15 +85,17 @@ var Reservation = React.createClass({
         <div className="row rsvp-ppn">
           <h3>{"$" + pricePerNight + " Per Night"}</h3>
         </div>
-        <div className="row rsvp-params">
+        <div
+           className="row rsvp-params bg-light-green">
           <ReservationDatesGuests room={this.state.room}/>
         </div>
-        <div className="row rsvp-calc">
+        <div className="row rsvp-calc bg-light-green">
           <Pricing room={this.state.room} />
         </div>
-        <div className="row rsvp-button" style={{height: "300px"}}>
+        <div className="row rsvp-button bg-light-green" style={{height: "300px"}}>
           <ReservationButton openModal={this.openReviewModal}/>
         </div>
+
 
         <ReservationReviewModal
           {...this.props}

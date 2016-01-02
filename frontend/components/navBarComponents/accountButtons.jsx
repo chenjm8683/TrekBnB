@@ -16,7 +16,7 @@ var AccountButtons = React.createClass({
     return (
       <ul className='nav navbar-nav navbar-right'>
         <li className='dropdown'>
-          <a href='#'
+          <a
              className='dropdown-toggle'
              data-toggle='dropdown'
              role='button'

@@ -1,6 +1,7 @@
 json.id                       room.id
 json.title                    room.title
 json.host_fname               room.host_profile.fname
+json.host_pic_url             room.host_profile.profile_pic_url
 json.type_id                  room.type_id
 json.type_string              Room::ROOM_TYPE[room.type_id]
 json.price                    room.price

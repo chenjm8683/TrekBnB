@@ -156,7 +156,7 @@ var LandingSearchBar = React.createClass({
               <form className="input-group" role="form" onSubmit={this.handleSearch}>
                 <input
                    type="text"
-                   className="form-control"
+                   className="form-control center"
                    id="landing-search-input"
                    onChange={this.handleLocChange}
                    placeholder={this.state.placeholder}

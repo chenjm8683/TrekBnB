@@ -6,19 +6,29 @@ var ListItemBody = React.createClass({
   // },
 
   render: function(){
-    // debugger;
+    var room = this.props.room;
+    var hostProfilePicUrl = "https://res.cloudinary.com/chenjm8683/image/upload/c_crop,h_115,w_115"
+          + room.host_pic_url;
     return (
       <div className="list-item-body">
         <div className="body-container">
           <h3
-            title={this.props.room.title}
+            title={room.title}
             className="listing-name text-truncate row-space-top-1">
-              {this.props.room.title}
+              {room.title}
           </h3>
+          <div className="box">
+            <div className="list-host-pic-container">
+              <img
+                src={hostProfilePicUrl}
+                className="img-responsive img-circle">
+              </img>
+            </div>
+          </div>
           <div className="text-muted listing-location text-truncate">
             <span>
               <h5>
-              {this.props.room.type_string}
+              {room.type_string}
               </h5>
             </span>
           </div>

@@ -6,6 +6,7 @@ var LoadingScreen = require('./loadingScreen.jsx');
 
 var RoomImage = require('./roomComponents/roomImage.jsx');
 var RoomDetails = require('./roomComponents/roomDetails.jsx');
+var RoomHeader = require('./roomComponents/roomHeader.jsx');
 var Reservation = require('./roomComponents/reservation.jsx');
 
 var RoomIndex = React.createClass({
@@ -60,8 +61,11 @@ var RoomIndex = React.createClass({
       return (
         <div className="container-fluid full-width below-nav room">
           <RoomImage room={room}/>
+          <div className="row room-header-row no-margin">
+            <RoomHeader room={room} />
+            <Reservation room={room}/>
+          </div>
           <RoomDetails room={room}/>
-          <Reservation room={room}/>
         </div>
       );
     } else {
