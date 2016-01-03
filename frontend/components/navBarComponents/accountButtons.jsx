@@ -27,7 +27,7 @@ var AccountButtons = React.createClass({
             <span className='caret'></span>
           </a>
           <ul className='dropdown-menu'>
-            <li><a href="#trips/">Your Trips</a></li>
+            <li><a href="#/trips/">Your Trips</a></li>
             <li><a href="#">Wish Lists</a></li>
             <li><a href="#">Edit Profile</a></li>
             <li role="separator" className="divider"></li>

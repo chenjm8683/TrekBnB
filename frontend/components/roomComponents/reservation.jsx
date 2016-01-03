@@ -8,7 +8,7 @@ var Pricing = require('./pricing.jsx');
 var ReservationButton = require('./reservationButton.jsx');
 var ReservationReviewModal = require('./reservationReviewModal.jsx');
 var ReservationConfModal = require('./reservationConfModal.jsx');
-
+var ReservationMap = require('./reservationMap.jsx');
 
 var TripStore = require('../../stores/tripStore.js');
 var TripActions = require('../../actions/tripAction.js');
@@ -92,8 +92,11 @@ var Reservation = React.createClass({
         <div className="row rsvp-calc bg-light-green">
           <Pricing room={this.state.room} />
         </div>
-        <div className="row rsvp-button bg-light-green" style={{height: "300px"}}>
+        <div className="row rsvp-button bg-light-green">
           <ReservationButton openModal={this.openReviewModal}/>
+        </div>
+        <div className="row rsvp-map bg-light-green">
+          <ReservationMap room={this.state.room} />
         </div>
 
 

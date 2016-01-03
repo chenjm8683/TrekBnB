@@ -30,6 +30,7 @@ var RoomHeader = React.createClass({
                 </div>
               </div>
             </div>
+
             <div className="row">
               <h4 className="center">{room.host_fname}</h4>
             </div>
@@ -39,29 +40,42 @@ var RoomHeader = React.createClass({
             <div className="row">
               <h2 className="room-title">{room.title}</h2>
             </div>
+
             <div className="row">
               <h4 className="room-city">{room.city}</h4>
             </div>
+
             <div className="row">
               <div className="col-xs-4">
                 <div className="row center">
-                  <img src={room_icon_url} height="50px" width="50px"/>
+                  <img
+                     src={room_icon_url}
+                     height="40px"
+                     width="40px"/>
                 </div>
                 <div className="row center">
                   <h4>{room.type_string}</h4>
                 </div>
               </div>
+
               <div className="col-xs-4">
                 <div className="row center">
-                  <img src="/assets/icons/guests_100" height="50px" width="50px"/>
+                  <img
+                    src="/assets/icons/guests_100"
+                    height="40px"
+                    width="40px"/>
                 </div>
                 <div className="row center">
                   <h4>{room.max_guest_num + " Guest" + (room.max_guest_num > 1 ? "s" : "")}</h4>
                 </div>
               </div>
+
               <div className="col-xs-4">
                 <div className="row center">
-                  <img src="/assets/icons/bed_100" height="50px" width="50px"/>
+                  <img
+                    src="/assets/icons/bed_100"
+                    height="40px"
+                    width="40px"/>
                 </div>
                 <div className="row center">
                   <h4>{room.bed_num + " Bed" + (room.bed_num > 1 ? "s" : "")}</h4>

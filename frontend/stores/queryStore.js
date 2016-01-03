@@ -68,6 +68,17 @@ QueryStore.hasDates = function() {
   return _currentQuery.checkin !== null && _currentQuery.checkout !== null
 };
 
+QueryStore.queryDates = function() {
+  return {
+    checkin: _currentQuery.checkin,
+    checkout: _currentQuery.checkout
+  };
+};
+
+QueryStore.queryGuests = function() {
+  return _currentQuery.guests;
+};
+
 QueryStore.nights = function() {
   if (QueryStore.hasDates()) {
     var mCheckin = moment(_currentQuery.checkin, 'MM-DD-YYYY');

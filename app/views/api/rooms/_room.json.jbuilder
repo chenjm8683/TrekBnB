@@ -1,5 +1,6 @@
 json.id                       room.id
 json.title                    room.title
+json.description              room.description
 json.host_fname               room.host_profile.fname
 json.host_pic_url             room.host_profile.profile_pic_url
 json.type_id                  room.type_id
