@@ -127,6 +127,22 @@ Room.create([
     {
       room_id: "4",
       pic_url: "/v1450912662/6993593_1_s9xabc.webp"
+    },
+    {
+      room_id: "4",
+      pic_url: "/v1451892754/6993593_2_hh9ydm.png"
+    },
+    {
+      room_id: "4",
+      pic_url: "/v1451892754/6993593_3_bbcu5n.png"
+    },
+    {
+      room_id: "4",
+      pic_url: "/v1451892754/6993593_4_ee1xfp.png"
+    },
+    {
+      room_id: "4",
+      pic_url: "/v1451892754/6993593_5_piwzhf.png"
     }
     ])
 

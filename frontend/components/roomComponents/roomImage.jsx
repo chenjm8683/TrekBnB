@@ -1,6 +1,13 @@
 var React = require('react');
 
 var RoomImage = React.createClass({
+  getInitialState: function() {
+    return({
+
+    });
+  },
+
+
   render: function() {
     var img_url = "https://res.cloudinary.com/chenjm8683/image/upload"
      + this.props.room.primary_pic_url;

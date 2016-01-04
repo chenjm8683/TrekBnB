@@ -19,10 +19,9 @@ var ListItem = React.createClass({
       <div className="col-xs-12 col-sm-6 row-space-5">
         <div
           className="container-fluid cursor-pointer"
-          onClick={this.handleClick}
           id={"room-" + room.id}>
-          <ListItemImage room={room} />
-          <ListItemBody room={room} />
+          <ListItemImage handleClick={this.handleClick} room={room} />
+          <ListItemBody handleClick={this.handleClick} room={room} />
         </div>
       </div>
     );

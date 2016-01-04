@@ -10,7 +10,7 @@ var ListItemBody = React.createClass({
     var hostProfilePicUrl = "https://res.cloudinary.com/chenjm8683/image/upload/c_crop,h_115,w_115"
           + room.host_pic_url;
     return (
-      <div className="list-item-body">
+      <div className="list-item-body" onClick={this.props.handleClick}>
         <div className="body-container">
           <h3
             title={room.title}
