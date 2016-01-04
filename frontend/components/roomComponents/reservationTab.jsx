@@ -4,22 +4,30 @@ var React = require('react');
 // var FilterActions = require('../../actions/filterAction.js');
 
 var ReservationDatesGuests = require('./reservationDatesGuests.jsx');
+var ReservationUpcomingTrips = require('./reservationUpcomingTrips.jsx');
 var Pricing = require('./pricing.jsx');
 var ReservationButton = require('./reservationButton.jsx');
+var ReservationToggleButton = require('./reservationToggleButton.jsx');
 var ReservationReviewModal = require('./reservationReviewModal.jsx');
 var ReservationConfModal = require('./reservationConfModal.jsx');
 var ReservationMap = require('./reservationMap.jsx');
 
 var TripStore = require('../../stores/tripStore.js');
 var TripActions = require('../../actions/tripAction.js');
+var QueryActions = require('../../actions/queryAction.js')
 
 
 
-var Reservation = React.createClass({
+var ReservationTab = React.createClass({
   getInitialState: function() {
+    var room = this.props.room;
+    var upcomingTrips = TripStore.upcomingTripsWithRoom(room.id);
     return ({
-      room: this.props.room,
-      showReviewModal: false
+      room: room,
+      showUpcomingTrips: Object.keys(upcomingTrips).length > 0,
+      upcomingTrips: upcomingTrips,
+      showReviewModal: false,
+      showConfModal: false
     });
   },
 
@@ -29,8 +37,25 @@ var Reservation = React.createClass({
     });
   },
 
+  handleTripStoreUpdates: function() {
+    if(TripStore.hasNewConf()) {
+      setTimeout(this.openConfModal, 1000);
+      this.closeModal();
+    } else {
+      var upcomingTrips = TripStore.upcomingTripsWithRoom(this.state.room.id);
+      this.setState({
+        upcomingTrips: upcomingTrips,
+        showUpcomingTrips: Object.keys(upcomingTrips).length > 0
+      });
+    }
+  },
+
   openConfModal: function() {
+    // clear querystore when a new booking is submitted
+    QueryActions.resetQuery();
     this.setState({
+      upcomingTrips: TripStore.upcomingTripsWithRoom(this.state.room.id),
+      showUpcomingTrips: true,
       showConfModal: true
     });
   },
@@ -50,23 +75,32 @@ var Reservation = React.createClass({
 
   showConfirmation: function() {
     // debugger;
-    window.openConfModal = this.openConfModal;
+    // window.openConfModal = this.openConfModal;
     setTimeout(this.openConfModal, 1000);
     this.closeModal();
+  },
+
+  hideUpcomingTrips: function() {
+    this.setState({
+      showUpcomingTrips: false
+    })
   },
 
 
   componentWillReceiveProps: function(newProps) {
     // debugger;
+    var upcomingTrips = TripStore.upcomingTripsWithRoom(newProps.room.id);
     this.setState({
       room: newProps.room,
+      upcomingTrips: upcomingTrips,
+      showUpcomingTrips: Object.keys(upcomingTrips).length > 0,
       showReviewModal: false,
       showConfModal: false
     });
   },
 
   componentDidMount: function() {
-    this.tripToken = TripStore.addListener(this.showConfirmation);
+    this.tripToken = TripStore.addListener(this.handleTripStoreUpdates);
   },
 
   componentWillUnmount: function() {
@@ -77,6 +111,7 @@ var Reservation = React.createClass({
 
 
   render: function() {
+    console.log(this.state.showUpcomingTrips);
     // debugger;
     var pricePerNight = this.state.room.price;
     // console.log("reservation renders")
@@ -87,13 +122,20 @@ var Reservation = React.createClass({
         </div>
         <div
            className="row rsvp-params bg-light-green">
-          <ReservationDatesGuests room={this.state.room}/>
+           { this.state.showUpcomingTrips ?
+               (<ReservationUpcomingTrips trips={this.state.upcomingTrips} />) :
+               (<ReservationDatesGuests room={this.state.room} />) }
+
         </div>
         <div className="row rsvp-calc bg-light-green">
           <Pricing room={this.state.room} />
         </div>
         <div className="row rsvp-button bg-light-green">
-          <ReservationButton openModal={this.openReviewModal}/>
+          { this.state.showUpcomingTrips ?
+              (<ReservationToggleButton
+                  hideUpcomingTrips={this.hideUpcomingTrips} />) :
+              (<ReservationButton
+                  openModal={this.openReviewModal}/>) }
         </div>
         <div className="row rsvp-map bg-light-green">
           <ReservationMap room={this.state.room} />
@@ -119,4 +161,4 @@ var Reservation = React.createClass({
   }
 });
 
-module.exports = Reservation;
+module.exports = ReservationTab;

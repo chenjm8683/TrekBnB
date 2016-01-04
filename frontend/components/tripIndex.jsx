@@ -56,6 +56,13 @@ var TripIndex = React.createClass({
     })
   },
 
+  componentWillReceiveProps: function(newProps) {
+    // console.log(newProps);
+    this.setState({
+      activeTripId: newProps.params.tripId
+    });
+  },
+
   // componentWillMount: function() {
   //   // check login status; if not logged in, redirect to homepage
   //   // may change to a login page with redirection back to tripIndex upon successful login
@@ -106,8 +113,7 @@ var TripIndex = React.createClass({
             </div>
           </div>
         </div>
-        <div className="col-xs-7">
-          tripDetailPlaceholder
+        <div className="col-xs-7 trip-detail-panel">
           {this.props.children}
         </div>
       </div>

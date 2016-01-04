@@ -37,19 +37,36 @@ var ReservationConfModal = React.createClass({
         className="customclass"
         bsSize="large">
         <Modal.Header closeButton>
-          <Modal.Title id="RsvpConfModalHeader">Reservation Request Submitted</Modal.Title>
+          <Modal.Title id="RsvpConfModalHeader">
+            <span
+              className="glyphicon glyphicon-send"
+              ariaHidden="true"
+              style={{color:"blue"}}/> Your request has been sent to your host {room.host_fname}
+          </Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <div className="container-fluid">
             <div className="col-xs-12 col-md-8">
                 <div className="row">
-                  <h3>Your request has been sent to your host {room.host_fname}.</h3>
                   <h4>Reservation id: {trip.id}</h4>
-                  <ul>
-                    <li>You can expect a response from {room.host_fname} within the next 12 hours.</li>
-                    <li>Your credit card will not be charged until your request is approved.</li>
-                    <li>You will be provided with the room's address and {room.host_fname + "'s"} contact information once {room.host_fname} approves your request.</li>
-                  </ul>
+                  <p>
+                    <span
+                      className="glyphicon glyphicon-time"
+                      ariaHidden="true"
+                      style={{color:"gray"}}/> You can expect a response from {room.host_fname} within the next 12 hours.
+                  </p>
+                  <p>
+                    <span
+                      className="glyphicon glyphicon-credit-card"
+                      ariaHidden="true"
+                      style={{color:"gray"}}/> Your credit card will not be charged until your request is approved.
+                  </p>
+                  <p>
+                    <span
+                      className="glyphicon glyphicon-earphone"
+                      ariaHidden="true"
+                      style={{color:"gray"}}/> You will be provided with the room's address and {room.host_fname + "'s"} contact information once {room.host_fname} approves your request.
+                  </p>
                 </div>
 
                 <div className="row">
@@ -155,7 +172,8 @@ var ReservationConfModal = React.createClass({
                     <div className="row">
                       <button
                         type="button"
-                        className="btn btn-primary">
+                        className="btn btn-primary"
+                        onClick={this.props.onHide}>
                         Okay
                       </button>
                     </div>

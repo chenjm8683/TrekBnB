@@ -19,6 +19,8 @@ var TripList = React.createClass({
   },
 
   componentWillReceiveProps: function(newProps) {
+    console.log(newProps);
+
     this.setState({
       trips: newProps.trips,
       tabName: newProps.tabName

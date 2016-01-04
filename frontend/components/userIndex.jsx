@@ -1,12 +1,12 @@
 var React = require('react');
 var RoomStore = require('../stores/roomStore.js');
-var RoomAction = require('../actions/roomAction.js');
-
+// var RoomAction = require('../actions/roomAction.js');
+//
 var LoadingScreen = require('./loadingScreen.jsx');
-
-var RoomImage = require('./roomComponents/roomImage.jsx');
-var RoomDetails = require('./roomComponents/roomDetails.jsx');
-var Reservation = require('./roomComponents/reservation.jsx');
+//
+// var RoomImage = require('./roomComponents/roomImage.jsx');
+// var RoomDetails = require('./roomComponents/roomDetails.jsx');
+// var Reservation = require('./roomComponents/reservation.jsx');
 
 var RoomIndex = React.createClass({
   getInitialState: function() {
@@ -44,14 +44,12 @@ var RoomIndex = React.createClass({
 
   render: function() {
     if (this.state.hasDetail) {
-      var room = this.state.room;
+      // var room = this.state.room;
       // debugger;
       // may need to refactor using nested route
       return (
         <div className="container-fluid full-width below-nav room">
-          <RoomImage />
-          <RoomDetails room={room}/>
-          <Reservation room={room}/>
+
         </div>
       );
     } else {

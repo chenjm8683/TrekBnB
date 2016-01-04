@@ -271,7 +271,7 @@ body {
  .row-space-3 {
    margin-top: 3%;
  }
- 
+
  .row-space-5 {
    margin-top: 5%;
  }
@@ -536,6 +536,7 @@ body {
 
 
 // trip-list-panel
+
 .trip-list-panel {
   padding-top: 8px;
   // left: -50px;
@@ -543,6 +544,25 @@ body {
   height: 100%;
   overflow-y: scroll;
 }
+
+.trip-detail-panel {
+  width: 62.5%;
+}
+
+.trip-detail-panel h2 {
+  color: #ff3399;
+}
+
+.trip-detail-container > .row:not(:first-of-type) {
+  border-top: 1px solid #dce0e0;
+  padding-top: 15px;
+  padding-bottom: 15px;
+}
+
+.trip-item-image {
+  position: relative;
+}
+
 
 .room-title {
   margin-top: 10px;
@@ -552,6 +572,7 @@ body {
   margin-top: 5px;
   margin-bottom: 10px;
 }
+
 
 
 

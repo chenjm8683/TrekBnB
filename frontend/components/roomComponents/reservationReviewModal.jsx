@@ -20,15 +20,21 @@ var ReservationReviewModal = React.createClass({
 
   handleSubmit: function(e) {
     e.preventDefault();
-    this.props.submitReservation(this.state.message);
     this.setState({
       processing: true
     });
+    setTimeout(function(){
+      this.props.submitReservation(this.state.message);
+      this.setState({
+        processing: false,
+        message: ""
+      })
+    }.bind(this), 1000);
   },
 
-  componentWillUnmount: function() {
-    this.refs.rsvpmodal._onHide();
-  },
+  // componentWillUnmount: function() {
+  //   this.refs.rsvpmodal._onHide();
+  // },
 
   render: function() {
     if (QueryStore.isAvailable() !== true) {

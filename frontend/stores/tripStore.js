@@ -21,7 +21,7 @@ var _newTripReservationId = null;
 
 var _categories = {
   upcoming: [],
-  current: null,
+  current: [],
   past: []
 };
 
@@ -55,7 +55,9 @@ var addTripDetails = function(responseTrip, convertedTrip) {
   convertedTrip["room_city"] = responseTrip.room_city;
   convertedTrip["room_title"] = responseTrip.room_title;
   convertedTrip["room_pic"] = responseTrip.room_pic;
+  convertedTrip["room_price"] = responseTrip.room_price;
   convertedTrip["host_fname"] = responseTrip.host_fname;
+  convertedTrip["status_id"] = responseTrip.status_id;
   convertedTrip["status"] = responseTrip.status;
   return convertedTrip;
 };
@@ -96,6 +98,10 @@ TripStore.newTrip = function(){
   return _trips[_newTripReservationId] || {};
 };
 
+TripStore.hasNewConf = function() {
+  return _newTripReservationId !== null;
+};
+
 TripStore.nights = function(tripId) {
   if (tripId in _trips) {
     var mCheckin = moment(_trips[tripId].checkin, 'MM-DD-YYYY');
@@ -120,6 +126,17 @@ TripStore.getTripsInCategory = function(category) {
     });
     return result;
   }
+};
+
+TripStore.upcomingTripsWithRoom = function(roomId) {
+  var result = {};
+  _categories.upcoming.forEach(function(tripId) {
+    if(_trips[tripId].roomId.toString() === roomId.toString()){
+      result[tripId] = _trips[tripId];
+    };
+  });
+  // debugger;
+  return result;
 };
 
 TripStore.currentTrips = function() {

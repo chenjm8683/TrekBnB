@@ -1,5 +1,6 @@
 var React = require('react');
 var SessionStore = require('../../stores/sessionStore.js');
+var TripActions = require('../../actions/tripAction.js');
 var Modal = require('react-bootstrap').Modal;
 var SessionActions = require('../../actions/sessionAction.js');
 var AccountButtons = require('./accountButtons.jsx');
@@ -18,6 +19,9 @@ var NavUserButtonIndex = React.createClass({
       this.setState({
         currentUser: SessionStore.all()
       });
+      if (SessionStore.hasCurrentUser()) {
+        TripActions.fetchUserTrips();
+      }
     // }
   },
 
