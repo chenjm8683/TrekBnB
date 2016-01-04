@@ -15,12 +15,20 @@ var List = React.createClass({
            room={rooms[room_id]}
            history={history}/>);
     });
+    var redirectPrompt = (
+      <h4>
+        This Demo system currently only contains sample room data in
+        <a href="#/search/94102-CA-USA?f82ss9">
+          {" San Francisco"}
+        </a>
+      </h4>
+    );
     return (
       <div className="container-fluid search-list-frame">
         <div className="row">
           <div className="container-fluid search-list-listings">
             <div className="row">
-              {listItems}
+              {listItems.length > 0 ? listItems : redirectPrompt}
             </div>
           </div>
 

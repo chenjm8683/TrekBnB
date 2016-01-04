@@ -55,7 +55,7 @@ User.create([
 Room.create([
   # airbnb:51557
   {
-    host_id: "1",
+    host_id: "2",
     title: "Centrally Located Victorian Studio",
     type_id: "1",
     price: "200",
@@ -110,20 +110,53 @@ Room.create([
     description: "Beautiful 3br flat built in 1904. Come & stay experience the craftsmanship detail that isn't seen in today's home. Plus you go up to a fully furnished rooftop Get the best view of the Golden Gate Bridge coffee then wine in the evening You will love it"
   }
   ])
-
-  RoomPic.create([
+    #51557
+  RoomPic.create!([
     {
       room_id: "1",
       pic_url: "/v1450394298/51557_1_qa2o5a.webp"
     },
     {
+      room_id: "1",
+      pic_url: "/v1451932819/51557_2_oa8i6k.png"
+    },
+    {
+      room_id: "1",
+      pic_url: "/v1451932819/51557_3_oe3dfc.png"
+    },
+    {
+      room_id: "1",
+      pic_url: "/v1451932819/51557_4_zzwgur.png"
+    }
+  ])
+    #3667334
+  RoomPic.create!([
+    {
       room_id: "2",
       pic_url: "/v1450394875/3667334_1_rw56ym.webp"
     },
     {
+      room_id: "2",
+      pic_url: "/v1451933258/3667334_2_wmevrd.png"
+    },
+    {
+      room_id: "2",
+      pic_url: "/v1451933258/3667334_3_owo5up.png"
+    }
+    ])
+    #8390615
+  RoomPic.create!([
+    {
       room_id: "3",
       pic_url: "/v1450819532/8390615_1_a2mraa.webp"
     },
+    {
+      room_id: "3",
+      pic_url: "/v1451933896/8390615_2_bnpx7n.webp"
+    }
+    ])
+    # 6993593
+  RoomPic.create!([
     {
       room_id: "4",
       pic_url: "/v1450912662/6993593_1_s9xabc.webp"
@@ -147,7 +180,15 @@ Room.create([
     ])
 
 
-Reservation.create([
+Reservation.create!([
+  {
+    room_id: "4",
+    requester_id: "1",
+    guest_num: "1",
+    start_date: "2015-12-01",
+    end_date: "2015-12-05",
+    status: "1"
+  },
   {
     room_id: "4",
     requester_id: "1",
@@ -158,7 +199,7 @@ Reservation.create([
   },
   {
     room_id: "1",
-    requester_id: "3",
+    requester_id: "1",
     guest_num: "1",
     start_date: "2016-01-10",
     end_date: "2016-01-15",
