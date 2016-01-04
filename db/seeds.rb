@@ -76,7 +76,7 @@ Room.create([
     city: "San Francisco",
     lat: "37.793859",
     lng: "-122.417614",
-    primary_pic_id: "2",
+    primary_pic_id: "5",
     max_guest_num: "2",
     bed_num: "1",
     description: "Atop the centrally located and beautiful Nob Hill, this studio is a welcoming spot for your San Francisco experience. You may stay steps away from Grace Cathedral, Union Square, Chinatown, Polk Gulch and even Fisherman's Wharf."
@@ -90,7 +90,7 @@ Room.create([
     city: "San Francisco",
     lat: "37.787199",
     lng: "-122.418843",
-    primary_pic_id: "3",
+    primary_pic_id: "8",
     max_guest_num: "2",
     bed_num: "1",
     description: "Hi! This is a very cozy and in the perfect central location to access just about everything you can imagine within walking distance. The location offers boutiques, bomb breakfast spots, sweet cafes and wicked views."
@@ -104,10 +104,24 @@ Room.create([
     city: "San Francisco",
     lat: "37.803448",
     lng: "-122.410559",
-    primary_pic_id: "4",
+    primary_pic_id: "10",
     max_guest_num: "2",
     bed_num: "1",
     description: "Beautiful 3br flat built in 1904. Come & stay experience the craftsmanship detail that isn't seen in today's home. Plus you go up to a fully furnished rooftop Get the best view of the Golden Gate Bridge coffee then wine in the evening You will love it"
+  },
+  # airbnb:6993593
+  {
+    host_id: "5",
+    title: "Little Yellow Victorian B & B",
+    type_id: "2",
+    price: "125",
+    city: "San Francisco",
+    lat: "37.773365",
+    lng: "-122.441008",
+    primary_pic_id: "15",
+    max_guest_num: "2",
+    bed_num: "1",
+    description: "Bed and breakfast in centrally located period home."
   }
   ])
     #51557
@@ -176,6 +190,33 @@ Room.create([
     {
       room_id: "4",
       pic_url: "/v1451892754/6993593_5_piwzhf.png"
+    }
+    ])
+    # 187875
+  RoomPic.create!([
+    {
+      room_id: "5",
+      pic_url: "/v1451935147/187875_6_lftnud.webp"
+    },
+    {
+      room_id: "5",
+      pic_url: "/v1451935173/187875_4_xicazu.webp"
+    },
+    {
+      room_id: "5",
+      pic_url: "/v1451935057/187875_1_ibf4pe.webp"
+    },
+    {
+      room_id: "5",
+      pic_url: "/v1451935196/187875_5_zlcoof.webp"
+    },
+    {
+      room_id: "5",
+      pic_url: "/v1451935224/187875_3_k6dp3d.webp"
+    },
+    {
+      room_id: "5",
+      pic_url: "/v1451935256/187875_2_v6zl8z.webp"
     }
     ])
 
