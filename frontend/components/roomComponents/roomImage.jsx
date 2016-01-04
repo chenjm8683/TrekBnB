@@ -3,7 +3,7 @@ var React = require('react');
 var RoomImage = React.createClass({
   getInitialState: function() {
     return({
-      photoIdx: 1,
+      photoIdx: 0,
       showLoading: true
     });
   },
@@ -49,7 +49,11 @@ var RoomImage = React.createClass({
       <div className="room-img-container">
         <img
           src={img_url}
-          className="img-responsive room-img" />
+          className="img-responsive room-img"
+          onLoad={this.imageLoaded} />
+        <div className="image-loading-container" hidden={!this.state.showLoading}>
+          <i className="fa fa-spinner fa-spin fa-3x"></i>
+        </div>
         <div className="control-container">
           <div className="control-left-container" onClick={this.backwardPic}>
             <i className="fa fa-chevron-left fa-5x"></i>

@@ -3,7 +3,7 @@ var React = require('react');
 var ListItemImage = React.createClass({
   getInitialState: function() {
     return({
-      photoIdx: 1,
+      photoIdx: 0,
       showLoading: true
     });
   },
