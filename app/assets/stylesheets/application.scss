@@ -648,6 +648,10 @@ body {
 }
 
 .trip-detail-panel {
+  position: fixed;
+  right: 5px;
+  height: calc(100% - 55px);
+  overflow-y: scroll;
   width: 62.5%;
 }
 
