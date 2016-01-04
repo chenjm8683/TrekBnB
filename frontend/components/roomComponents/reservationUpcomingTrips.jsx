@@ -6,8 +6,10 @@ var ReservationUpcomingTrips = React.createClass({
   // mixins: [ History ],
 
   render: function() {
+    // var trips = this.state.trips;
     var trips = this.props.trips;
-    var history = this.history;
+    // debugger;
+    // var history = this.history;
     var trip, checkinStr, checkoutStr, nights;
     // var redirectToTrip = function(tripId) {
     //   // console.log("redirect")

@@ -64,7 +64,9 @@ var addTripDetails = function(responseTrip, convertedTrip) {
 
 var receiveNewTrip = function(newTrip) {
   _newTripReservationId = newTrip.id;
-  _trips[_newTripReservationId] = tripBasicInfoConversion(newTrip);
+  convertedTrip = tripBasicInfoConversion(newTrip);
+  _trips[_newTripReservationId] = convertedTrip;
+  categorize(convertedTrip);
   // debugger;
 };
 

@@ -41,13 +41,12 @@ var ReservationTab = React.createClass({
     if(TripStore.hasNewConf()) {
       setTimeout(this.openConfModal, 1000);
       this.closeModal();
-    } else {
-      var upcomingTrips = TripStore.upcomingTripsWithRoom(this.state.room.id);
-      this.setState({
-        upcomingTrips: upcomingTrips,
-        showUpcomingTrips: Object.keys(upcomingTrips).length > 0
-      });
     }
+    var upcomingTrips = TripStore.upcomingTripsWithRoom(this.state.room.id);
+    this.setState({
+      upcomingTrips: upcomingTrips,
+      showUpcomingTrips: Object.keys(upcomingTrips).length > 0
+    });
   },
 
   openConfModal: function() {
