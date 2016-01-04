@@ -7,7 +7,8 @@ var ListItemBody = React.createClass({
 
   render: function(){
     var room = this.props.room;
-    var hostProfilePicUrl = "https://res.cloudinary.com/chenjm8683/image/upload/c_crop,h_115,w_115"
+    // var hostProfilePicUrl = "https://res.cloudinary.com/chenjm8683/image/upload/c_scale,h_115,w_115"
+    var hostProfilePicUrl = "https://res.cloudinary.com/chenjm8683/image/upload/c_crop,g_custom:face,w_174"
           + room.host_pic_url;
     return (
       <div className="list-item-body" onClick={this.props.handleClick}>

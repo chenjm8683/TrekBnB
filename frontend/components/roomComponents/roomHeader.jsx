@@ -5,7 +5,7 @@ var RoomHeader = React.createClass({
   render: function() {
     var room = this.props.room;
     // var
-    var hostProfilePicUrl = "https://res.cloudinary.com/chenjm8683/image/upload/c_crop,h_150,w_150"
+    var hostProfilePicUrl = "https://res.cloudinary.com/chenjm8683/image/upload/c_scale,h_150,w_150"
           + room.host_pic_url;
     var room_icon_url;
     if(room.type_id === 1) {

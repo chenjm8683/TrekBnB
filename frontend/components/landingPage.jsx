@@ -13,14 +13,15 @@ var LandingPage = React.createClass({
 
     var bgVideoUrl = {
       local: "/assets/background/landing_bg_1.mp4",
-      cloudinary: "https://res.cloudinary.com/doe7t7cnl/video/upload/v1451672616/landing_bg_1_lbfxb4.mp4",
+      cloudinarySD: "https://res.cloudinary.com/doe7t7cnl/video/upload/v1451672616/landing_bg_1_lbfxb4.mp4",
+      cloudinarySD2: "http://res.cloudinary.com/dqpgibnp9/video/upload/v1451930036/landing_bg_1_md5hbv.mp4",
       cloudinaryHD: "https://res.cloudinary.com/doe7t7cnl/video/upload/v1451672475/landing_bg_1_hd_vvfltv.mp4"
     };
 
     var backgroundVideoDiv = (
       <div className="full-bg animated animated-alternate animated-infinite fadeIn">
         <video loop muted autoPlay poster="/assets/background/94102_9.jpeg" className="full-bg-video">
-            <source src={bgVideoUrl.cloudinaryHD} type="video/mp4" async/>
+            <source src={bgVideoUrl.cloudinarySD2} type="video/mp4" async/>
         </video>
       </div>
     );

@@ -23,7 +23,7 @@ User.create([
      fname: "Mogul",
      lname: "Khan",
      phone: "202-555-0136",
-     profile_pic_url: "/v1451666932/mogul_z8kxdn.jpg"
+     profile_pic_url: "/v1451931390/axe_sq_gg7f2e.png"
      }},
   {username: "storm@dota.com",
    password: "storm123",
@@ -31,7 +31,7 @@ User.create([
      fname: "Raijin",
      lname: "Thunderkeg",
      phone: "717-555-0165",
-     profile_pic_url: "/v1451666932/raijin_ikwv6q.jpg"
+     profile_pic_url: "/v1451931390/storm_spirit_sq_elprve.png"
      }},
   {username: "sniper@dota.com",
    password: "sniper123",
@@ -39,7 +39,7 @@ User.create([
      fname: "Kardel",
      lname: "Sharpeye",
      phone: "467-555-8925",
-     profile_pic_url: "/v1451666932/sniper_jd07vf.jpg"
+     profile_pic_url: "/v1451931390/sniper_sq_dfmah2.png"
      }},
   {username: "pudge@dota.com",
    password: "pudge123",
@@ -47,7 +47,7 @@ User.create([
      fname: "Pudge",
      lname: "Butcher",
      phone: "410-555-0195",
-     profile_pic_url: "/v1451666932/pudge_qm9mhs.jpg"
+     profile_pic_url: "/v1451931389/pudge_sq_pfozal.png"
      }}
 
   ])
