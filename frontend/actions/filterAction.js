@@ -37,6 +37,13 @@ var FilterActions = {
     });
   },
 
+  updatePriceRange: function(priceRange) {
+    AppDispatcher.dispatch({
+      actionType: FilterConstants.UPDATEPRICERANGE,
+      priceRange: priceRange
+    });
+  },
+
   toggleRoomType: function(roomType) {
     AppDispatcher.dispatch({
       actionType: FilterConstants.TOGGLE_ROOM_TYPE,

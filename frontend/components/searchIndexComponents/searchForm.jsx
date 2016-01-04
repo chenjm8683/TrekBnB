@@ -15,6 +15,8 @@ var SearchForm = React.createClass({
       dateRange: (dates.checkin === null ? "" : dates.checkin + " - " + dates.checkout),
       guests: FilterStore.currentGuests(),
       roomTypes: FilterStore.currentRoomTypes(),
+      minPrice: FilterStore.currentMinPrice(),
+      maxPrice: FilterStore.currentMaxPrice()
     });
   },
 
@@ -25,7 +27,9 @@ var SearchForm = React.createClass({
       checkout: dates.checkout,
       dateRange: (dates.checkin === null ? "" : dates.checkin + " - " + dates.checkout),
       guests: FilterStore.currentGuests(),
-      roomTypes: FilterStore.currentRoomTypes()
+      roomTypes: FilterStore.currentRoomTypes(),
+      minPrice: FilterStore.currentMinPrice(),
+      maxPrice: FilterStore.currentMaxPrice()
     });
   },
 
@@ -176,17 +180,27 @@ var SearchForm = React.createClass({
   },
 
   loadPriceRange: function() {
+    var min = this.state.minPrice;
+    var max = this.state.maxPrice;
     $("#search-index-price-range").slider({
       range: true,
       min: 0,
       max: 500,
       values: [75,300],
       slide: function(event,ui) {
+        // console.log(event);
         var left = (ui.values[0]/5).toFixed(2) + "%";
         var width = ((ui.values[1] - ui.values[0])/5).toFixed(2) + "%";
         // console.log(left + " " + width)
         $("#min-max-range").css({left: left, width: width});
         $("#search-index-amount").val("$"+ui.values[0]+"-$"+ui.values[1]);
+      },
+      stop: function(event, ui) {
+        // console.log("stopped"+ui.values[0]+ui.values[1])
+        FilterActions.updatePriceRange({
+          min: ui.values[0],
+          max: ui.values[1]
+        })
       }
     });
     $("#search-index-amount").val("$"+$("#search-index-price-range").slider("values",0)+"-$"+$("#search-index-price-range").slider("values",1));
@@ -327,13 +341,16 @@ var SearchForm = React.createClass({
           <div className="row row-filter">
             <div className="col-lg-2 col-md-12 text-center-sm text-center-md row-space-sm-1">
               <label>Price Range</label>
-              <input type="text" id="search-index-amount" readOnly="" style={{border:'0', color:'#f6931f', fontWeight:'bold', background: "transparent"}} />
+              <input type="text" id="search-index-amount" readOnly="true" style={{border:'0', color:'#f6931f', fontWeight:'bold', background: "transparent"}} />
             </div>
             <div className="col-lg-9 col-md-12 price-range-container">
               <div id="search-index-price-range" className="ui-slider ui-slider-horizontal ui-widget ui-widget-content ui-corner-all">
                 <div id="min-max-range" className="ui-slider-range ui-widget-header ui-corner-all" style={{left: '15%', width: '30%'}}>
                 </div>
-                <span className="ui-slider-handle ui-state-default ui-corner-all" tabIndex="0" style={{left: '15%'}}>
+                <span
+                   className="ui-slider-handle ui-state-default ui-corner-all"
+                   tabIndex="0"
+                   style={{left: '15%'}}>
                 </span>
                 <span className="ui-slider-handle ui-state-default ui-corner-all" tabIndex="0" style={{left: '60%'}}>
                 </span>

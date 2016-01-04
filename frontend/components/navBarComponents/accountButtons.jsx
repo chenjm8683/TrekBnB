@@ -14,7 +14,9 @@ var AccountButtons = React.createClass({
 
   render: function() {
     var userProfile = this.props.currentUser.user_profile;
-    var hostProfilePicUrl = "https://res.cloudinary.com/chenjm8683/image/upload/c_crop,h_115,w_115"
+    var hasProfilePic = userProfile.profile_pic_url !== null;
+    // debugger;
+    var profilePicUrl = "https://res.cloudinary.com/chenjm8683/image/upload/c_crop,h_115,w_115"
               + userProfile.profile_pic_url;
     return (
       <ul className='nav navbar-nav navbar-right'>
@@ -25,13 +27,13 @@ var AccountButtons = React.createClass({
              role='button'
              aria-haspopup='true'
              aria-expanded='false'
-             >
-            {userProfile.fname + " "}
-            <img
-              className="img-circle"
-              width="26px"
-              height="26px"
-              src={hostProfilePicUrl} />
+             style={hasProfilePic ? {paddingTop:"5px", paddingBottom:"5px"} : {}}>
+              {userProfile.fname + " "}
+              {hasProfilePic ? (<img
+                className="img-circle"
+                width="35px"
+                height="35px"
+                src={profilePicUrl} />) : ""}
             <span className='caret'></span>
           </a>
           <ul className='dropdown-menu'>

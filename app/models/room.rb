@@ -89,6 +89,8 @@ class Room < ActiveRecord::Base
     end_date = filter_params["dates"]["checkout"]
     unavailable_room_ids = Reservation.unavailable_room_ids(start_date, end_date)
     room_types = filter_params[:roomTypes]
+    min_price = filter_params[:priceRange]['min']
+    max_price = filter_params[:priceRange]['max']
     selected_room_types = room_types.keys.select { |type| room_types[type]=="true" }
     # debugger
     Room.includes(:primary_pic).
@@ -98,6 +100,7 @@ class Room < ActiveRecord::Base
               :lng => lng_range[0]..lng_range[1]).
         where('max_guest_num >= ?', guests).
         where('type_id IN (?)', selected_room_types).
+        where('price BETWEEN ? AND ?', min_price, max_price).
         where.not(id: unavailable_room_ids)
   end
 

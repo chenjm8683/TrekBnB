@@ -75,7 +75,8 @@ class Api::RoomsController < ApplicationController
               southWest: [:lat, :lng]
                     },
             dates: [:checkin, :checkout],
-            roomTypes: ["1", "2", "3"]
+            roomTypes: ["1", "2", "3"],
+            priceRange: [:min, :max]
             },
            :guests)
     # params.require(:filter)

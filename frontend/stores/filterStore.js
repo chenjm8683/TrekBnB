@@ -15,6 +15,10 @@ var _currentParams = {
     1: true,
     2: true,
     3: true
+  },
+  priceRange: {
+    min: 50,
+    max: 400
   }
 };
 
@@ -36,6 +40,10 @@ var _updateDates = function(dates) {
 
 var _updateGuests = function(guests) {
   _currentParams.guests = guests;
+};
+
+var _updatePriceRange = function(priceRange) {
+  _currentParams.priceRange = priceRange;
 };
 
 var _toggleRoomType = function(roomType) {
@@ -105,6 +113,13 @@ FilterStore.currentRoomTypes = function() {
 };
 
 
+FilterStore.currentMinPrice = function() {
+  return _currentParams.priceRange.min;
+};
+
+FilterStore.currentMaxPrice = function() {
+  return _currentParams.priceRange.max;
+};
 
 
 
@@ -129,6 +144,10 @@ FilterStore.__onDispatch = function(payload) {
       _updateGuests(payload.guests);
       FilterStore.__emitChange();
       break;
+    case FilterConstants.UPDATEPRICERANGE:
+      _updatePriceRange(payload.priceRange);
+      FilterStore.__emitChange();
+      break;
     case FilterConstants.TOGGLE_ROOM_TYPE:
       _toggleRoomType(payload.roomType);
       FilterStore.__emitChange();
@@ -137,6 +156,7 @@ FilterStore.__onDispatch = function(payload) {
       _resetDates();
       FilterStore.__emitChange();
       break;
+
 
   }
 };
