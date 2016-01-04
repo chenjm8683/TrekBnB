@@ -17,15 +17,19 @@ var LandingPage = React.createClass({
       cloudinaryHD: "https://res.cloudinary.com/doe7t7cnl/video/upload/v1451672475/landing_bg_1_hd_vvfltv.mp4"
     };
 
+    var backgroundVideoDiv = (
+      <div className="full-bg animated animated-alternate animated-infinite fadeIn">
+        <video loop muted autoPlay poster="/assets/background/94102_9.jpeg" className="full-bg-video">
+            <source src={bgVideoUrl.cloudinaryHD} type="video/mp4" async/>
+        </video>
+      </div>
+    );
 
+
+    // debugger;
     return (
       <div className="jumbotron jumbotron-landing" id="landing-page">
-        <div className="full-bg animated animated-alternate animated-infinite fadeIn">
-          <video loop muted autoPlay poster="/assets/background/94102_9.jpeg" className="full-bg-video">
-              <source src={bgVideoUrl.cloudinaryHD} type="video/mp4" async/>
-              <source src={bgVideoUrl.cloudinaryHD} type="video/mp4" async/>
-          </video>
-        </div>
+        {/iPad|iPhone|iPod/.test(navigator.platform) ? "" : backgroundVideoDiv }
         <div className="container container-custom text-center">
           <h1>WELCOME HOME</h1>
           <h4>Rent unique places to stay from local hosts in 190+ countries.</h4>
